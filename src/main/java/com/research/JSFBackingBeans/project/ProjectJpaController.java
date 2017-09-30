@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.research.JSFBackingBeans;
+package com.research.JSFBackingBeans.project;
 
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -66,27 +66,23 @@ public class ProjectJpaController implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -9006980830134897009L;
 
 	@Autowired
 	private ProjectService projectService;
 
 	private static final long serialVersionUID = -9006980830134897009L;
-	Project selected = new Project();
 
-	public Project getSelected() {
 	private ProjectDto selected = new ProjectDto();
-	
+
 	public ProjectDto getSelected() {
 		return selected;
 	}
 
-	public void setSelected(Project selected) {
 	public void setSelected(ProjectDto selected) {
 		this.selected = selected;
 	}
 
-	public String create(){
+	public String create() {
 		selected.setProjectTypeId((long) 0);
 		projectService.addProject(selected);
 		return null;
