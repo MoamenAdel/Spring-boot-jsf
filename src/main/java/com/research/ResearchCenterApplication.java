@@ -22,12 +22,10 @@ import java.util.EnumSet;
 public class ResearchCenterApplication {
 	
 	public ResearchCenterApplication() {
-		System.out.println(System.getProperty("java.class.path") + "//////////////////////////////////////////////////////////");
 	}
 
     public static void main(String[] args) {
         SpringApplication.run(ResearchCenterApplication.class, args);
-        System.out.println(System.getProperty("java.class.path") + "//////////////////////////////////////////////////////////");
     }
     
 

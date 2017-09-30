@@ -52,24 +52,24 @@ public class ProjectJpaController implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -9006980830134897009L;
-	private ProjectDto projectDTO = new ProjectDto();
-	
+
 	@Autowired
 	private ProjectService projectService;
 
-	public ProjectDto getProjectDTO() {
-		projectDTO.setApplicantOrganization("hamada lagra3");
-		return projectDTO;
+	private static final long serialVersionUID = -9006980830134897009L;
+	private ProjectDto selected = new ProjectDto();
+	
+	public ProjectDto getSelected() {
+		return selected;
 	}
 
-	public void setProjectDTO(ProjectDto projectDTO) {
-		this.projectDTO = projectDTO;
+	public void setSelected(ProjectDto selected) {
+		this.selected = selected;
 	}
-	
-	public String addProject(){
-		System.out.println("testinggggggggggggggg");
-		projectService.addProject(projectDTO);
+
+	public String create(){
+		selected.setProjectTypeId((long) 0);
+		projectService.addProject(selected);
 		return null;
 	}
 }

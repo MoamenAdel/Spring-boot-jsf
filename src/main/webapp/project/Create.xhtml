@@ -16,6 +16,60 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateProjectLabel_title}" for="title" />
+                    <h:inputText id="title" value="#{ProjectJpaController.selected.title}" title="#{bundle.CreateProjectTitle_title}" />
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_applicantName}" for="applicantName" />
+                    <h:inputText id="applicantName" value="#{ProjectJpaController.selected.applicantName}" title="#{bundle.CreateProjectTitle_applicantName}" />
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_apllicantOrg}" for="apllicantOrg" />
+                    <h:inputText id="apllicantOrg" value="#{ProjectJpaController.selected.apllicantOrg}" title="#{bundle.CreateProjectTitle_apllicantOrg}" />
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_budget}" for="budget" />
+                    <h:inputText id="budget" value="#{ProjectJpaController.selected.budget}" title="#{bundle.CreateProjectTitle_budget}" />
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_submissionDate}" for="submissionDate" />
+                    <h:inputText id="submissionDate" value="#{ProjectJpaController.selected.submissionDate}" title="#{bundle.CreateProjectTitle_submissionDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_abbreviation}" for="abbreviation" />
+                    <h:inputText id="abbreviation" value="#{ProjectJpaController.selected.abbreviation}" title="#{bundle.CreateProjectTitle_abbreviation}" />
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_typeId}" for="typeId" />
+                    <h:selectOneMenu id="typeId" value="#{ProjectJpaController.selected.typeId}" title="#{bundle.CreateProjectTitle_typeId}" >
+                        <f:selectItems value="#{projectTypesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{ProjectJpaController.selected.id}" title="#{bundle.CreateProjectTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_createDate}" for="createDate" />
+                    <h:inputText id="createDate" value="#{ProjectJpaController.selected.createDate}" title="#{bundle.CreateProjectTitle_createDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_modifyDate}" for="modifyDate" />
+                    <h:inputText id="modifyDate" value="#{ProjectJpaController.selected.modifyDate}" title="#{bundle.CreateProjectTitle_modifyDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_retireDate}" for="retireDate" />
+                    <h:inputText id="retireDate" value="#{ProjectJpaController.selected.retireDate}" title="#{bundle.CreateProjectTitle_retireDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{ProjectJpaController.create}" value="#{bundle.CreateProjectSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{ProjectJpaController.prepareList}" value="#{bundle.CreateProjectShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateProjectIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateProjectTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateProjectLabel_title}" for="title" />
                     <h:inputText id="title" value="#{ProjectJpaController.projectDTO.title}" title="#{bundle.CreateProjectTitle_title}" />
                     <h:outputLabel value="#{bundle.CreateProjectLabel_applicantName}" for="applicantName" />
                     <h:inputText id="applicantName" value="#{ProjectJpaController.projectDTO.applicantName}" title="#{bundle.CreateProjectTitle_applicantName}" />
@@ -34,5 +88,41 @@
             </h:form>
         </ui:define>
     </ui:composition>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </html>
