@@ -6,6 +6,7 @@
 package com.research.JSFBackingBeans;
 
 import java.io.Serializable;
+
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,19 +15,38 @@ import javax.persistence.criteria.Root;
 import com.research.JSFBackingBeans.exceptions.NonexistentEntityException;
 import com.research.entity.Project;
 import com.research.entity.ProjectTypes;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
+import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.el.ELBeanName;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Moamenovic
  */
+@Scope(value = "session")
+@Component(value = "ProjectTypesJpaController")
+@ELBeanName(value = "ProjectTypesJpaController")
 public class ProjectTypesJpaController implements Serializable {
 
-    public ProjectTypesJpaController(EntityManagerFactory emf) {
+	String test = new String();
+    public String getTest() {
+		return test;
+	}
+
+	public void setTest(String test) {
+		this.test = test;
+	}
+
+	public ProjectTypesJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;

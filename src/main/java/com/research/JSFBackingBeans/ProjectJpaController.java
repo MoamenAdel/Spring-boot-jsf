@@ -6,6 +6,7 @@
 package com.research.JSFBackingBeans;
 
 import java.io.Serializable;
+
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -13,17 +14,24 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.context.annotation.Scope;
 
+import com.research.dto.ProjectDto;
 import com.research.entity.ProjectTypes;
 import com.research.entity.ProjectEmployees;
+
 import java.util.ArrayList;
 import java.util.Collection;
+
 import com.research.entity.Lfm;
 import com.research.JSFBackingBeans.exceptions.NonexistentEntityException;
 import com.research.entity.Docs;
 import com.research.entity.Project;
+import com.research.service.ProjectService;
+
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,14 +53,23 @@ public class ProjectJpaController implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -9006980830134897009L;
-	Project selected = new Project();
+	private ProjectDto projectDTO = new ProjectDto();
+	
+	@Autowired
+	private ProjectService projectService;
 
-	public Project getSelected() {
-		return selected;
+	public ProjectDto getProjectDTO() {
+		projectDTO.setApplicantOrganization("hamada lagra3");
+		return projectDTO;
 	}
 
-	public void setSelected(Project selected) {
-		this.selected = selected;
+	public void setProjectDTO(ProjectDto projectDTO) {
+		this.projectDTO = projectDTO;
 	}
-
+	
+	public String addProject(){
+		System.out.println("testinggggggggggggggg");
+		projectService.addProject(projectDTO);
+		return null;
+	}
 }
