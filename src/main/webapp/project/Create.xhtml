@@ -40,7 +40,7 @@
 					for="submissionDate" />
 				<p:calendar id="submissionDate"
 					value="#{ProjectJpaController.selected.submissionDate}"
-					title="#{bundle.CreateProjectTitle_submissionDate}"  effect="fold">
+					title="#{bundle.CreateProjectTitle_submissionDate}" effect="fold">
 					<f:convertDateTime pattern="MM/dd/yyyy" />
 				</p:calendar>
 				<p:outputLabel value="#{bundle.CreateProjectLabel_abbreviation}"
@@ -57,10 +57,10 @@
 						value="#{projectTypesController.itemsAvailableSelectOne}" />
 				</p:selectOneMenu>
 			</h:panelGrid>
-			<br/>
+			<br />
 			<h:commandLink action="#{ProjectJpaController.create}"
 				value="#{bundle.CreateProjectSaveLink}" />
-			
+
 		</h:form>
 	</ui:define>
 </ui:composition>
