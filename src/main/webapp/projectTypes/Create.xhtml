@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -15,33 +16,15 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateProjectTypesLabel_type}" for="type" />
-                    <h:inputText id="type" value="#{projectTypesController.selected.type}" title="#{bundle.CreateProjectTypesTitle_type}" />
-                    <h:outputLabel value="#{bundle.CreateProjectTypesLabel_description}" for="description" />
-                    <h:inputText id="description" value="#{projectTypesController.selected.description}" title="#{bundle.CreateProjectTypesTitle_description}" />
-                    <h:outputLabel value="#{bundle.CreateProjectTypesLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{projectTypesController.selected.id}" title="#{bundle.CreateProjectTypesTitle_id}" />
-                    <h:outputLabel value="#{bundle.CreateProjectTypesLabel_createDate}" for="createDate" />
-                    <h:inputText id="createDate" value="#{projectTypesController.selected.createDate}" title="#{bundle.CreateProjectTypesTitle_createDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateProjectTypesLabel_modifyDate}" for="modifyDate" />
-                    <h:inputText id="modifyDate" value="#{projectTypesController.selected.modifyDate}" title="#{bundle.CreateProjectTypesTitle_modifyDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateProjectTypesLabel_retireDate}" for="retireDate" />
-                    <h:inputText id="retireDate" value="#{projectTypesController.selected.retireDate}" title="#{bundle.CreateProjectTypesTitle_retireDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
+                    <p:outputLabel value="#{bundle.CreateProjectTypesLabel_type}" for="type" />
+                    <p:inputText id="type" value="#{ProjectTypesJpaController.selected.type}" title="#{bundle.CreateProjectTypesTitle_type}" />
+                    <p:outputLabel value="#{bundle.CreateProjectTypesLabel_description}" for="description" />
+                    <p:inputText id="description" value="#{ProjectTypesJpaController.selected.description}" title="#{bundle.CreateProjectTypesTitle_description}" />
+         
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{projectTypesController.create}" value="#{bundle.CreateProjectTypesSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{projectTypesController.prepareList}" value="#{bundle.CreateProjectTypesShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateProjectTypesIndexLink}"/>
+                <p:commandLink action="#{ProjectTypesJpaController.create}" value="#{bundle.CreateProjectTypesSaveLink}" />
+        
             </h:form>
         </ui:define>
     </ui:composition>
