@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://dozer.sourceforge.net
@@ -5,7 +6,7 @@
 
 	<mapping>
 		<class-a>com.research.entity.Tasks</class-a>
-		<class-b>com.research.dto.project.TaskDTO</class-b>
+		<class-b>com.research.dto.TasksDto</class-b>
 	</mapping>
 
 </mappings>
