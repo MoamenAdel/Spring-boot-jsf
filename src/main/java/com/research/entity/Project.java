@@ -72,11 +72,11 @@ public class Project extends BaseEntity implements Serializable {
     @Size(max = 255)
     @Column(name = "abbreviation")
     private String abbreviation;
-    @OneToMany(mappedBy = "projectId")
+    @OneToMany(mappedBy = "projectId", fetch = FetchType.EAGER)
     private Collection<ProjectEmployees> projectEmployeesCollection;
-    @OneToMany(mappedBy = "projectId")
+    @OneToMany(mappedBy = "projectId",fetch = FetchType.EAGER)
     private Collection<Lfm> lfmCollection;
-    @OneToMany(mappedBy = "projectId")
+    @OneToMany(mappedBy = "projectId", fetch = FetchType.EAGER)
     private Collection<Docs> docsCollection;
     @JsonIgnore
     @JoinColumn(name = "type_id", referencedColumnName = "id",insertable=false,updatable=false)
@@ -134,6 +134,7 @@ public class Project extends BaseEntity implements Serializable {
         this.abbreviation = abbreviation;
     }
 
+    @JsonIgnore
     @XmlTransient
     public Collection<ProjectEmployees> getProjectEmployeesCollection() {
         return projectEmployeesCollection;
@@ -143,6 +144,7 @@ public class Project extends BaseEntity implements Serializable {
         this.projectEmployeesCollection = projectEmployeesCollection;
     }
 
+    @JsonIgnore
     @XmlTransient
     public Collection<Lfm> getLfmCollection() {
         return lfmCollection;
@@ -152,6 +154,7 @@ public class Project extends BaseEntity implements Serializable {
         this.lfmCollection = lfmCollection;
     }
 
+    @JsonIgnore
     @XmlTransient
     public Collection<Docs> getDocsCollection() {
         return docsCollection;

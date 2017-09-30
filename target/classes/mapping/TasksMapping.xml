@@ -5,7 +5,7 @@
 
 	<mapping>
 		<class-a>com.research.entity.Tasks</class-a>
-		<class-b>com.research.dto.TasksDto</class-b>
+		<class-b>com.research.dto.project.TaskDTO</class-b>
 	</mapping>
 
 </mappings>

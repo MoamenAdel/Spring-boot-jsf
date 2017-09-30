@@ -39,7 +39,7 @@
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_apllicantOrg}" />
 					</f:facet>
-					<h:outputText value="#{item.apllicantOrg}" />
+					<h:outputText value="#{item.applicantOrganization}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -65,59 +65,12 @@
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_typeId}" />
 					</f:facet>
-					<h:outputText value="#{item.typeId}" />
+					<h:outputText value="#{item.type}" />
 				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="#{bundle.ListProjectTitle_id}" />
-					</f:facet>
-					<h:outputText value="#{item.id}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="#{bundle.ListProjectTitle_createDate}" />
-					</f:facet>
-					<h:outputText value="#{item.createDate}">
-						<f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-					</h:outputText>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="#{bundle.ListProjectTitle_modifyDate}" />
-					</f:facet>
-					<h:outputText value="#{item.modifyDate}">
-						<f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-					</h:outputText>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="#{bundle.ListProjectTitle_retireDate}" />
-					</f:facet>
-					<h:outputText value="#{item.retireDate}">
-						<f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-					</h:outputText>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="&nbsp;" />
-					</f:facet>
-					<h:commandLink action="#{ListProjectJpaController.prepareView}"
-						value="#{bundle.ListProjectViewLink}" />
-					<h:outputText value=" " />
-					<h:commandLink action="#{ListProjectJpaController.prepareEdit}"
-						value="#{bundle.ListProjectEditLink}" />
-					<h:outputText value=" " />
-					<h:commandLink action="#{ListProjectJpaController.destroy}"
-						value="#{bundle.ListProjectDestroyLink}" />
-				</h:column>
+				
 			</p:dataTable>
 
-			<br />
-			<h:commandLink action="#{ListProjectJpaController.prepareCreate}"
-				value="#{bundle.ListProjectCreateLink}" />
-			<br />
-			<br />
-			<h:link outcome="/index" value="#{bundle.ListProjectIndexLink}" />
+			
 		</h:form>
 	</ui:define>
 </ui:composition>
