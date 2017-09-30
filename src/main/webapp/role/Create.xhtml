@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateRoleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateRoleLabel_role}" for="role" />
+                    <h:inputText id="role" value="#{roleController.selected.role}" title="#{bundle.CreateRoleTitle_role}" />
+                    <h:outputLabel value="#{bundle.CreateRoleLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{roleController.selected.description}" title="#{bundle.CreateRoleTitle_description}" />
+                    <h:outputLabel value="#{bundle.CreateRoleLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{roleController.selected.id}" title="#{bundle.CreateRoleTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreateRoleLabel_createDate}" for="createDate" />
+                    <h:inputText id="createDate" value="#{roleController.selected.createDate}" title="#{bundle.CreateRoleTitle_createDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateRoleLabel_modifyDate}" for="modifyDate" />
+                    <h:inputText id="modifyDate" value="#{roleController.selected.modifyDate}" title="#{bundle.CreateRoleTitle_modifyDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateRoleLabel_retireDate}" for="retireDate" />
+                    <h:inputText id="retireDate" value="#{roleController.selected.retireDate}" title="#{bundle.CreateRoleTitle_retireDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{roleController.create}" value="#{bundle.CreateRoleSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{roleController.prepareList}" value="#{bundle.CreateRoleShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateRoleIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

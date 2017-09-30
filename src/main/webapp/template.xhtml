@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>Research Center</title>
+
+        <!-- Bootstrap Core CSS -->
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+
+        <!-- MetisMenu CSS -->
+        <h:outputStylesheet library="css" name="metisMenu.min.css"/>
+
+        <!-- Custom CSS -->
+        <h:outputStylesheet library="css" name="sb-admin-2.css"/>
+
+        <!-- Custom Fonts -->
+        <h:outputStylesheet library="css" name="font-awesome.min.css"/>
+
+        <!-- jQuery -->
+        <!--        <h:outputScript library="js" name="jquery.min.js"></h:outputScript>-->
+
+        <!-- Bootstrap Core JavaScript -->
+        <h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <h:outputScript library="js" name="metisMenu.min.js"></h:outputScript>
+
+        <!-- Custom Theme JavaScript -->
+        <h:outputScript library="js" name="sb-admin-2.js"></h:outputScript>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </h:head>
+    <h:body>
+        <div id="wrapper">
+            <h:form>
+                <!-- Navigation -->
+                <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                      
+                        <br/>
+                    </div>
+                    <!-- /.navbar-header -->
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#"><i class="fa fa-user fa-fw"></i> <h:outputText value=" #{bundle.UserProfile}"/></a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><h:commandLink action="#{loginBean.logout()}"><i class="fa fa-sign-out fa-fw"></i> <h:outputText value=" #{bundle.Logout}"/></h:commandLink>
+                                </li>
+                            </ul>
+                            <!-- /.dropdown-user -->
+                        </li>
+                        <!-- /.dropdown -->
+                    </ul>
+                    <!-- /.navbar-top-links -->
+
+                    <div class="navbar-default sidebar" role="navigation">
+                        <div class="sidebar-nav navbar-collapse">
+                            <ul class="nav" id="side-menu">
+                                <li>
+
+                                    <h:link  outcome="#{salesOrderController.prepareList()}">
+                                        <i class='fa fa-pencil-square-o'></i> <h:outputText value=" #{bundle.SalesOrders}"/>
+                                    </h:link>
+                                </li>
+                                <li>
+
+                                    <h:link outcome="#{stockSerialController.prepareList()}">
+                                        <i class='fa fa-shopping-cart'></i> <h:outputText value=" #{bundle.StockSerials}"/>
+                                    </h:link>
+
+                                </li>
+                                <li>
+                                    <h:link  outcome="#{dailyCashFlowController.prepareList()}">
+                                        <i class='fa fa-dollar'></i> <h:outputText value=" #{bundle.DailyCashFlow}"/>
+                                    </h:link>
+                                </li>
+                                <li>
+
+                                    <h:link outcome="#{customerController.prepareList()}">
+                                        <i class='fa fa-users'></i> <h:outputText value=" #{bundle.Customers}"/>
+                                    </h:link>
+
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-cogs fa-fw"></i><h:outputText value=" #{bundle.Settings}"/><span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <h:link outcome="#{inventoryItemController.prepareList()}">
+                                                <i class='fa fa-database'></i> <h:outputText value=" #{bundle.InventoryItems}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="/inventoryItem/specificBarcodes">
+                                                <i class='fa fa-database'></i> <h:outputText value="طباعة اكواد محددة"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="#{itemSpecificationController.prepareList()}">
+                                                <i class='fa fa-info-circle'></i> <h:outputText value=" #{bundle.ItemSpecification}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="#{paymentController.prepareList()}">
+                                                <i class='fa fa-cc-visa'></i> <h:outputText value=" #{bundle.Payments}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="#{paymentTypeController.prepareList()}">
+                                                <i class='fa fa-cc-visa'></i> <h:outputText value=" #{bundle.PaymentsTypes}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="#{countryController.prepareList()}">
+                                                <i class='fa fa-flag-o'></i> <h:outputText value=" #{bundle.Countries}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="#{cityController.prepareList()}">
+                                                <i class='fa fa-building-o'></i> <h:outputText value=" #{bundle.Cities}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="#{areaController.prepareList()}">
+                                                <i class='fa fa-cab'></i> <h:outputText value=" #{bundle.Areas}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="#{categoryController.prepareList()}">
+                                                <i class='fa fa-list-ul'></i> <h:outputText value=" #{bundle.Categories}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="#{colorController.prepareList()}">
+                                                <i class='fa fa-paint-brush'></i> <h:outputText value=" #{bundle.Colors}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="#{sizeController.prepareList()}">
+                                                <i class='fa fa-calculator'></i> <h:outputText value=" #{bundle.Sizes}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link  outcome="#{expenseController.prepareList()}">
+                                                <i class='fa fa-dollar'></i> <h:outputText value=" #{bundle.expenses}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link  outcome="#{expenseTypeController.prepareList()}">
+                                                <i class='fa fa-lastfm'></i> <h:outputText value=" #{bundle.expensesType}"/>
+                                            </h:link>
+                                        </li>
+
+                                        <li>
+                                            <h:link  outcome="#{supplierController.prepareList()}">
+                                                <i class='fa fa-users'></i> <h:outputText value=" #{bundle.supplier}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link  outcome="#{supplierItemController.prepareList()}">
+                                                <i class='fa fa-shopping-cart'></i> <h:outputText value=" #{bundle.supplierItem}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link  outcome="#{supplierPaymentController.prepareList()}">
+                                                <i class='fa fa-dollar'></i> <h:outputText value=" #{bundle.supplierPayment}"/>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link  outcome="#{purchaseOrderController.prepareList()}">
+                                                <i class='fa fa-pencil-square-o'></i> <h:outputText value=" #{bundle.purchaseOrder}"/>
+                                            </h:link>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <h:link  outcome="#{employeeController.prepareList()}">
+                                        <i class='fa fa-lock'></i> <h:outputText value=" #{bundle.AccessManagement}"/>
+                                    </h:link>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.sidebar-collapse -->
+                    </div>
+                    <!-- /.navbar-static-side -->
+                </nav>
+            </h:form>
+            <!-- Page Content -->
+            <div id="page-wrapper">
+                <div class="row hidden-print">
+                    <div class="col-lg-12">
+                        <h1 class="page-header"><ui:insert name="title">Default Title</ui:insert></h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <ui:insert name="body">Default Body</ui:insert>
+                                    </div>
+                                    <!-- /.col-lg-6 (nested) --> 
+                                </div>
+                                <!-- /.row (nested) -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /#page-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+
+    </h:body>
+</html>
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDocsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDocsLabel_docPath}" for="docPath" />
+                    <h:inputText id="docPath" value="#{docsController.selected.docPath}" title="#{bundle.EditDocsTitle_docPath}" />
+                    <h:outputLabel value="#{bundle.EditDocsLabel_isUploaded}" for="isUploaded" />
+                    <h:inputText id="isUploaded" value="#{docsController.selected.isUploaded}" title="#{bundle.EditDocsTitle_isUploaded}" />
+                    <h:outputLabel value="#{bundle.EditDocsLabel_projectId}" for="projectId" />
+                    <h:selectOneMenu id="projectId" value="#{docsController.selected.projectId}" title="#{bundle.EditDocsTitle_projectId}" >
+                        <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditDocsLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{docsController.selected.id}" title="#{bundle.EditDocsTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditDocsLabel_createDate}" for="createDate" />
+                    <h:inputText id="createDate" value="#{docsController.selected.createDate}" title="#{bundle.EditDocsTitle_createDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditDocsLabel_modifyDate}" for="modifyDate" />
+                    <h:inputText id="modifyDate" value="#{docsController.selected.modifyDate}" title="#{bundle.EditDocsTitle_modifyDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditDocsLabel_retireDate}" for="retireDate" />
+                    <h:inputText id="retireDate" value="#{docsController.selected.retireDate}" title="#{bundle.EditDocsTitle_retireDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{docsController.update}" value="#{bundle.EditDocsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditDocsViewLink}"/>
+                <br />
+                <h:commandLink action="#{docsController.prepareList}" value="#{bundle.EditDocsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditDocsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSysUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewSysUserLabel_userName}"/>
+                    <h:outputText value="#{sysUserController.selected.userName}" title="#{bundle.ViewSysUserTitle_userName}"/>
+                    <h:outputText value="#{bundle.ViewSysUserLabel_password}"/>
+                    <h:outputText value="#{sysUserController.selected.password}" title="#{bundle.ViewSysUserTitle_password}"/>
+                    <h:outputText value="#{bundle.ViewSysUserLabel_id}"/>
+                    <h:outputText value="#{sysUserController.selected.id}" title="#{bundle.ViewSysUserTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewSysUserLabel_createDate}"/>
+                    <h:outputText value="#{sysUserController.selected.createDate}" title="#{bundle.ViewSysUserTitle_createDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewSysUserLabel_modifyDate}"/>
+                    <h:outputText value="#{sysUserController.selected.modifyDate}" title="#{bundle.ViewSysUserTitle_modifyDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewSysUserLabel_retireDate}"/>
+                    <h:outputText value="#{sysUserController.selected.retireDate}" title="#{bundle.ViewSysUserTitle_retireDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{sysUserController.destroyAndView}" value="#{bundle.ViewSysUserDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSysUserEditLink}"/>
+                <br />
+                <h:commandLink action="#{sysUserController.prepareCreate}" value="#{bundle.ViewSysUserCreateLink}" />
+                <br />
+                <h:commandLink action="#{sysUserController.prepareList}" value="#{bundle.ViewSysUserShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSysUserIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListLfmTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListLfmEmpty}" rendered="#{lfmController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{lfmController.items.rowCount > 0}">
+                    <h:outputText value="#{lfmController.pagination.pageFirstItem + 1}..#{lfmController.pagination.pageLastItem + 1}/#{lfmController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{lfmController.previous}" value="#{bundle.Previous} #{lfmController.pagination.pageSize}" rendered="#{lfmController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{lfmController.next}" value="#{bundle.Next} #{lfmController.pagination.pageSize}" rendered="#{lfmController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{lfmController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLfmTitle_projectId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.projectId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLfmTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLfmTitle_createDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.createDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLfmTitle_modifyDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modifyDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLfmTitle_retireDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.retireDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{lfmController.prepareView}" value="#{bundle.ListLfmViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{lfmController.prepareEdit}" value="#{bundle.ListLfmEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{lfmController.destroy}" value="#{bundle.ListLfmDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{lfmController.prepareCreate}" value="#{bundle.ListLfmCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListLfmIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

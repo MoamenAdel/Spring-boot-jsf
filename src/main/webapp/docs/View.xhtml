@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDocsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDocsLabel_docPath}"/>
+                    <h:outputText value="#{docsController.selected.docPath}" title="#{bundle.ViewDocsTitle_docPath}"/>
+                    <h:outputText value="#{bundle.ViewDocsLabel_isUploaded}"/>
+                    <h:outputText value="#{docsController.selected.isUploaded}" title="#{bundle.ViewDocsTitle_isUploaded}"/>
+                    <h:outputText value="#{bundle.ViewDocsLabel_projectId}"/>
+                    <h:outputText value="#{docsController.selected.projectId}" title="#{bundle.ViewDocsTitle_projectId}"/>
+                    <h:outputText value="#{bundle.ViewDocsLabel_id}"/>
+                    <h:outputText value="#{docsController.selected.id}" title="#{bundle.ViewDocsTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewDocsLabel_createDate}"/>
+                    <h:outputText value="#{docsController.selected.createDate}" title="#{bundle.ViewDocsTitle_createDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewDocsLabel_modifyDate}"/>
+                    <h:outputText value="#{docsController.selected.modifyDate}" title="#{bundle.ViewDocsTitle_modifyDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewDocsLabel_retireDate}"/>
+                    <h:outputText value="#{docsController.selected.retireDate}" title="#{bundle.ViewDocsTitle_retireDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{docsController.destroyAndView}" value="#{bundle.ViewDocsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDocsEditLink}"/>
+                <br />
+                <h:commandLink action="#{docsController.prepareCreate}" value="#{bundle.ViewDocsCreateLink}" />
+                <br />
+                <h:commandLink action="#{docsController.prepareList}" value="#{bundle.ViewDocsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDocsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

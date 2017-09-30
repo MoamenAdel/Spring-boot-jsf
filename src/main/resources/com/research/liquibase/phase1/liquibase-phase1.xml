@@ -1,0 +1,267 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<!--sequences begin -->
+	<changeSet id="201705150542" author="abdelrhman">
+		<createSequence sequenceName="SEQ_PROJECT_ROLE" />
+	</changeSet>
+	<changeSet id="201705150543" author="abdelrhman">
+		<createSequence sequenceName="SEQ_PROJECT" />
+	</changeSet>
+	<changeSet id="201709150544" author="abdelrhman">
+		<createSequence sequenceName="SEQ_TASK" />
+	</changeSet>
+	<changeSet id="201709150545" author="abdelrhman">
+		<createSequence sequenceName="SEQ_LFM" />
+	</changeSet>
+	<changeSet id="201709150546" author="abdelrhman">
+		<createSequence sequenceName="SEQ_EMPLOYEE" />
+	</changeSet>
+	<changeSet id="201709150547" author="abdelrhman">
+		<createSequence sequenceName="SEQ_PROJECT_EMPLOYEE" />
+	</changeSet>
+	<changeSet id="201709150548" author="abdelrhman">
+		<createSequence sequenceName="SEQ_SYS_USER" />
+	</changeSet>
+	<changeSet id="201709150549" author="abdelrhman">
+		<createSequence sequenceName="SEQ_SYSTEM_ROLE" />
+	</changeSet>
+	<changeSet id="20170915050" author="abdelrhman">
+		<createSequence sequenceName="SEQ_EMPLOYEE_ROLE" />
+	</changeSet>
+
+	<changeSet id="201709150853" author="moamen">
+		<createSequence sequenceName="SEQ_TASKS_EXPECTED_OUTCOMES" />
+	</changeSet>
+	<changeSet id="201709150858" author="moamen">
+		<createSequence sequenceName="SEQ_ROLE" />
+	</changeSet>
+	<changeSet id="201709150859" author="moamen">
+		<createSequence sequenceName="SEQ_DOCS" />
+	</changeSet>
+	
+		<changeSet id="201723090354" author="sherif">
+		<createSequence sequenceName="SEQ_PROJECT_TYPE" />
+	</changeSet>
+	<!--sequences end -->
+	<!--tables begin -->
+	<changeSet id="201709150541" author="abdelrhman">
+		<createTable tableName="PROJECT_TYPES">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="TYPE" type="VARCHAR(255)" />
+			<column name="DESCRIPTION" type="VARCHAR(255)" />
+		</createTable>
+
+		<addPrimaryKey constraintName="PROJECT_TYPES_PK"
+			columnNames="ID" tableName="PROJECT_TYPES" />
+	</changeSet>
+	<changeSet id="201709150551" author="abdelrhman">
+		<createTable tableName="PROJECT">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="TITLE" type="VARCHAR(255)" />
+			<column name="APPLICANT_NAME" type="VARCHAR(255)" />
+			<column name="APLLICANT_ORG" type="VARCHAR(255)" />
+			<column name="BUDGET" type="float(53)" />
+			<column name="SUBMISSION_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="TYPE_ID" type="bigint" />
+		</createTable>
+
+		<addPrimaryKey constraintName="PROJECT_PK" columnNames="ID"
+			tableName="PROJECT" />
+		<addForeignKeyConstraint constraintName="PROJECT_TYPE_ID_FK"
+			referencedTableName="PROJECT_TYPES" baseColumnNames="TYPE_ID"
+			baseTableName="PROJECT" referencedColumnNames="ID" />
+	</changeSet>
+	<changeSet id="201709150614" author="abdelrhman">
+		<createTable tableName="EMPLOYEE">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="NAME" type="VARCHAR(255)" />
+			<column name="COMMENTS" type="VARCHAR(255)" />
+			<column name="CRIMINAL_STATUS" type="VARCHAR(255)" />
+			<column name="CV" type="VARCHAR(255)" />
+			<column name="HIRING_NOTE" type="VARCHAR(255)" />
+			<column name="POSITION" type="VARCHAR(255)" />
+			<column name="CENTER" type="VARCHAR(255)" />
+			<column name="SERIAL_NUMBER" type="VARCHAR(255)" />
+		</createTable>
+
+		<addPrimaryKey constraintName="EMPLOYEE_PK" columnNames="ID"
+			tableName="EMPLOYEE" />
+	</changeSet>
+
+	<changeSet id="201709150621" author="abdelrhman">
+		<createTable tableName="LFM">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="PROJECT_ID" type="bigint" />
+		</createTable>
+
+		<addPrimaryKey constraintName="LFM_PK" columnNames="ID"
+			tableName="LFM" />
+		<addForeignKeyConstraint constraintName="LFM_PROJECT_ID"
+			referencedTableName="PROJECT" baseColumnNames="PROJECT_ID"
+			baseTableName="LFM" referencedColumnNames="ID" />
+	</changeSet>
+
+	<changeSet id="201709150625" author="abdelrhman">
+		<createTable tableName="SYS_USER">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="USER_NAME" type="VARCHAR(255)" />
+			<column name="PASSWORD" type="VARCHAR(255)" />
+		</createTable>
+
+		<addPrimaryKey constraintName="SYS_USER_PK" columnNames="ID"
+			tableName="SYS_USER" />
+	</changeSet>
+	<changeSet id="201709150632" author="abdelrhman">
+		<createTable tableName="ROLE">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="ROLE" type="VARCHAR(255)" />
+			<column name="DESCRIPTION" type="VARCHAR(255)" />
+		</createTable>
+
+		<addPrimaryKey constraintName="ROLE_PK" columnNames="ID"
+			tableName="ROLE" />
+	</changeSet>
+	<changeSet id="201709150636" author="abdelrhman">
+		<createTable tableName="SYS_USER_ROLES">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="NAME" type="VARCHAR(255)" />
+			<column name="USER_ID" type="bigint" />
+			<column name="ROLE_ID" type="bigint" />
+		</createTable>
+
+		<addPrimaryKey constraintName="SYS_USER_ROLE_PK"
+			columnNames="ID" tableName="SYS_USER_ROLES" />
+		<addForeignKeyConstraint constraintName="SYS_USER_USERID_FK"
+			referencedTableName="SYS_USER" baseColumnNames="USER_ID"
+			baseTableName="SYS_USER_ROLES" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="SYS_USER_ROLEID_FK"
+			referencedTableName="ROLE" baseColumnNames="ROLE_ID" baseTableName="SYS_USER_ROLES"
+			referencedColumnNames="ID" />
+	</changeSet>
+	<changeSet id="201709150654" author="abdelrhman">
+		<createTable tableName="PROJECT_EMPLOYEES">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="ROLE" type="VARCHAR(255)" />
+			<column name="PARTICIPATION" type="float(3)" />
+			<column name="MONTHS" type="integer" />
+			<column name="BONUS" type="float(50)" />
+			<column name="EMPLOYEE_ID" type="bigint" />
+			<column name="PROJECT_ID" type="bigint" />
+		</createTable>
+
+		<addPrimaryKey constraintName="PROJECT_EMPLOYEES_PK"
+			columnNames="ID" tableName="PROJECT_EMPLOYEES" />
+		<addForeignKeyConstraint constraintName="PROJECT_EMPLOYEES_EMPLOYEE_ID_FK"
+			referencedTableName="EMPLOYEE" baseColumnNames="EMPLOYEE_ID"
+			baseTableName="PROJECT_EMPLOYEES" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="PROJECT_EMPLOYEES_PROJECT_ID"
+			referencedTableName="PROJECT" baseColumnNames="PROJECT_ID"
+			baseTableName="PROJECT_EMPLOYEES" referencedColumnNames="ID" />
+	</changeSet>
+
+	<changeSet id="201709150701" author="abdelrhman">
+		<createTable tableName="DOCS">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="DOC_PATH" type="VARCHAR(255)" />
+			<column name="PROJECT_ID" type="bigint" />
+			<column name="IS_UPLOADED" type="SMALLINT" />
+		</createTable>
+
+		<addPrimaryKey constraintName="DOCS_PK" columnNames="ID"
+			tableName="DOCS" />
+		<addForeignKeyConstraint constraintName="DOCS_PROJECT_FK"
+			referencedTableName="PROJECT" baseColumnNames="PROJECT_ID"
+			baseTableName="DOCS" referencedColumnNames="ID" />
+	</changeSet>
+
+	<changeSet id="201709150720" author="abdelrhman">
+		<createTable tableName="TASKS">
+			<column name="ID" type="bigint" />
+			<column name="NAME" type="VARCHAR(255)" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="START_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="END_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="DURATION" type="integer" />
+			<column name="LFM_ID" type="bigint" />
+		</createTable>
+
+		<addPrimaryKey constraintName="TASKS_PK" columnNames="ID"
+			tableName="TASKS" />
+		<addForeignKeyConstraint constraintName="TASKS_LFM_FK"
+			referencedTableName="LFM" baseColumnNames="LFM_ID" baseTableName="TASKS"
+			referencedColumnNames="ID" />
+	</changeSet>
+
+	<changeSet id="201709150725" author="abdelrhman">
+		<createTable tableName="TASKS_EXPECTED_OUTCOMES">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="EXPECTATION" type="VARCHAR(255)" />
+			<column name="TASK_ID" type="bigint" />
+		</createTable>
+
+		<addPrimaryKey constraintName="TASKS_EXPECTED_OUTCOMES_PK"
+			columnNames="ID" tableName="TASKS_EXPECTED_OUTCOMES" />
+		<addForeignKeyConstraint constraintName="ASKS_EXPECTED_OUTCOMES_TASK_FK"
+			referencedTableName="TASKS" baseColumnNames="TASK_ID" baseTableName="TASKS_EXPECTED_OUTCOMES"
+			referencedColumnNames="ID" />
+	</changeSet>
+	<!-- tables end -->
+
+	<!-- modifications begin -->
+	<changeSet id="201709150845" author="moamen">
+		<addColumn tableName="PROJECT">
+			<column name="ABBREVIATION" type="VARCHAR(255)" afterColumn="TITLE" />
+		</addColumn>
+	</changeSet>
+	<!--modifications end -->
+	
+	
+</databaseChangeLog>

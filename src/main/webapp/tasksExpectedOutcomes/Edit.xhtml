@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTasksExpectedOutcomesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTasksExpectedOutcomesLabel_expectation}" for="expectation" />
+                    <h:inputText id="expectation" value="#{tasksExpectedOutcomesController.selected.expectation}" title="#{bundle.EditTasksExpectedOutcomesTitle_expectation}" />
+                    <h:outputLabel value="#{bundle.EditTasksExpectedOutcomesLabel_taskId}" for="taskId" />
+                    <h:selectOneMenu id="taskId" value="#{tasksExpectedOutcomesController.selected.taskId}" title="#{bundle.EditTasksExpectedOutcomesTitle_taskId}" >
+                        <f:selectItems value="#{tasksController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditTasksExpectedOutcomesLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{tasksExpectedOutcomesController.selected.id}" title="#{bundle.EditTasksExpectedOutcomesTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditTasksExpectedOutcomesLabel_createDate}" for="createDate" />
+                    <h:inputText id="createDate" value="#{tasksExpectedOutcomesController.selected.createDate}" title="#{bundle.EditTasksExpectedOutcomesTitle_createDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTasksExpectedOutcomesLabel_modifyDate}" for="modifyDate" />
+                    <h:inputText id="modifyDate" value="#{tasksExpectedOutcomesController.selected.modifyDate}" title="#{bundle.EditTasksExpectedOutcomesTitle_modifyDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTasksExpectedOutcomesLabel_retireDate}" for="retireDate" />
+                    <h:inputText id="retireDate" value="#{tasksExpectedOutcomesController.selected.retireDate}" title="#{bundle.EditTasksExpectedOutcomesTitle_retireDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{tasksExpectedOutcomesController.update}" value="#{bundle.EditTasksExpectedOutcomesSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTasksExpectedOutcomesViewLink}"/>
+                <br />
+                <h:commandLink action="#{tasksExpectedOutcomesController.prepareList}" value="#{bundle.EditTasksExpectedOutcomesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTasksExpectedOutcomesIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

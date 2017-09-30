@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditLfmTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditLfmLabel_projectId}" for="projectId" />
+                    <h:selectOneMenu id="projectId" value="#{lfmController.selected.projectId}" title="#{bundle.EditLfmTitle_projectId}" >
+                        <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditLfmLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{lfmController.selected.id}" title="#{bundle.EditLfmTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditLfmLabel_createDate}" for="createDate" />
+                    <h:inputText id="createDate" value="#{lfmController.selected.createDate}" title="#{bundle.EditLfmTitle_createDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditLfmLabel_modifyDate}" for="modifyDate" />
+                    <h:inputText id="modifyDate" value="#{lfmController.selected.modifyDate}" title="#{bundle.EditLfmTitle_modifyDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditLfmLabel_retireDate}" for="retireDate" />
+                    <h:inputText id="retireDate" value="#{lfmController.selected.retireDate}" title="#{bundle.EditLfmTitle_retireDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{lfmController.update}" value="#{bundle.EditLfmSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditLfmViewLink}"/>
+                <br />
+                <h:commandLink action="#{lfmController.prepareList}" value="#{bundle.EditLfmShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditLfmIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

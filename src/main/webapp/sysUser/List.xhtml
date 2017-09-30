@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSysUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListSysUserEmpty}" rendered="#{sysUserController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{sysUserController.items.rowCount > 0}">
+                    <h:outputText value="#{sysUserController.pagination.pageFirstItem + 1}..#{sysUserController.pagination.pageLastItem + 1}/#{sysUserController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{sysUserController.previous}" value="#{bundle.Previous} #{sysUserController.pagination.pageSize}" rendered="#{sysUserController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{sysUserController.next}" value="#{bundle.Next} #{sysUserController.pagination.pageSize}" rendered="#{sysUserController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{sysUserController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSysUserTitle_userName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSysUserTitle_password}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.password}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSysUserTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSysUserTitle_createDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.createDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSysUserTitle_modifyDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modifyDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSysUserTitle_retireDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.retireDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{sysUserController.prepareView}" value="#{bundle.ListSysUserViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{sysUserController.prepareEdit}" value="#{bundle.ListSysUserEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{sysUserController.destroy}" value="#{bundle.ListSysUserDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{sysUserController.prepareCreate}" value="#{bundle.ListSysUserCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListSysUserIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

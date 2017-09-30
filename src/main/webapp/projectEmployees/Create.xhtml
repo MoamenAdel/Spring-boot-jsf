@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateProjectEmployeesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateProjectEmployeesLabel_role}" for="role" />
+                    <h:inputText id="role" value="#{projectEmployeesController.selected.role}" title="#{bundle.CreateProjectEmployeesTitle_role}" />
+                    <h:outputLabel value="#{bundle.CreateProjectEmployeesLabel_participation}" for="participation" />
+                    <h:inputText id="participation" value="#{projectEmployeesController.selected.participation}" title="#{bundle.CreateProjectEmployeesTitle_participation}" />
+                    <h:outputLabel value="#{bundle.CreateProjectEmployeesLabel_months}" for="months" />
+                    <h:inputText id="months" value="#{projectEmployeesController.selected.months}" title="#{bundle.CreateProjectEmployeesTitle_months}" />
+                    <h:outputLabel value="#{bundle.CreateProjectEmployeesLabel_bonus}" for="bonus" />
+                    <h:inputText id="bonus" value="#{projectEmployeesController.selected.bonus}" title="#{bundle.CreateProjectEmployeesTitle_bonus}" />
+                    <h:outputLabel value="#{bundle.CreateProjectEmployeesLabel_employeeId}" for="employeeId" />
+                    <h:selectOneMenu id="employeeId" value="#{projectEmployeesController.selected.employeeId}" title="#{bundle.CreateProjectEmployeesTitle_employeeId}" >
+                        <f:selectItems value="#{employeeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateProjectEmployeesLabel_projectId}" for="projectId" />
+                    <h:selectOneMenu id="projectId" value="#{projectEmployeesController.selected.projectId}" title="#{bundle.CreateProjectEmployeesTitle_projectId}" >
+                        <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateProjectEmployeesLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{projectEmployeesController.selected.id}" title="#{bundle.CreateProjectEmployeesTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreateProjectEmployeesLabel_createDate}" for="createDate" />
+                    <h:inputText id="createDate" value="#{projectEmployeesController.selected.createDate}" title="#{bundle.CreateProjectEmployeesTitle_createDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateProjectEmployeesLabel_modifyDate}" for="modifyDate" />
+                    <h:inputText id="modifyDate" value="#{projectEmployeesController.selected.modifyDate}" title="#{bundle.CreateProjectEmployeesTitle_modifyDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateProjectEmployeesLabel_retireDate}" for="retireDate" />
+                    <h:inputText id="retireDate" value="#{projectEmployeesController.selected.retireDate}" title="#{bundle.CreateProjectEmployeesTitle_retireDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{projectEmployeesController.create}" value="#{bundle.CreateProjectEmployeesSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{projectEmployeesController.prepareList}" value="#{bundle.CreateProjectEmployeesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateProjectEmployeesIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

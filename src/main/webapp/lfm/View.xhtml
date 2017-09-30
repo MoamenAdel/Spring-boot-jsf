@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewLfmTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewLfmLabel_projectId}"/>
+                    <h:outputText value="#{lfmController.selected.projectId}" title="#{bundle.ViewLfmTitle_projectId}"/>
+                    <h:outputText value="#{bundle.ViewLfmLabel_id}"/>
+                    <h:outputText value="#{lfmController.selected.id}" title="#{bundle.ViewLfmTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewLfmLabel_createDate}"/>
+                    <h:outputText value="#{lfmController.selected.createDate}" title="#{bundle.ViewLfmTitle_createDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewLfmLabel_modifyDate}"/>
+                    <h:outputText value="#{lfmController.selected.modifyDate}" title="#{bundle.ViewLfmTitle_modifyDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewLfmLabel_retireDate}"/>
+                    <h:outputText value="#{lfmController.selected.retireDate}" title="#{bundle.ViewLfmTitle_retireDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{lfmController.destroyAndView}" value="#{bundle.ViewLfmDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewLfmEditLink}"/>
+                <br />
+                <h:commandLink action="#{lfmController.prepareCreate}" value="#{bundle.ViewLfmCreateLink}" />
+                <br />
+                <h:commandLink action="#{lfmController.prepareList}" value="#{bundle.ViewLfmShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewLfmIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
