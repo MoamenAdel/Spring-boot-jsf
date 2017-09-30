@@ -1,4 +1,3 @@
-
 package com.research;
 
 import org.ocpsoft.rewrite.servlet.RewriteFilter;
