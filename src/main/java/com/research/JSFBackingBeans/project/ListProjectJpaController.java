@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -51,6 +52,11 @@ public class ListProjectJpaController implements Serializable {
 
 	public void setItems(List<ProjectDto> items) {
 		this.items = items;
+	}
+	
+	public String viewProject(ProjectDto project){
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", project);
+		return "View";
 	}
 
 }
