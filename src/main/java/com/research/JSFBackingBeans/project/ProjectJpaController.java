@@ -69,7 +69,6 @@ public class ProjectJpaController implements Serializable {
 		for (ProjectTypeDto projectType : projectTypes){
 			types.add(projectType.getType());
 		}
-		System.out.println("blablabla");
 	}
 	
 	public List<String> getTypes() {

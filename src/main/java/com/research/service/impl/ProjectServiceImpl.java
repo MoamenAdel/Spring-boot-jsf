@@ -51,7 +51,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	public List<ProjectDto> getAllProjects() {
 		List<ProjectDto> projectsDto = new ArrayList<>();
-		mapper.map(getAll(), projectsDto);
+		List<Project> projects = getAll();
+		for(Project project : projects){
+			ProjectDto projectDto = new ProjectDto();
+			mapper.map(project, projectDto);
+			projectDto.setType(project.getTypeId().getType());
+			projectsDto.add(projectDto);
+		}
 		return projectsDto;
 	}
 

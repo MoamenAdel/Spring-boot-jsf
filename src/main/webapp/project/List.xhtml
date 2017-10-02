@@ -26,50 +26,53 @@
 				<p:column headerText="Title">
         			<h:outputText value="#{item.title}" />
     			</p:column>
-				<h:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_title}" />
 					</f:facet>
 					<h:outputText value="#{item.title}" />
-				</h:column>
-				<h:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_applicantName}" />
 					</f:facet>
 					<h:outputText value="#{item.applicantName}" />
-				</h:column>
-				<h:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_apllicantOrg}" />
 					</f:facet>
 					<h:outputText value="#{item.applicantOrganization}" />
-				</h:column>
-				<h:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_budget}" />
 					</f:facet>
 					<h:outputText value="#{item.budget}" />
-				</h:column>
-				<h:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_submissionDate}" />
 					</f:facet>
 					<h:outputText value="#{item.submissionDate}">
 						<f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
 					</h:outputText>
-				</h:column>
-				<h:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_abbreviation}" />
 					</f:facet>
 					<h:outputText value="#{item.abbreviation}" />
-				</h:column>
-				<h:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_typeId}" />
 					</f:facet>
 					<h:outputText value="#{item.type}" />
-				</h:column>
+				</p:column>
+				<p:column>
+					<p:commandLink ajax="false" title="View" action="#{ListProjectJpaController.viewProject(item)}">View</p:commandLink>
+				</p:column>
 				
 			</p:dataTable>
 

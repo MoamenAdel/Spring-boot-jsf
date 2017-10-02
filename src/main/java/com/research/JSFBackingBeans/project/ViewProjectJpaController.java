@@ -1,6 +1,7 @@
 package com.research.JSFBackingBeans.project;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.research.dto.project.DocsDTO;
 import com.research.dto.project.ProjectDto;
+import com.research.exception.BusinessException;
 import com.research.repositories.project.DocsRepository;
 import com.research.service.interfaces.DocsService;
 import com.research.service.interfaces.ProjectService;
@@ -18,7 +20,7 @@ import com.research.service.interfaces.ProjectService;
 @Scope(value = "session")
 @Component(value = "ViewProjectJpaController")
 @ELBeanName(value = "ViewProjectJpaController")
-@Join(path = "/project", to = "/project/Create.xhtml")
+@Join(path = "/project", to = "/project/View.xhtml")
 public class ViewProjectJpaController {
 
 	@Autowired
@@ -34,7 +36,11 @@ public class ViewProjectJpaController {
 	
 	@PostConstruct
 	public void init(){
-		projectDto = projectService.findOne((long) 38);
+		projectDto = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
+		if (projectDto == null) {
+			throw new RuntimeException();
+		}
+//		projectDto = projectService.findOne((long) 38);
 	}
 
 	public ProjectDto getProjectDto() {

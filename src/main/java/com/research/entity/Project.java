@@ -79,7 +79,7 @@ public class Project extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "projectId", fetch = FetchType.EAGER)
     private Collection<Docs> docsCollection;
     @JoinColumn(name = "type_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private ProjectTypes typeId;
 
     public Project() {
