@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
  * @author Moamenovic
  */
 
-@Scope(value = "session")
+@Scope(value = "request")
 @Component(value = "ListProjectJpaController")
 @ELBeanName(value = "ListProjectJpaController")
 @Join(path = "/listProject", to = "/project/List.xhtml")

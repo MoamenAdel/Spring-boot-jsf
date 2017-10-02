@@ -23,7 +23,12 @@ import javax.persistence.EntityManagerFactory;
  */
 public class DocsJpaController implements Serializable {
 
-    public DocsJpaController(EntityManagerFactory emf) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public DocsJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;

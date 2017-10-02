@@ -5,7 +5,7 @@
 
 	<mapping>
 		<class-a>com.research.entity.Lfm</class-a>
-		<class-b>com.research.dto.LFMDto</class-b>
+		<class-b>com.research.dto.project.LFMDto</class-b>
 
 	</mapping>
 
