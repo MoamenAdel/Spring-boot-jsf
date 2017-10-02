@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.research.dto.ProjectDto;
-import com.research.service.ProjectService;
+import com.research.dto.project.ProjectDto;
+import com.research.service.interfaces.ProjectService;
 
 @RestController
 @CrossOrigin("${angular.url}")

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.research.dto.LFMDto;
-import com.research.service.LFMService;
+import com.research.dto.project.LFMDto;
+import com.research.service.interfaces.LFMService;
 
 @RestController
 @CrossOrigin("${angular.url}")

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.research.dto.project.TaskDTO;
-import com.research.service.TasksService;
+import com.research.service.interfaces.TasksService;
 
 @CrossOrigin("${angular.url}")
 @RestController

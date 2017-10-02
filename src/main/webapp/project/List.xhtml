@@ -23,6 +23,9 @@
 				border="0" cellpadding="2" cellspacing="0"
 				rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all"
 				style="border:solid 1px">
+				<p:column headerText="Title">
+        			<h:outputText value="#{item.title}" />
+    			</p:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_title}" />

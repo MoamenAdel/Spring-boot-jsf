@@ -78,8 +78,7 @@ public class Project extends BaseEntity implements Serializable {
     private Collection<Lfm> lfmCollection;
     @OneToMany(mappedBy = "projectId", fetch = FetchType.EAGER)
     private Collection<Docs> docsCollection;
-    @JsonIgnore
-    @JoinColumn(name = "type_id", referencedColumnName = "id",insertable=false,updatable=false)
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne
     private ProjectTypes typeId;
 

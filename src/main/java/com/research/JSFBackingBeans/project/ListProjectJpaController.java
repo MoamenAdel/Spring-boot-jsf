@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import com.research.dto.ProjectDto;
-import com.research.service.ProjectService;
+
+import com.research.dto.project.ProjectDto;
+import com.research.service.interfaces.ProjectService;
+
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.annotation.RequestAction;
 import org.ocpsoft.rewrite.el.ELBeanName;

@@ -49,8 +49,8 @@ public class ProjectTypes extends BaseEntity implements Serializable {
 	@Size(max = 255)
 	@Column(name = "description")
 	private String description;
-	@OneToMany(mappedBy = "typeId")
-	private Collection<Project> projectCollection;
+//	@OneToMany(mappedBy = "typeId")
+//	private Collection<Project> projectCollection;
 
 	public ProjectTypes() {
 	}
@@ -71,14 +71,14 @@ public class ProjectTypes extends BaseEntity implements Serializable {
 		this.description = description;
 	}
 
-	@XmlTransient
-	public Collection<Project> getProjectCollection() {
-		return projectCollection;
-	}
-
-	public void setProjectCollection(Collection<Project> projectCollection) {
-		this.projectCollection = projectCollection;
-	}
+//	@XmlTransient
+//	public Collection<Project> getProjectCollection() {
+//		return projectCollection;
+//	}
+//
+//	public void setProjectCollection(Collection<Project> projectCollection) {
+//		this.projectCollection = projectCollection;
+//	}
 
 	@Override
 	public int hashCode() {

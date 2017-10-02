@@ -5,37 +5,36 @@
  */
 package com.research.JSFBackingBeans.project;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
 
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import org.springframework.context.annotation.Scope;
 
-import com.research.dto.ProjectDto;
-import com.research.entity.ProjectTypes;
-import com.research.entity.ProjectEmployees;
+import com.research.dto.project.ProjectDto;
+import com.research.dto.project.ProjectTypeDto;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.research.entity.Lfm;
-import com.research.JSFBackingBeans.exceptions.NonexistentEntityException;
-import com.research.entity.Docs;
-import com.research.entity.Project;
-import com.research.service.ProjectService;
+import com.research.service.interfaces.ProjectService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import org.apache.commons.io.FileUtils;
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -58,18 +57,74 @@ public class ProjectJpaController implements Serializable {
 
 	private static final long serialVersionUID = -9006980830134897009L;
 	private ProjectDto selected = new ProjectDto();
+	private List<ProjectTypeDto> projectTypes = new ArrayList<>();
+	private List<String> types = new ArrayList<>();
+	private String selectedType = new String();
+	private UploadedFile file;
+
+	@PostConstruct
+	public void getProjectTypeList() throws ServletException, IOException{
+		projectTypes = projectService.getProjectTypes();
+		
+		for (ProjectTypeDto projectType : projectTypes){
+			types.add(projectType.getType());
+		}
+		System.out.println("blablabla");
+	}
 	
+	public List<String> getTypes() {
+		return types;
+	}
+
+	public void setTypes(List<String> types) {
+		this.types = types;
+	}
+
+	public String getSelectedType() {
+		return selectedType;
+	}
+
+	public void setSelectedType(String selectedType) {
+		this.selectedType = selectedType;
+	}
+
 	public ProjectDto getSelected() {
 		return selected;
+	}
+
+	public List<ProjectTypeDto> getProjectTypes() {
+		return projectTypes;
+	}
+
+	public void setProjectTypes(List<ProjectTypeDto> projectTypes) {
+		this.projectTypes = projectTypes;
 	}
 
 	public void setSelected(ProjectDto selected) {
 		this.selected = selected;
 	}
 
-	public String create(){
-		selected.setProjectTypeId((long) 0);
+	public String create() throws ServletException, IOException{
+		if (file != null){
+//			Files.copy(file.getInputstream(), new File("D:/", file.getFileName()).toPath());
+			FileUtils.copyInputStreamToFile(file.getInputstream(), new File("D:/File", file.getFileName()));
+			}
+		selected.setType(selectedType);
 		projectService.addProject(selected);
 		return null;
 	}
+	
+	public static Collection<Part> getAllParts(Part part) throws ServletException, IOException {
+	    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+	    return request.getParts().stream().filter(p -> part.getName().equals(p.getName())).collect(Collectors.toList());
+	}
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
+	
 }

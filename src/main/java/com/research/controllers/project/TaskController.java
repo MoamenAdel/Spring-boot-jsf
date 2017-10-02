@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.research.dto.project.TaskDTO;
-import com.research.service.TasksService;
+import com.research.service.interfaces.TasksService;
 
 @Controller
 @CrossOrigin("${angular.url}")

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -44,7 +45,7 @@ public class Lfm extends BaseEntity implements Serializable {
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     @ManyToOne
     private Project projectId;
-    @OneToMany(mappedBy = "lfmId")
+    @OneToMany(mappedBy = "lfmId", fetch = FetchType.EAGER)
     private Collection<Tasks> tasksCollection;
 
     public Lfm() {

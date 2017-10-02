@@ -6,6 +6,7 @@
 package com.research.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -16,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.annotations.Type;
 
 /**
  *
@@ -41,8 +44,9 @@ public class Docs extends BaseEntity implements Serializable {
     @Size(max = 255)
     @Column(name = "doc_path")
     private String docPath;
-    @Column(name = "is_uploaded")
-    private Short isUploaded;
+    @Column(name = "is_uploaded", columnDefinition = "SMALLINT default 0")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean isUploaded;
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     @ManyToOne
     private Project projectId;
@@ -59,11 +63,11 @@ public class Docs extends BaseEntity implements Serializable {
         this.docPath = docPath;
     }
 
-    public Short getIsUploaded() {
+    public boolean getIsUploaded() {
         return isUploaded;
     }
 
-    public void setIsUploaded(Short isUploaded) {
+    public void setIsUploaded(boolean isUploaded) {
         this.isUploaded = isUploaded;
     }
 

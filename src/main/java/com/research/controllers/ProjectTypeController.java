@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.research.dto.ProjectTypeDto;
-import com.research.service.ProjectTypeService;
+import com.research.dto.project.ProjectTypeDto;
+import com.research.service.interfaces.ProjectTypeService;
 
 @RestController
 @RequestMapping("/projecttype")

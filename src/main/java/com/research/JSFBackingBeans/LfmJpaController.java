@@ -6,21 +6,27 @@
 package com.research.JSFBackingBeans;
 
 import com.research.JSFBackingBeans.exceptions.NonexistentEntityException;
-import com.research.dto.LFMDto;
+import com.research.dto.project.LFMDto;
 import com.research.entity.Lfm;
+
 import java.io.Serializable;
+
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
 import com.research.entity.Project;
 import com.research.entity.Tasks;
-import com.research.service.LFMService;
+import com.research.service.interfaces.LFMService;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
