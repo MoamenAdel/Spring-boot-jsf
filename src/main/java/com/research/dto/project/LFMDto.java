@@ -1,8 +1,10 @@
 package com.research.dto.project;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.research.dto.BaseDto;
+import com.research.dto.project.ProjectDto;
 
 public class LFMDto extends BaseDto {
 
@@ -16,6 +18,18 @@ public class LFMDto extends BaseDto {
 
 	public void setProjectDtoId(ProjectDto projectDtoId) {
 		this.projectDtoId = projectDtoId;
+	}
+
+	public Collection<TaskDTO> getTasksDtoCollection() {
+		if (tasksDtoCollection == null) {
+			tasksDtoCollection = new ArrayList<TaskDTO>();
+
+		}
+		return tasksDtoCollection;
+	}
+
+	public void setTasksDtoCollection(Collection<TaskDTO> tasksDtoCollection) {
+		this.tasksDtoCollection = tasksDtoCollection;
 	}
 
 }
