@@ -42,7 +42,7 @@ import org.springframework.stereotype.Component;
  * @author Moamenovic
  */
 
-@Scope(value = "session")
+@Scope(value = "request")
 @Component(value = "ProjectJpaController")
 @ELBeanName(value = "ProjectJpaController")
 @Join(path = "/project", to = "/project/Create.xhtml")
@@ -110,6 +110,7 @@ public class ProjectJpaController implements Serializable {
 			}
 		selected.setType(selectedType);
 		projectService.addProject(selected);
+		selected = new ProjectDto();
 		return null;
 	}
 	

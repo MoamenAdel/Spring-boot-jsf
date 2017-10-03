@@ -40,6 +40,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public ProjectDto addProject(ProjectDto projectDto) {
 		Project project = new Project();
 		mapper.map(projectDto, project);
+		project.setId(null);
 		project.setTypeId(projectTypeService.findByType(projectDto.getType()));
 		project = save(project);
 		Lfm lfm = new Lfm();
