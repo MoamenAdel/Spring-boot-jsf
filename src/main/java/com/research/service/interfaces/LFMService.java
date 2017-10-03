@@ -13,5 +13,7 @@ public interface LFMService {
 	Lfm getLFMByProjectid(Long projectId);
 	
 	Lfm save(Lfm lfm);
+	
+	LFMDto findByProjectId(Long id);
 
 }
