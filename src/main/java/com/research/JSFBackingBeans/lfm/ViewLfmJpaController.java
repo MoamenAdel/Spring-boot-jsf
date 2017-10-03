@@ -63,8 +63,7 @@ public class ViewLfmJpaController implements Serializable {
 	public void init(){
 		projectDto = (ProjectDto)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
 		if (projectDto == null || projectDto.getId() == null){
-			projectDto = new ProjectDto();
-			projectDto.setId((long)38);
+			throw new RuntimeException();
 		}
 		selected = lfmService.findByProjectId(projectDto.getId());
 		List<TaskDTO> taskDTOs = (List<TaskDTO>) selected.getTasksDtoCollection();

@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -20,6 +22,7 @@ import com.research.service.interfaces.DocsService;
 import com.research.service.interfaces.ProjectService;
 
 @Service
+@Transactional
 public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsService {
 
 	@Autowired

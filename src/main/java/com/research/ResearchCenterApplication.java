@@ -35,48 +35,6 @@ public class ResearchCenterApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ResearchCenterApplication.class, args);
 	}
-
-	@Bean
-	CommonsMultipartResolver multipartResolver(@Autowired ServletContext context) {
-		return new CommonsMultipartResolver(context);
-	}
-
-	@Bean
-	public ServletRegistrationBean servletRegistrationBean() {
-		FacesServlet servlet = new FacesServlet();
-		return new ServletRegistrationBean(servlet, "*.xhtml");
-	}
-
-	@Bean
-	public FilterRegistrationBean rewriteFilter() {
-		FilterRegistrationBean rwFilter = new FilterRegistrationBean(new RewriteFilter());
-		rwFilter.setDispatcherTypes(
-				EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR));
-		rwFilter.addUrlPatterns("/*");
-		return rwFilter;
-	}
-
-	@Bean
-	public ServletContextInitializer initializer() {
-		return new ServletContextInitializer() {
-			@Override
-			public void onStartup(ServletContext servletContext) throws ServletException {
-				// servletContext.setInitParameter("primefaces.THEME",
-				// "bluesky");
-				servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
-				servletContext.setInitParameter("com.sun.faces.expressionFactory", "com.sun.el.ExpressionFactoryImpl");
-				servletContext.setInitParameter("primefaces.UPLOADER", "commons");
-			}
-		};
-	}
-
-	@Bean
-	public FilterRegistrationBean FileUploadFilter() {
-		FilterRegistrationBean registration = new FilterRegistrationBean();
-		registration.setFilter(new org.primefaces.webapp.filter.FileUploadFilter());
-		registration.setName("PrimeFaces FileUpload Filter");
-		return registration;
-	}
 	
 	@Bean
 	public PlatformTransactionManager transactionManager(

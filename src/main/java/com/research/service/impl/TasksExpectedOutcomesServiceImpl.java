@@ -1,7 +1,9 @@
-package com.research.service;
+package com.research.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,11 @@ import com.research.dto.project.TasksExpectedOutcomesDto;
 import com.research.entity.TasksExpectedOutcomes;
 import com.research.repositories.BaseRepository;
 import com.research.repositories.project.TasksExpectedOutcomesRepo;
+import com.research.service.BaseServiceImpl;
 import com.research.service.interfaces.TasksExpectedOutcomesService;
 
 @Service
+@Transactional
 public class TasksExpectedOutcomesServiceImpl extends BaseServiceImpl<TasksExpectedOutcomes>
 		implements TasksExpectedOutcomesService {
 

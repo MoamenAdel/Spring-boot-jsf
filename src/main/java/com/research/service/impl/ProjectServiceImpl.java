@@ -3,6 +3,8 @@ package com.research.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import com.research.service.interfaces.ProjectService;
 import com.research.service.interfaces.ProjectTypeService;
 
 @Service
+@Transactional
 public class ProjectServiceImpl extends BaseServiceImpl<Project> implements ProjectService {
 
 	@Autowired
@@ -53,6 +56,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public List<ProjectDto> getAllProjects() {
 		List<ProjectDto> projectsDto = new ArrayList<>();
 		List<Project> projects = getAll();
+		if (projects == null){
+			throw new RuntimeException();
+		}
 		for(Project project : projects){
 			ProjectDto projectDto = new ProjectDto();
 			mapper.map(project, projectDto);
@@ -76,6 +82,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	public ProjectDto findOne(Long id) {
 		Project project = projectRepo.findOne(id);
+		if (project == null){
+			throw new RuntimeException();
+		}
 		return mapper.map(project, ProjectDto.class);
 	}
 	
