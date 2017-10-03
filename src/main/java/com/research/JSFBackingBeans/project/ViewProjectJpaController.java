@@ -59,6 +59,11 @@ public class ViewProjectJpaController {
 		this.file = file;
 	}
 	
+	public String viewLfm(){
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
+		return "../lfm/View";
+	}
+	
 	public String addDocument(){
 		DocsDTO docDTO = new DocsDTO();
 		docDTO.setFile(file);

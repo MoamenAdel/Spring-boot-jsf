@@ -12,6 +12,8 @@ import com.research.repositories.BaseRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.dozer.DozerBeanMapper;
 
 import com.research.repositories.project.TaskRepo;
@@ -20,6 +22,7 @@ import com.research.service.interfaces.LFMService;
 import com.research.service.interfaces.TasksService;
 
 @Service
+@Transactional
 public class TasksServiceImpl extends BaseServiceImpl<Tasks> implements TasksService {
 
 	@Autowired

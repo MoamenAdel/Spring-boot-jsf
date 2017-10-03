@@ -3,6 +3,8 @@ package com.research.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,9 @@ import com.research.repositories.BaseRepository;
 import com.research.repositories.project.ProjectTypeRepo;
 import com.research.service.BaseServiceImpl;
 import com.research.service.interfaces.ProjectTypeService;
+
 @Service
+@Transactional
 public class ProjectTypeServiceImpl extends BaseServiceImpl<ProjectTypes> implements ProjectTypeService {
 
 	@Autowired

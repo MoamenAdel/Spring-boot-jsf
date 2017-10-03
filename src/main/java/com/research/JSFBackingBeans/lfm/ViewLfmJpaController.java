@@ -1,16 +1,22 @@
 package com.research.JSFBackingBeans.lfm;
 
 import com.research.dto.project.LFMDto;
+import com.research.dto.project.ProjectDto;
 import com.research.dto.project.TaskDTO;
 import com.research.dto.project.TasksExpectedOutcomesDto;
 
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import com.research.service.impl.LFMServiceImpl;
 import com.research.service.interfaces.LFMService;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
@@ -22,7 +28,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Moamenovic
  */
-@Scope(value = "session")
+@Scope(value = "request")
 @Component(value = "ViewLfmJpaController")
 @ELBeanName(value = "ViewLfmJpaController")
 @Join(path = "/lfm", to = "/lfm/View.xhtml")
@@ -32,6 +38,7 @@ public class ViewLfmJpaController implements Serializable {
 	LFMService lfmService;
 	private LFMDto selected = new LFMDto();
 	private int numberOfMonths, listSize;
+	private ProjectDto projectDto;
 	DateFormat dt1 = new SimpleDateFormat("d MMM yyyy");
 
 	public ViewLfmJpaController() {
@@ -49,6 +56,20 @@ public class ViewLfmJpaController implements Serializable {
 			numberOfMonths += taskDto.getDuration();
 			listSize = selected.getTasksDtoCollection().size();
 
+		}
+	}
+	
+	@PostConstruct
+	public void init(){
+		projectDto = (ProjectDto)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
+		if (projectDto == null || projectDto.getId() == null){
+			throw new RuntimeException();
+		}
+		selected = lfmService.findByProjectId(projectDto.getId());
+		List<TaskDTO> taskDTOs = (List<TaskDTO>) selected.getTasksDtoCollection();
+		numberOfMonths = 0;
+		for (TaskDTO taskDTO : taskDTOs){
+			numberOfMonths += taskDTO.getDuration();
 		}
 	}
 
@@ -75,5 +96,17 @@ public class ViewLfmJpaController implements Serializable {
 	public void setListSize(int listSize) {
 		this.listSize = listSize;
 	}
+
+	public ProjectDto getProjectDto() {
+		if (projectDto == null){
+			projectDto = new ProjectDto();
+		}
+		return projectDto;
+	}
+
+	public void setProjectDto(ProjectDto projectDto) {
+		this.projectDto = projectDto;
+	}
+
 
 }

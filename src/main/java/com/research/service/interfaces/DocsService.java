@@ -6,5 +6,5 @@ import com.research.service.BaseService;
 
 public interface DocsService extends BaseService<Docs>{
 
-	Docs addNewDoc(DocsDTO docDTO);
+	DocsDTO addNewDoc(DocsDTO docDTO);
 }

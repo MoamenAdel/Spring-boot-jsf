@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -17,14 +19,18 @@ import com.research.repositories.BaseRepository;
 import com.research.repositories.project.DocsRepository;
 import com.research.service.BaseServiceImpl;
 import com.research.service.interfaces.DocsService;
+import com.research.service.interfaces.ProjectService;
 
 @Service
+@Transactional
 public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsService {
 
 	@Autowired
 	private DocsRepository docsRepository;
 	@Autowired
 	private Environment env;
+	@Autowired
+	private ProjectService projectService;
 	
 	@Override
 	public List<Docs> getAll() {
@@ -74,7 +80,7 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 	}
 
 	@Override
-	public Docs addNewDoc(DocsDTO docDTO) {
+	public DocsDTO addNewDoc(DocsDTO docDTO) {
 		UploadedFile file = docDTO.getFile();
 		try (InputStream stream = file.getInputstream()){
 			Files.copy(stream, new File(env.getProperty("upload.path") + "/" + docDTO.getProjectDTO().getTitle()
@@ -82,11 +88,15 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 			String path = resolvePath(docDTO);
 			Docs doc = new Docs();
 			doc.setDocPath(path);
-//			doc.set
+			doc.setIsUploaded(true);
+			doc.setProjectId(projectService.getOne(docDTO.getProjectDTO().getId()));
+			doc = this.save(doc);
+			docDTO.setId(doc.getId());
+			return docDTO;
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new RuntimeException();
 		}
-		return null;
 	}
 
 	private String resolvePath(DocsDTO docDTO) {
