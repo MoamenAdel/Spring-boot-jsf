@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.research.dto.project.ProjectDto;
@@ -55,6 +57,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	public List<ProjectDto> getAllProjects() {
 		List<ProjectDto> projectsDto = new ArrayList<>();
+//		PageRequest request = new PageRequest(1, 1);
+//		Page<Project> projectsPage = projectRepo.findAll(request);
 		List<Project> projects = getAll();
 		if (projects == null){
 			throw new RuntimeException();
@@ -86,6 +90,30 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			throw new RuntimeException();
 		}
 		return mapper.map(project, ProjectDto.class);
+	}
+
+	@Override
+	public List<ProjectDto> getProjectPage(int first, int pageSize) {
+		List<ProjectDto> projectsDto = new ArrayList<>();
+		System.out.println("first : " + first + "  pageSize : " + pageSize);
+		PageRequest request = new PageRequest(first, pageSize);
+		Page<Project> projectsPage = projectRepo.findAll(request);
+		List<Project> projects = projectsPage.getContent();
+		if (projects == null){
+			throw new RuntimeException();
+		}
+		for(Project project : projects){
+			ProjectDto projectDto = new ProjectDto();
+			mapper.map(project, projectDto);
+			projectDto.setType(project.getTypeId().getType());
+			projectsDto.add(projectDto);
+		}
+		return projectsDto;
+	}
+
+	@Override
+	public long count() {
+		return projectRepo.count();
 	}
 	
 	

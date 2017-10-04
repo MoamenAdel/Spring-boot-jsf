@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -73,4 +76,20 @@ public abstract class BaseEntity implements Serializable {
 		this.retired = retired;
 	}
 	
+	@PrePersist
+	public void onCreate(){
+		Date date = new Date();
+		this.setCreateDate(date);
+		this.setModifyDate(date);
+	}
+	
+	@PreUpdate
+	public void onUpdate(){
+		this.setModifyDate(new Date());
+	}
+	
+	@PostLoad
+	public void onLoad(){
+		System.out.println(this.id + "//////////////////////////////");
+	}
 }

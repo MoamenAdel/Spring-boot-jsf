@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
+import com.research.JSFBackingBeans.lazydatamodels.ProjectLazyDataModel;
 import com.research.dto.project.ProjectDto;
 import com.research.service.interfaces.ProjectService;
 
@@ -26,7 +27,7 @@ import javax.faces.context.FacesContext;
  * @author Moamenovic
  */
 
-@Scope(value = "request")
+@Scope(value = "session")
 @Component(value = "ListProjectJpaController")
 @ELBeanName(value = "ListProjectJpaController")
 @Join(path = "/listProject", to = "/project/List.xhtml")
@@ -36,11 +37,13 @@ public class ListProjectJpaController implements Serializable {
 	ProjectService projectService;
 
 	private List<ProjectDto> items;
+	@Autowired
+	private ProjectLazyDataModel model;
 
 	@PostConstruct
 	public void loadData() {
-		items = projectService.getAllProjects();
-		System.out.println("");
+//		items = projectService.getAllProjects();
+		model.setRowCount((int) projectService.count());
 	}
 
 	public List<ProjectDto> getItems() {
@@ -54,6 +57,15 @@ public class ListProjectJpaController implements Serializable {
 		this.items = items;
 	}
 	
+
+	public ProjectLazyDataModel getModel() {
+		return model;
+	}
+
+	public void setModel(ProjectLazyDataModel model) {
+		this.model = model;
+	}
+
 	public String viewProject(ProjectDto project){
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", project);
 		return "View";
