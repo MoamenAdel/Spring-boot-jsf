@@ -84,13 +84,36 @@
 			<div class="navbar-default sidebar" role="navigation">
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
-						<li><h:link outcome="#{ProjectJpaController}">
-								<i class='fa fa-pencil-square-o'></i>
-								<p:button href="/project/List.xhtml" value="List of Projects" />
-							</h:link></li>
 
+						<li><a href="#"><i class="fa fa-cogs fa-fw"></i> <h:outputText
+									value="   Projects" /><span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><p:link outcome="/project/List.xhtml">
+										<i class='fa fa-table'></i>
+										<h:outputText value="   List of Projects" />
+									</p:link></li>
 
+								<li><p:link outcome="/project/Create.xhtml">
+										<i class='fa fa-plus-square-o'></i>
+										<h:outputText value="   Create Project" />
+									</p:link></li>
+							</ul></li>
+
+						<li><a href="#"><i class="fa fa-clone"></i> <h:outputText
+									value="   Projects Types" /><span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><p:link outcome="/projectTypes/List.xhtml">
+										<i class='fa fa-table'></i>
+										<h:outputText value="   List of Project Types" />
+									</p:link></li>
+
+								<li><p:link outcome="/projectTypes/Create.xhtml">
+										<i class='fa fa-plus-square-o'></i>
+										<h:outputText value="   Create Project Type" />
+									</p:link></li>
+							</ul></li>
 					</ul>
+
 				</div>
 				<!-- /.sidebar-collapse -->
 			</div>
@@ -113,7 +136,8 @@
 
 						<div class="panel-body  panel-resizable">
 							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-body panel-resizable">
+								<div
+									class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-body panel-resizable">
 									<ui:insert name="body">Default Body</ui:insert>
 								</div>
 								<!-- /.col-lg-6 (nested) -->

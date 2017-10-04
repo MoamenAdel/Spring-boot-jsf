@@ -40,7 +40,8 @@
 				<p:outputLabel value="#{bundle.CreateProjectLabel_submissionDate}"
 					for="submissionDate" />
 				<p:calendar id="submissionDate"
-					value="#{ProjectJpaController.selected.submissionDate}" pattern="d MMM yyyy"
+					value="#{ProjectJpaController.selected.submissionDate}"
+					pattern="d MMM yyyy"
 					title="#{bundle.CreateProjectTitle_submissionDate}" effect="fold">
 					<f:convertDateTime pattern="d MMM yyyy" />
 				</p:calendar>
@@ -49,18 +50,20 @@
 				<p:inputText id="abbreviation"
 					value="#{ProjectJpaController.selected.abbreviation}"
 					title="#{bundle.CreateProjectTitle_abbreviation}" />
-				<p:outputLabel value="#{bundle.CreateProjectLabel_typeId}"
+				<p:outputLabel value="#{bundle.CreateProjectLabel_Type}"
 					for="typeId" />
 				<p:selectOneMenu id="typeId"
 					value="#{ProjectJpaController.selectedType}"
 					title="#{bundle.CreateProjectTitle_type}" lazy="true">
+					<f:selectItem itemLabel="--Select Type--" itemValue=""
+						noSelectionOption="true" />
 					<f:selectItems value="#{ProjectJpaController.types}" />
 				</p:selectOneMenu>
 				<p:fileUpload value="#{ProjectJpaController.file}" mode="simple" />
 			</h:panelGrid>
 			<br />
-			 <h:commandLink action="#{ProjectJpaController.create}"
-				value="#{bundle.CreateProjectSaveLink}" /> 
+			<h:commandLink action="#{ProjectJpaController.create}"
+				value="#{bundle.CreateProjectSaveLink}" />
 		</h:form>
 	</ui:define>
 </ui:composition>
