@@ -17,7 +17,7 @@ import com.research.repositories.project.DocsRepository;
 import com.research.service.interfaces.DocsService;
 import com.research.service.interfaces.ProjectService;
 
-@Scope(value = "session")
+@Scope(value = "request")
 @Component(value = "ViewProjectJpaController")
 @ELBeanName(value = "ViewProjectJpaController")
 @Join(path = "/project", to = "/project/View.xhtml")
@@ -36,9 +36,9 @@ public class ViewProjectJpaController {
 	
 	@PostConstruct
 	public void init(){
-		projectDto = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
-		if (projectDto == null) {
-			throw new RuntimeException();
+		ProjectDto temp = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
+		if (temp != null) {
+			projectDto = temp;
 		}
 //		projectDto = projectService.findOne((long) 38);
 	}

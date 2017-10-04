@@ -19,10 +19,12 @@
 
 
 
-			<p:dataTable value="#{ListProjectJpaController.items}" var="item"
+			<p:dataTable value="#{ListProjectJpaController.model}" var="item"
 				resizableColumns="true" border="0" cellpadding="2" cellspacing="0"
 				rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all"
-				>
+				rows="10" paginator="true" lazy="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
 				<p:column headerText="Title">
 					<h:outputText value="#{item.title}" />
 				</p:column>

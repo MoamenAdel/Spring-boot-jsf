@@ -17,4 +17,8 @@ public interface ProjectService extends BaseService<Project> {
 	List<ProjectTypeDto> getProjectTypes();
 	
 	ProjectDto findOne(Long id);
+	
+	List<ProjectDto> getProjectPage(int first, int pageSize);
+	
+	long count();
 }
