@@ -16,8 +16,45 @@
 			<h:messages errorStyle="color: red" infoStyle="color: green"
 				layout="table" />
 		</h:panelGroup>
+		<p:dialog header="Add Task" widgetVar="dlg" position="center center"
+			onShow="PF('dlg').initPosition()" modal="true" closeOnEscape="true"
+			resizable="false">
+			<h:form>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="#{bundle.CreateTaskLabel_name}" for="name" />
+					<p:inputText id="name" value="#{TasksJpaController.selected.name}"
+						title="#{bundle.CreateTaskTitle_name}" />
+					<p:outputLabel value="#{bundle.CreateTaskLabel_durationPerMonth}"
+						for="durationPerMonth" />
+					<p:inputText id="durationPerMonth"
+						value="#{TasksJpaController.selected.duration}"
+						title="#{bundle.CreateTaskTitle_durationPerMonth}" />
+					<p:outputLabel value="#{bundle.CreateTaskLabel_startDate}"
+						for="startDate" />
+					<p:calendar id="startDate"
+						value="#{TasksJpaController.selected.startDate}"
+						title="#{bundle.CreateTaskTitle_startDate}" pattern="d MMM yyyy"
+						effect="fold">
+						<f:convertDateTime pattern="d MMM yyyy" />
+					</p:calendar>
+					<p:outputLabel value="#{bundle.CreateTaskLabel_endDate}"
+						for="endDate" />
+					<p:calendar id="endDate"
+						value="#{TasksJpaController.selected.endDate}"
+						title="#{bundle.CreateTaskTitle_endDate}" pattern="d MMM yyyy"
+						effect="fold">
+						<f:convertDateTime pattern="d MMM yyyy" />
+					</p:calendar>
+					<f:facet name="footer">
+						<p:commandButton value="Add"
+							action="#{TasksJpaController.addTask}" oncomplete="dlg.hide();" />
+					</f:facet>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 
-		<p:dataTable id="Matrix" resizableColumns="true" scrollable="true" scrollWidth="80%" scrollHeight="80%" 
+		<p:dataTable id="Matrix" resizableColumns="true" scrollable="true"
+			scrollWidth="80%" scrollHeight="80%"
 			value="#{ViewLfmJpaController.selected.tasksDtoCollection}"
 			var="item" resizeMode="expand"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
@@ -34,7 +71,7 @@
 			</f:facet>
 			<p:column headerText="Index" colspan="1">
 				<c:forEach var="i" begin="1" end="#{ViewLfmJpaController.listSize}">
-				<p:outputLabel value="#{i}"></p:outputLabel>
+					<p:outputLabel value="#{i}"></p:outputLabel>
 				</c:forEach>
 			</p:column>
 			<p:column headerText="Task Title">
@@ -59,6 +96,8 @@
 				</ui:repeat>
 			</p:column>
 		</p:dataTable>
+			<p:commandButton value="Add Task" oncomplete="PF('dlg').show()"></p:commandButton>
+
 	</ui:define>
 </ui:composition>
 

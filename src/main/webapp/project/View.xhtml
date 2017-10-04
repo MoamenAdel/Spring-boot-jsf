@@ -21,77 +21,72 @@
 				<thead></thead>
 				<tbody>
 					<tr>
-						<td><h:outputLabel value="#{bundle.CreateProjectLabel_title}"
-								for="title" /></td>
-						<td><p:outputLabel id="title"
+						<td width="30%"><h:outputLabel
+								value="#{bundle.CreateProjectLabel_title}" for="title" /></td>
+						<td width="70%"><p:outputLabel id="title"
 								value="#{ViewProjectJpaController.projectDto.title}"
 								title="#{bundle.CreateProjectTitle_title}" readonly="true" /></td>
 					</tr>
 					<tr>
-						<td><p:outputLabel
+						<td width="30%"><p:outputLabel
 								value="#{bundle.CreateProjectLabel_applicantName}"
 								for="applicantName" /></td>
-						<td><p:outputLabel id="applicantName"
+						<td width="70%"><p:outputLabel id="applicantName"
 								value="#{ViewProjectJpaController.projectDto.applicantName}"
 								title="#{bundle.CreateProjectTitle_applicantName}"
 								readonly="true" /></td>
 					</tr>
 					<tr>
-						<td><p:outputLabel
+						<td width="30%"><p:outputLabel
 								value="#{bundle.CreateProjectLabel_apllicantOrg}"
 								for="apllicantOrg" /></td>
-						<td><p:outputLabel id="apllicantOrg"
+						<td width="70%"><p:outputLabel id="apllicantOrg"
 								value="#{ViewProjectJpaController.projectDto.applicantOrganization}"
 								title="#{bundle.CreateProjectTitle_apllicantOrg}"
 								readonly="true" /></td>
-
-
 					</tr>
 					<tr>
-						<td><p:outputLabel
+						<td width="30%"><p:outputLabel
 								value="#{bundle.CreateProjectLabel_budget}" for="budget" /></td>
-						<td><p:outputLabel id="budget"
+						<td width="70%"><p:outputLabel id="budget"
 								value="#{ViewProjectJpaController.projectDto.budget}"
 								title="#{bundle.CreateProjectTitle_budget}" readonly="true" /></td>
-
 					</tr>
 					<tr>
-						<td><p:outputLabel
+						<td width="30%"><p:outputLabel
 								value="#{bundle.CreateProjectLabel_submissionDate}"
 								for="submissionDate" /></td>
-
-
-						<td><p:outputLabel id="submissionDate"
+						<td width="70%"><p:outputLabel id="submissionDate"
 								value="#{ViewProjectJpaController.projectDto.submissionDate}"
 								title="#{bundle.CreateProjectTitle_submissionDate}"
 								readonly="true">
 								<f:convertDateTime pattern="d MMM yyyy" />
 							</p:outputLabel></td>
-
 					</tr>
 					<tr>
-						<td><p:outputLabel
+						<td width="30%"><p:outputLabel
 								value="#{bundle.CreateProjectLabel_abbreviation}"
 								for="abbreviation" /></td>
 
-						<td><p:outputLabel id="abbreviation"
+						<td width="70%"><p:outputLabel id="abbreviation"
 								value="#{ViewProjectJpaController.projectDto.abbreviation}"
 								title="#{bundle.CreateProjectTitle_abbreviation}"
 								readonly="true" /></td>
 					</tr>
 					<tr>
-						<td><p:outputLabel value="#{bundle.CreateProjectLabel_Type}"
-								for="typeId" /></td>
-						<td><p:outputLabel id="typeId"
+						<td width="30%"><p:outputLabel
+								value="#{bundle.CreateProjectLabel_Type}" for="typeId" /></td>
+						<td width="70%"><p:outputLabel id="typeId"
 								value="#{ViewProjectJpaController.projectDto.type}"
 								readonly="true"></p:outputLabel></td>
 					</tr>
 				</tbody>
 			</table>
 
-			<br/><br/>
-			<p:commandButton action="#{ViewProjectJpaController.viewLfm}" value="view LFM"
-				styleClass="btn btn-primary" />
+			<br />
+			<br />
+			<p:commandButton action="#{ViewProjectJpaController.viewLfm}"
+				value="view LFM" styleClass="btn btn-primary" />
 
 		</h:form>
 	</ui:define>

@@ -42,7 +42,7 @@ import org.springframework.stereotype.Component;
  * @author Moamenovic
  */
 
-@Scope(value = "request")
+@Scope(value = "session")
 @Component(value = "ProjectJpaController")
 @ELBeanName(value = "ProjectJpaController")
 @Join(path = "/project", to = "/project/Create.xhtml")
