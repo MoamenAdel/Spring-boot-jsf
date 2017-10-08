@@ -10,7 +10,6 @@ import javax.annotation.PostConstruct;
 import com.research.dto.project.TaskDTO;
 import com.research.service.interfaces.TasksService;
 
-import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Component;
 @Scope(value = "session")
 @Component(value = "TasksJpaController")
 @ELBeanName(value = "TasksJpaController")
-@Join(path = "/task", to = "/task/Create.xhtml")
 public class TasksJpaController implements Serializable {
 
 	/**
