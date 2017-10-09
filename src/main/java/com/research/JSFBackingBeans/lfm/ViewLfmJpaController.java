@@ -15,7 +15,9 @@ import com.research.service.interfaces.LFMService;
 import com.research.service.interfaces.TasksService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -43,7 +45,7 @@ import com.lowagie.text.Phrase;
  *
  * @author Moamenovic
  */
-@Scope(value = "session")
+@Scope(value = "view")
 @Component(value = "ViewLfmJpaController")
 @ManagedBean
 @ViewScoped
@@ -63,21 +65,6 @@ public class ViewLfmJpaController implements Serializable {
 	private TaskDTO newTaskDTO = new TaskDTO();
 
 	public ViewLfmJpaController() {
-		numberOfMonths = 0;
-
-		for (int i = 0; i < 7; i++) {
-			TaskDTO taskDto = new TaskDTO(new String("task" + i), dt1.format(new Date()), dt1.format(new Date()), 2);
-			TasksExpectedOutcomesDto teo1 = new TasksExpectedOutcomesDto("outcome1");
-			TasksExpectedOutcomesDto teo2 = new TasksExpectedOutcomesDto("outcome2");
-			TasksExpectedOutcomesDto teo3 = new TasksExpectedOutcomesDto("outcome3");
-			taskDto.getTasksExpectedOutcomesCollection().add(teo1);
-			taskDto.getTasksExpectedOutcomesCollection().add(teo2);
-			taskDto.getTasksExpectedOutcomesCollection().add(teo3);
-			selected.getTasksDtoCollection().add(taskDto);
-			numberOfMonths += taskDto.getDuration();
-			listSize = selected.getTasksDtoCollection().size();
-
-		}
 	}
 
 	@PostConstruct
@@ -86,13 +73,32 @@ public class ViewLfmJpaController implements Serializable {
 		if (projectDto == null || projectDto.getId() == null) {
 			throw new RuntimeException();
 		}
+		calculateMonths();
+	}
+	
+	private void calculateMonths(){
 		selected = lfmService.findByProjectId(projectDto.getId());
 		List<TaskDTO> taskDTOs = (List<TaskDTO>) selected.getTasksDtoCollection();
 		numberOfMonths = 0;
+		Date endDate = taskDTOs.get(0).getEndDate();
+		Date startDate = taskDTOs.get(0).getStartDate();
 		for (TaskDTO taskDTO : taskDTOs) {
-			numberOfMonths += taskDTO.getDuration();
+			if (endDate.compareTo(taskDTO.getEndDate()) <= 0 ){
+				endDate = taskDTO.getEndDate();
+			}
+			if (startDate.compareTo(taskDTO.getStartDate()) <= 0){
+				startDate = taskDTO.getStartDate();
+			}
 		}
-
+		
+		Calendar calStart = new GregorianCalendar();
+		calStart.setTime(startDate);
+		Calendar calEnd = new GregorianCalendar();
+		calEnd.setTime(endDate);
+		
+		int yearDef = calEnd.get(Calendar.YEAR) - calStart.get(Calendar.YEAR);
+		numberOfMonths = yearDef * 12 + calEnd.get(Calendar.MONTH) - calStart.get(Calendar.MONTH);
+		
 	}
 
 	public String addTask() {
@@ -102,8 +108,12 @@ public class ViewLfmJpaController implements Serializable {
 			teod.setExpectation(str);
 			newTaskDTO.getTasksExpectedOutcomesCollection().add(teod);
 		}
-		tasksService.addTask(newTaskDTO);
+		newTaskDTO.setLfmId(selected.getId());
+		newTaskDTO = tasksService.addTask(newTaskDTO);
+		newTaskDTO.setFormatedEndDate(dt1.format(newTaskDTO.getEndDate()));
+		newTaskDTO.setFormatedStartDate(dt1.format(newTaskDTO.getStartDate()));
 		selected.getTasksDtoCollection().add(newTaskDTO);
+		calculateMonths();
 		newTaskDTO = new TaskDTO();
 		return null;
 	}

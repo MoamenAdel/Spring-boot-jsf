@@ -6,10 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.research.dto.project.TaskDTO;
+import com.research.dto.project.TasksExpectedOutcomesDto;
+import com.research.entity.Lfm;
 import com.research.entity.Tasks;
+import com.research.exception.BusinessException;
 import com.research.repositories.BaseRepository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -19,6 +24,7 @@ import org.dozer.DozerBeanMapper;
 import com.research.repositories.project.TaskRepo;
 import com.research.service.BaseServiceImpl;
 import com.research.service.interfaces.LFMService;
+import com.research.service.interfaces.TasksExpectedOutcomesService;
 import com.research.service.interfaces.TasksService;
 
 @Service
@@ -31,30 +37,51 @@ public class TasksServiceImpl extends BaseServiceImpl<Tasks> implements TasksSer
 	DozerBeanMapper mapper;
 	@Autowired
 	LFMService lfmService;
+	@Autowired
+	private TasksExpectedOutcomesService tasksExpectedOutcomesService;
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public BaseRepository getBaseRepo() {
-		// TODO Auto-generated method stub
 		return taskRepo;
 	}
 
 	@Override
 	public TaskDTO addTask(TaskDTO taskDTO) {
+		validateDTO(taskDTO);
+		Lfm lfm = lfmService.getLFM(taskDTO.getLfmId());
 		Tasks tasks = new Tasks();
-		tasks.setCreateDate(taskDTO.getCreationDate());
-		tasks.setDuration(taskDTO.getDuration());
+		tasks.setLfmId(lfm);
+		Date start = taskDTO.getStartDate();
+		Date end = taskDTO.getEndDate();
+		Calendar calStart = new GregorianCalendar();
+		calStart.setTime(start);
+		Calendar calEnd = new GregorianCalendar();
+		calEnd.setTime(end);
+		int yearDif = calEnd.get(Calendar.YEAR) - calStart.get(Calendar.YEAR);
+		int duration = yearDif * 12 +  calEnd.get(Calendar.MONTH) - calStart.get(Calendar.MONTH);
+		System.out.println("The Duration is : " + duration);
+		if (duration <= 0){
+			throw new BusinessException();
+		}
+		tasks.setDuration(duration);
 		tasks.setEndDate(taskDTO.getEndDate());
 		tasks.setName(taskDTO.getName());
-		// Lfm lfm = new Lfm();
-		// lfm.setId(taskDTO.getId());
-		// tasks.setLfmId(lfm);
 		tasks.setStartDate(new Date());
 		tasks = this.save(tasks);
-		this.save(tasks);
 		taskDTO.setId(tasks.getId());
-		// TODO
+		taskDTO.setDuration(duration);
+		for (TasksExpectedOutcomesDto expectedTaskDto : taskDTO.getTasksExpectedOutcomesCollection()){
+			expectedTaskDto.setTaskDTO(taskDTO);
+		}
+		tasksExpectedOutcomesService.save(taskDTO.getTasksExpectedOutcomesCollection(), tasks);
 		return taskDTO;
+	}
+
+	private void validateDTO(TaskDTO taskDTO) {
+		if (taskDTO.getEndDate().compareTo(taskDTO.getStartDate()) <= 0) {
+			throw new BusinessException();
+		}
 	}
 
 	@Override

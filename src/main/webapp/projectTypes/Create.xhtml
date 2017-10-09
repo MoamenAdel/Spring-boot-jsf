@@ -16,14 +16,9 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <p:outputLabel value="#{bundle.CreateProjectTypesLabel_type}" for="type" />
-                    <p:inputText id="type" value="#{ProjectTypesJpaController.selected.type}" title="#{bundle.CreateProjectTypesTitle_type}" />
-                    <p:outputLabel value="#{bundle.CreateProjectTypesLabel_description}" for="description" />
-                    <p:inputText id="description" value="#{ProjectTypesJpaController.selected.description}" title="#{bundle.CreateProjectTypesTitle_description}" />
-         
+                   <p:outputLabel value="#{test2.str}"/>
                 </h:panelGrid>
                 <br />
-                <p:commandLink action="#{ProjectTypesJpaController.create}" value="#{bundle.CreateProjectTypesSaveLink}" />
         
             </h:form>
         </ui:define>

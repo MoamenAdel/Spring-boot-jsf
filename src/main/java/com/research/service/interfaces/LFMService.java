@@ -6,7 +6,7 @@ import com.research.entity.Lfm;
 public interface LFMService {
 	LFMDto addLFMDto(LFMDto lFMDto);
 
-	LFMDto getLFM();
+	Lfm getLFM(Long id);
 
 	LFMDto updateLFM(LFMDto lFMDto);
 
