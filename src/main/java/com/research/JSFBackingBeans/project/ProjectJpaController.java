@@ -48,6 +48,7 @@ import org.springframework.stereotype.Component;
  * @author Moamenovic
  */
 
+//@Scope(value = "session")
 @Scope(value = "view")
 @Component(value = "ProjectJpaController")
 @ManagedBean(name = "ProjectJpaController")

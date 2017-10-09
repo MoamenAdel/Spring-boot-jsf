@@ -7,8 +7,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-
 import javax.persistence.EntityManagerFactory;
+
+
 
 @PropertySource("research.properties")
 @EnableJpaRepositories("com")

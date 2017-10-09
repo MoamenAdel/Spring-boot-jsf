@@ -5,17 +5,21 @@ import com.research.dto.project.ProjectDto;
 import com.research.dto.project.TaskDTO;
 import com.research.dto.project.TasksExpectedOutcomesDto;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import com.research.service.impl.LFMServiceImpl;
 import com.research.service.interfaces.LFMService;
+import com.research.service.interfaces.TasksService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -26,11 +30,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.Phrase;
+
 /**
  *
  * @author Moamenovic
  */
-@Scope(value = "request")
+@Scope(value = "session")
 @Component(value = "ViewLfmJpaController")
 @ManagedBean
 @ViewScoped
@@ -42,6 +55,12 @@ public class ViewLfmJpaController implements Serializable {
 	private int numberOfMonths, listSize;
 	private ProjectDto projectDto;
 	DateFormat dt1 = new SimpleDateFormat("d MMM yyyy");
+
+	private List<String> outcomes;
+	@Autowired
+	private TasksService tasksService;
+
+	private TaskDTO newTaskDTO = new TaskDTO();
 
 	public ViewLfmJpaController() {
 		numberOfMonths = 0;
@@ -60,19 +79,33 @@ public class ViewLfmJpaController implements Serializable {
 
 		}
 	}
-	
+
 	@PostConstruct
-	public void init(){
-		projectDto = (ProjectDto)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
-		if (projectDto == null || projectDto.getId() == null){
+	public void init() {
+		projectDto = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
+		if (projectDto == null || projectDto.getId() == null) {
 			throw new RuntimeException();
 		}
 		selected = lfmService.findByProjectId(projectDto.getId());
 		List<TaskDTO> taskDTOs = (List<TaskDTO>) selected.getTasksDtoCollection();
 		numberOfMonths = 0;
-		for (TaskDTO taskDTO : taskDTOs){
+		for (TaskDTO taskDTO : taskDTOs) {
 			numberOfMonths += taskDTO.getDuration();
 		}
+
+	}
+
+	public String addTask() {
+
+		for (String str : outcomes) {
+			TasksExpectedOutcomesDto teod = new TasksExpectedOutcomesDto();
+			teod.setExpectation(str);
+			newTaskDTO.getTasksExpectedOutcomesCollection().add(teod);
+		}
+		tasksService.addTask(newTaskDTO);
+		selected.getTasksDtoCollection().add(newTaskDTO);
+		newTaskDTO = new TaskDTO();
+		return null;
 	}
 
 	public LFMDto getSelected() {
@@ -100,7 +133,7 @@ public class ViewLfmJpaController implements Serializable {
 	}
 
 	public ProjectDto getProjectDto() {
-		if (projectDto == null){
+		if (projectDto == null) {
 			projectDto = new ProjectDto();
 		}
 		return projectDto;
@@ -110,5 +143,24 @@ public class ViewLfmJpaController implements Serializable {
 		this.projectDto = projectDto;
 	}
 
+	public TaskDTO getNewTaskDTO() {
+		return newTaskDTO;
+	}
+
+	public void setNewTaskDTO(TaskDTO newTaskDTO) {
+		this.newTaskDTO = newTaskDTO;
+	}
+
+	public List<String> getOutcomes() {
+
+		if (outcomes == null) {
+			outcomes = new ArrayList<String>();
+		}
+		return outcomes;
+	}
+
+	public void setOutcomes(List<String> outcomes) {
+		this.outcomes = outcomes;
+	}
 
 }

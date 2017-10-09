@@ -16,49 +16,94 @@
 			<h:messages errorStyle="color: red" infoStyle="color: green"
 				layout="table" />
 		</h:panelGroup>
+		<h:form>
+			<p:dialog header="Add Task" widgetVar="dlg" position="center center"
+				onShow="PF('dlg').initPosition()" modal="true" closeOnEscape="true"
+				resizable="false">
 
-		<p:dataTable id="Matrix" resizableColumns="true" scrollable="true" scrollWidth="80%" scrollHeight="80%" 
-			value="#{ViewLfmJpaController.selected.tasksDtoCollection}"
-			var="item" resizeMode="expand"
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-			paginator="true" rows="10" style="margin-bottom:20px">
-			<f:facet name="Exporters">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="#{bundle.CreateTaskLabel_name}" for="name" />
+					<p:inputText id="name"
+						value="#{ViewLfmJpaController.newTaskDTO.name}"
+						title="#{bundle.CreateTaskTitle_name}" />
+					<p:outputLabel value="#{bundle.CreateTaskLabel_durationPerMonth}"
+						for="durationPerMonth" />
+					<p:inputText id="durationPerMonth"
+						value="#{ViewLfmJpaController.newTaskDTO.duration}"
+						title="#{bundle.CreateTaskTitle_durationPerMonth}" />
+					<p:outputLabel value="#{bundle.CreateTaskLabel_startDate}"
+						for="startDate" />
+					<p:calendar id="startDate"
+						value="#{ViewLfmJpaController.newTaskDTO.startDate}"
+						title="#{bundle.CreateTaskTitle_startDate}" pattern="d MMM yyyy"
+						effect="fold">
+						<f:convertDateTime pattern="d MMM yyyy" />
+					</p:calendar>
+					<p:outputLabel value="#{bundle.CreateTaskLabel_endDate}"
+						for="endDate" />
+					<p:calendar id="endDate"
+						value="#{ViewLfmJpaController.newTaskDTO.endDate}"
+						title="#{bundle.CreateTaskTitle_endDate}" pattern="d MMM yyyy"
+						effect="fold">
+						<f:convertDateTime pattern="d MMM yyyy" />
+					</p:calendar>
+					<p:outputLabel for="Outcomes" value="Outcomes " />
+					<p:chips id="Outcomes" value="#{ViewLfmJpaController.outcomes}" />
+					<f:facet name="footer">
 
-
-				<h:commandLink>
-					<p:graphicImage name="/demo/images/pdf.png" width="24" />
-					<p:dataExporter type="pdf" target="Matrix" fileName="cars" />
-				</h:commandLink>
-
-
-			</f:facet>
-			<p:column headerText="Index" colspan="1">
-				<c:forEach var="i" begin="1" end="#{ViewLfmJpaController.listSize}">
-				<p:outputLabel value="#{i}"></p:outputLabel>
+						<p:commandButton value="Add"
+							actionListener="#{ViewLfmJpaController.addTask}" update="Matrix"
+							oncomplete="PF('dlg').hide()" />
+					</f:facet>
+				</h:panelGrid>
+			</p:dialog>
+			<p:dataTable id="Matrix" resizableColumns="true" scrollable="true"
+				scrollHeight="80%"
+				value="#{ViewLfmJpaController.selected.tasksDtoCollection}"
+				var="item" resizeMode="expand" 
+				style="margin-bottom:20px">
+				<f:facet name="header">
+			   		Logical Framewrok Matrix
+			   </f:facet>
+				<p:column headerText="Index" colspan="1">
+					<c:forEach var="i" begin="1" end="#{ViewLfmJpaController.listSize}">
+						<p:outputLabel value="#{i}"></p:outputLabel>
+					</c:forEach>
+				</p:column>
+				<p:column headerText="Task Title">
+					<p:outputLabel value="#{item.name}"></p:outputLabel>
+				</p:column>
+				<p:column headerText="Start Date" colspan="3">
+					<p:outputLabel value="#{item.formatedStartDate}"></p:outputLabel>
+				</p:column>
+				<p:column headerText="End Date" colspan="3">
+					<p:outputLabel value="#{item.formatedEndDate}"></p:outputLabel>
+				</p:column>
+				<c:forEach var="i" begin="1"
+					end="#{ViewLfmJpaController.numberOfMonths}">
+					<p:column headerText="m ${i}" colspan="1"></p:column>
 				</c:forEach>
-			</p:column>
-			<p:column headerText="Task Title">
-				<p:outputLabel value="#{item.name}"></p:outputLabel>
-			</p:column>
-			<p:column headerText="Start Date" colspan="3">
-				<p:outputLabel value="#{item.formatedStartDate}"></p:outputLabel>
-			</p:column>
-			<p:column headerText="End Date" colspan="3">
-				<p:outputLabel value="#{item.formatedEndDate}"></p:outputLabel>
-			</p:column>
-			<c:forEach var="i" begin="1"
-				end="#{ViewLfmJpaController.numberOfMonths}">
-				<p:column headerText="m ${i}" colspan="1"></p:column>
-			</c:forEach>
-			<p:column headerText="Exptected Outcomes" colspan="4">
-				<ui:repeat value="#{item.tasksExpectedOutcomesCollection}" var="teo">
-					<li><h:outputText value="#{teo.expectation}">
+				<p:column headerText="Exptected Outcomes" colspan="4">
+					<ui:repeat value="#{item.tasksExpectedOutcomesCollection}"
+						var="teo">
+						<li><h:outputText value="#{teo.expectation}">
 
 
-						</h:outputText></li>
-				</ui:repeat>
-			</p:column>
-		</p:dataTable>
+							</h:outputText></li>
+					</ui:repeat>
+				</p:column>
+			</p:dataTable>
+
+			<p:commandButton value="Add Task" oncomplete="PF('dlg').show()"></p:commandButton>
+
+			<p:outputLabel>Download table :  </p:outputLabel>
+			<h:commandLink ajax="true" id="imgpdf">
+				<p:graphicImage library="images" name="pdf.jpg" width="24" />
+				<p:dataExporter type="pdf" target="Matrix" fileName="lfm" />
+			</h:commandLink>
+			<p:tooltip id="toolTipGrow" for="imgpdf" value="export matrix as pdf"
+				showEffect="clip" hideEffect="explode" position="left" />
+		</h:form>
 	</ui:define>
 </ui:composition>
 
