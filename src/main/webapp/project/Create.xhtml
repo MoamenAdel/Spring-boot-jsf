@@ -16,27 +16,36 @@
 				layout="table" />
 		</h:panelGroup>
 		<h:form enctype="multipart/form-data">
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="2" cellpadding="5">
 				<h:outputLabel value="#{bundle.CreateProjectLabel_title}"
 					for="title" />
 				<p:inputText id="title"
 					value="#{ProjectJpaController.selected.title}"
 					title="#{bundle.CreateProjectTitle_title}" />
+				<h:outputLabel />
+				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectLabel_applicantName}"
 					for="applicantName" />
 				<p:inputText id="applicantName"
 					value="#{ProjectJpaController.selected.applicantName}"
 					title="#{bundle.CreateProjectTitle_applicantName}" />
+				<h:outputLabel />
+				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectLabel_apllicantOrg}"
 					for="apllicantOrg" />
 				<p:inputText id="apllicantOrg"
 					value="#{ProjectJpaController.selected.applicantOrganization}"
 					title="#{bundle.CreateProjectTitle_apllicantOrg}" />
+				<h:outputLabel />
+				<h:outputLabel />
+
 				<p:outputLabel value="#{bundle.CreateProjectLabel_budget}"
 					for="budget" />
 				<p:inputText id="budget"
 					value="#{ProjectJpaController.selected.budget}"
 					title="#{bundle.CreateProjectTitle_budget}" />
+				<h:outputLabel />
+				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectLabel_submissionDate}"
 					for="submissionDate" />
 				<p:calendar id="submissionDate"
@@ -45,29 +54,28 @@
 					title="#{bundle.CreateProjectTitle_submissionDate}" effect="fold">
 					<f:convertDateTime pattern="d MMM yyyy" />
 				</p:calendar>
+				<h:outputLabel />
+				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectLabel_abbreviation}"
 					for="abbreviation" />
 				<p:inputText id="abbreviation"
 					value="#{ProjectJpaController.selected.abbreviation}"
 					title="#{bundle.CreateProjectTitle_abbreviation}" />
+				<h:outputLabel />
+				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectLabel_Type}"
 					for="typeId" />
 				<p:selectOneMenu id="typeId"
 					value="#{ProjectJpaController.selectedType}"
 					title="#{bundle.CreateProjectTitle_type}" lazy="true">
-					<f:selectItem itemLabel="--Select Type--" itemValue=""
+					<f:selectItem itemLabel="--Select Project Type--" itemValue=""
 						noSelectionOption="true" />
 					<f:selectItems value="#{ProjectJpaController.types}" />
 				</p:selectOneMenu>
 			</h:panelGrid>
 			<br />
-			<h:commandLink action="#{ProjectJpaController.create}"
-				value="#{bundle.CreateProjectSaveLink}" ajax="false" />
-			<p:commandButton value="Download" ajax="false"
-				icon="ui-icon-arrowthick-1-s">
-				<p:fileDownload value="#{ProjectJpaController.file}" />
-			</p:commandButton>
-		</h:form>
+		<p:commandButton action="#{ProjectJpaController.create}" value="#{bundle.CreateProjectSaveLink}" styleClass="btn btn-primary" />
+</h:form>
 	</ui:define>
 </ui:composition>
 
