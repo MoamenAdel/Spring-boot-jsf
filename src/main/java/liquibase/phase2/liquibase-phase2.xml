@@ -1,0 +1,48 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="201710041029" author="abdelrhman">
+		<addNotNullConstraint tableName="PROJECT" columnName="TITLE"/>
+		<addUniqueConstraint tableName="PROJECT" columnNames="TITLE"/>
+	</changeSet>
+	<changeSet id="201710041032" author="abdelrhman">
+		<addNotNullConstraint tableName="PROJECT" columnName="APPLICANT_NAME"/>
+	</changeSet>
+	<changeSet id="201710041034" author="abdelrhman">
+		<addNotNullConstraint tableName="PROJECT" columnName="SUBMISSION_DATE"/>
+	</changeSet>
+	<changeSet id="201710041036" author="abdelrhman">
+		<addNotNullConstraint tableName="PROJECT" columnName="TYPE_ID"/>
+	</changeSet>
+	<changeSet id="201710041038" author="abdelrhman">
+		<addNotNullConstraint tableName="LFM" columnName="PROJECT_ID"/>
+	</changeSet>
+	<changeSet id="201710041040" author="abdelrhman">
+		<addNotNullConstraint tableName="DOCS" columnName="DOC_PATH"/>
+	</changeSet>
+	<changeSet id="201710041042" author="abdelrhman">
+		<addNotNullConstraint tableName="PROJECT_TYPES" columnName="type"/>
+	</changeSet>
+	<changeSet id="201710041044" author="abdelrhman">
+		<addNotNullConstraint tableName="PROJECT_TYPES" columnName="DESCRIPTION"/>
+	</changeSet>
+	<changeSet id="201710041046" author="abdelrhman">
+		<addNotNullConstraint tableName="TASKS" columnName="NAME"/>
+	</changeSet>
+	<changeSet id="201710041048" author="abdelrhman">
+		<addNotNullConstraint tableName="TASKS" columnName="START_DATE"/>
+	</changeSet>
+	<changeSet id="201710041050" author="abdelrhman">
+		<addNotNullConstraint tableName="TASKS" columnName="END_DATE"/>
+	</changeSet>
+	<changeSet id="201710041052" author="abdelrhman">
+		<addNotNullConstraint tableName="TASKS" columnName="LFM_ID"/>
+	</changeSet>
+	<changeSet id="201710041054" author="abdelrhman">
+		<addNotNullConstraint tableName="TASKS_EXPECTED_OUTCOMES" columnName="EXPECTATION"/>
+	</changeSet>
+</databaseChangeLog>

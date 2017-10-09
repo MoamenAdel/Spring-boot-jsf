@@ -16,6 +16,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.ocpsoft.rewrite.annotation.Join;
@@ -30,8 +32,8 @@ import org.springframework.stereotype.Component;
  */
 @Scope(value = "request")
 @Component(value = "ViewLfmJpaController")
-@ELBeanName(value = "ViewLfmJpaController")
-@Join(path = "/lfm", to = "/lfm/View.xhtml")
+@ManagedBean
+@ViewScoped
 public class ViewLfmJpaController implements Serializable {
 	private static final long serialVersionUID = -9006980830134897009L;
 	@Autowired

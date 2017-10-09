@@ -59,11 +59,14 @@
 						noSelectionOption="true" />
 					<f:selectItems value="#{ProjectJpaController.types}" />
 				</p:selectOneMenu>
-				<p:fileUpload value="#{ProjectJpaController.file}" mode="simple" />
 			</h:panelGrid>
 			<br />
 			<h:commandLink action="#{ProjectJpaController.create}"
-				value="#{bundle.CreateProjectSaveLink}" />
+				value="#{bundle.CreateProjectSaveLink}" ajax="false" />
+			<p:commandButton value="Download" ajax="false"
+				icon="ui-icon-arrowthick-1-s">
+				<p:fileDownload value="#{ProjectJpaController.file}" />
+			</p:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

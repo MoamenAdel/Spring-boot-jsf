@@ -19,7 +19,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -27,10 +31,10 @@ import javax.faces.context.FacesContext;
  * @author Moamenovic
  */
 
-@Scope(value = "session")
-@Component(value = "ListProjectJpaController")
-@ELBeanName(value = "ListProjectJpaController")
-@Join(path = "/listProject", to = "/project/List.xhtml")
+@Scope(value = "view")
+@Component("ListProjectJpaController")
+@ManagedBean(value = "ListProjectJpaController")
+@ViewScoped
 public class ListProjectJpaController implements Serializable {
 	private static final long serialVersionUID = 9006980830134897009L;
 	@Autowired
@@ -39,7 +43,8 @@ public class ListProjectJpaController implements Serializable {
 	private List<ProjectDto> items;
 	@Autowired
 	private ProjectLazyDataModel model;
-
+	private Double random = Math.random();
+	
 	@PostConstruct
 	public void loadData() {
 //		items = projectService.getAllProjects();

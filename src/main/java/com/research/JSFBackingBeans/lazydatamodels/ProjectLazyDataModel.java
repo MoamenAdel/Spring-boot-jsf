@@ -15,7 +15,7 @@ import com.research.dto.project.ProjectDto;
 import com.research.entity.Project;
 import com.research.service.interfaces.ProjectService;
 
-@Component
+@Component("prototype")
 public class ProjectLazyDataModel extends LazyDataModel<ProjectDto> {
 
 	@Autowired

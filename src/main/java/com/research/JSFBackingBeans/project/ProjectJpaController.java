@@ -12,6 +12,10 @@ import java.io.Serializable;
 import java.nio.file.Files;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +37,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,10 +48,10 @@ import org.springframework.stereotype.Component;
  * @author Moamenovic
  */
 
-@Scope(value = "request")
+@Scope(value = "view")
 @Component(value = "ProjectJpaController")
-@ELBeanName(value = "ProjectJpaController")
-@Join(path = "/project", to = "/project/Create.xhtml")
+@ManagedBean(name = "ProjectJpaController")
+@ViewScoped
 public class ProjectJpaController implements Serializable {
 
 	/**
@@ -60,7 +66,8 @@ public class ProjectJpaController implements Serializable {
 	private List<ProjectTypeDto> projectTypes = new ArrayList<>();
 	private List<String> types = new ArrayList<>();
 	private String selectedType = new String();
-	private UploadedFile file;
+//	private UploadedFile file;
+	private StreamedContent file;
 
 	@PostConstruct
 	public void getProjectTypeList() throws ServletException, IOException{
@@ -69,8 +76,20 @@ public class ProjectJpaController implements Serializable {
 		for (ProjectTypeDto projectType : projectTypes){
 			types.add(projectType.getType());
 		}
+		
+		InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/Test.txt");
+		file = new DefaultStreamedContent(stream);
+		System.out.println("ready");
 	}
 	
+	public StreamedContent getFile() {
+		return file;
+	}
+
+	public void setFile(StreamedContent file) {
+		this.file = file;
+	}
+
 	public List<String> getTypes() {
 		return types;
 	}
@@ -104,27 +123,19 @@ public class ProjectJpaController implements Serializable {
 	}
 
 	public String create() throws ServletException, IOException{
-		if (file != null){
-//			Files.copy(file.getInputstream(), new File("D:/", file.getFileName()).toPath());
-			FileUtils.copyInputStreamToFile(file.getInputstream(), new File("D:/File", file.getFileName()));
-			}
+//		if (file != null){
+////			Files.copy(file.getInputstream(), new File("D:/", file.getFileName()).toPath());
+//			FileUtils.copyInputStreamToFile(file.getInputstream(), new File("D:/File", file.getFileName()));
+//			}
 		selected.setType(selectedType);
 		projectService.addProject(selected);
 		selected = new ProjectDto();
 		return null;
 	}
-	
-	public static Collection<Part> getAllParts(Part part) throws ServletException, IOException {
-	    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-	    return request.getParts().stream().filter(p -> part.getName().equals(p.getName())).collect(Collectors.toList());
-	}
+//	
+//	public static Collection<Part> getAllParts(Part part) throws ServletException, IOException {
+//	    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//	    return request.getParts().stream().filter(p -> part.getName().equals(p.getName())).collect(Collectors.toList());
+//	}
 
-	public UploadedFile getFile() {
-		return file;
-	}
-
-	public void setFile(UploadedFile file) {
-		this.file = file;
-	}
-	
 }

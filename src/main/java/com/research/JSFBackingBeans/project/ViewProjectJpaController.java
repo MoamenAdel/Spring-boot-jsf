@@ -1,7 +1,10 @@
 package com.research.JSFBackingBeans.project;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
@@ -17,10 +20,10 @@ import com.research.repositories.project.DocsRepository;
 import com.research.service.interfaces.DocsService;
 import com.research.service.interfaces.ProjectService;
 
-@Scope(value = "request")
-@Component(value = "ViewProjectJpaController")
-@ELBeanName(value = "ViewProjectJpaController")
-@Join(path = "/project", to = "/project/View.xhtml")
+@Scope(value = "view")
+@Component("ViewProjectJpaController")
+@ManagedBean(value = "ViewProjectJpaController")
+@ViewScoped
 public class ViewProjectJpaController {
 
 	@Autowired
@@ -30,12 +33,13 @@ public class ViewProjectJpaController {
 	private ProjectDto projectDto;
 	private UploadedFile file;
 	private Boolean editable = false;
+	private Double random = Math.random();
 	
 	public ViewProjectJpaController() {
 	}
 	
 	@PostConstruct
-	public void init(){
+	public void doPost(){
 		ProjectDto temp = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
 		if (temp != null) {
 			projectDto = temp;
@@ -44,6 +48,12 @@ public class ViewProjectJpaController {
 	}
 
 	public ProjectDto getProjectDto() {
+//		if (projectDto == null){
+//			ProjectDto temp = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
+//			if (temp != null) {
+//				projectDto = temp;
+//			}
+//		}
 		return projectDto;
 	}
 
