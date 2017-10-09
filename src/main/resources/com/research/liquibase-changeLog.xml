@@ -6,4 +6,5 @@
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
 	<include file="classpath:liquibase/phase1/liquibase-phase1.xml"/>
+	<include file="classpath:liquibase/phase2/liquibase-phase2.xml"/>
 </databaseChangeLog>

@@ -72,13 +72,10 @@
 						noSelectionOption="true" />
 					<f:selectItems value="#{ProjectJpaController.types}" />
 				</p:selectOneMenu>
-				<p:fileUpload value="#{ProjectJpaController.file}" mode="simple" />
 			</h:panelGrid>
 			<br />
-
-			<p:commandButton action="#{ProjectJpaController.create}"
-				value="#{bundle.CreateProjectSaveLink}" styleClass="btn btn-primary" />
-		</h:form>
+		<p:commandButton action="#{ProjectJpaController.create}" value="#{bundle.CreateProjectSaveLink}" styleClass="btn btn-primary" />
+</h:form>
 	</ui:define>
 </ui:composition>
 
