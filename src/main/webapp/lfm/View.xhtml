@@ -26,11 +26,8 @@
 					<p:inputText id="name"
 						value="#{ViewLfmJpaController.newTaskDTO.name}"
 						title="#{bundle.CreateTaskTitle_name}" />
-					<p:outputLabel value="#{bundle.CreateTaskLabel_durationPerMonth}"
-						for="durationPerMonth" />
-					<p:inputText id="durationPerMonth"
-						value="#{ViewLfmJpaController.newTaskDTO.duration}"
-						title="#{bundle.CreateTaskTitle_durationPerMonth}" />
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel></p:outputLabel>
 					<p:outputLabel value="#{bundle.CreateTaskLabel_startDate}"
 						for="startDate" />
 					<p:calendar id="startDate"
@@ -39,6 +36,8 @@
 						effect="fold">
 						<f:convertDateTime pattern="d MMM yyyy" />
 					</p:calendar>
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel></p:outputLabel>
 					<p:outputLabel value="#{bundle.CreateTaskLabel_endDate}"
 						for="endDate" />
 					<p:calendar id="endDate"
@@ -47,24 +46,37 @@
 						effect="fold">
 						<f:convertDateTime pattern="d MMM yyyy" />
 					</p:calendar>
-					<p:outputLabel for="Outcomes" value="Outcomes " />
-					<p:chips id="Outcomes" value="#{ViewLfmJpaController.outcomes}" />
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel for="Outcomes" value="Outcomes:" />
+					<p:chips id="Outcomes" value="#{ViewLfmJpaController.outcomes}"
+						style="height:50px" />
+					<p:tooltip id="toolTipGrow2" for="Outcomes"
+						value="enter outcome and press enter" position="right" />
 					<f:facet name="footer">
-
 						<p:commandButton value="Add"
 							actionListener="#{ViewLfmJpaController.addTask}" update="Matrix"
-							oncomplete="PF('dlg').hide()" />
+							oncomplete="PF('dlg').hide()" styleClass="btn btn-primary" />
 					</f:facet>
 				</h:panelGrid>
 			</p:dialog>
 			<p:dataTable id="Matrix" resizableColumns="true" scrollable="true"
 				scrollHeight="80%"
 				value="#{ViewLfmJpaController.selected.tasksDtoCollection}"
-				var="item" resizeMode="expand" 
-				style="margin-bottom:20px">
+				var="item" resizeMode="expand" style="margin-bottom:20px">
 				<f:facet name="header">
 			   		Logical Framewrok Matrix
-			   </f:facet>
+			   		<div align="right">
+						<h:commandLink ajax="true" id="imgpdf">
+							<p:graphicImage library="images" name="pdf.png" width="24" />
+							<p:dataExporter type="pdf" target="Matrix" fileName="lfm" />
+						</h:commandLink>
+						<p:tooltip id="toolTipGrow" for="imgpdf"
+							value="export matrix as pdf" showEffect="clip"
+							hideEffect="explode" position="left" />
+					</div>
+					
+				</f:facet>
 				<p:column headerText="Index" colspan="1">
 					<c:forEach var="i" begin="1" end="#{ViewLfmJpaController.listSize}">
 						<p:outputLabel value="#{i}"></p:outputLabel>
@@ -86,23 +98,15 @@
 				<p:column headerText="Exptected Outcomes" colspan="4">
 					<ui:repeat value="#{item.tasksExpectedOutcomesCollection}"
 						var="teo">
-						<li><h:outputText value="#{teo.expectation}">
-
-
-							</h:outputText></li>
+						<li><h:outputText value="#{teo.expectation}"></h:outputText>
+						</li>
 					</ui:repeat>
 				</p:column>
 			</p:dataTable>
 
-			<p:commandButton value="Add Task" oncomplete="PF('dlg').show()"></p:commandButton>
+			<p:commandButton value="Add Task" oncomplete="PF('dlg').show()"
+				styleClass="btn btn-primary"></p:commandButton>
 
-			<p:outputLabel>Download table :  </p:outputLabel>
-			<h:commandLink ajax="true" id="imgpdf">
-				<p:graphicImage library="images" name="pdf.jpg" width="24" />
-				<p:dataExporter type="pdf" target="Matrix" fileName="lfm" />
-			</h:commandLink>
-			<p:tooltip id="toolTipGrow" for="imgpdf" value="export matrix as pdf"
-				showEffect="clip" hideEffect="explode" position="left" />
 		</h:form>
 	</ui:define>
 </ui:composition>
