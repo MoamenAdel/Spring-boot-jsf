@@ -6,7 +6,11 @@
 package com.research.JSFBackingBeans.task;
 
 import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import com.research.dto.project.TaskDTO;
 import com.research.service.interfaces.TasksService;
 
@@ -19,9 +23,11 @@ import org.springframework.stereotype.Component;
  *
  * @author Moamenovic
  */
-@Scope(value = "session")
+@Scope(value = "view")
 @Component(value = "TasksJpaController")
-@ELBeanName(value = "TasksJpaController")
+//@ELBeanName(value = "TasksJpaController")
+@ManagedBean(name = "TasksJpaController")
+@ViewScoped
 public class TasksJpaController implements Serializable {
 
 	/**

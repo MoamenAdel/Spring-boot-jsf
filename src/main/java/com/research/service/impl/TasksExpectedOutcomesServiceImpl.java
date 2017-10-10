@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.research.dto.project.TasksExpectedOutcomesDto;
+import com.research.entity.Tasks;
 import com.research.entity.TasksExpectedOutcomes;
 import com.research.repositories.BaseRepository;
 import com.research.repositories.project.TasksExpectedOutcomesRepo;
@@ -83,6 +84,20 @@ public class TasksExpectedOutcomesServiceImpl extends BaseServiceImpl<TasksExpec
 			tasksExpectedOutcomesDtos.add(tasksExpectedOutcomesDto);
 		}	
 		return tasksExpectedOutcomesDtos;
+	}
+
+	@Override
+	public List<TasksExpectedOutcomesDto> save(
+			List<TasksExpectedOutcomesDto> list, Tasks task) {
+		List<TasksExpectedOutcomes> tasksExpectedOutcomes = new ArrayList<>();
+		for (TasksExpectedOutcomesDto expectedOutcomeDto: list){
+			TasksExpectedOutcomes expectedOutcome = new TasksExpectedOutcomes();
+			expectedOutcome.setExpectation(expectedOutcomeDto.getExpectation());
+			expectedOutcome.setTaskId(task);
+			tasksExpectedOutcomes.add(expectedOutcome);
+		}
+		tasksExpectedOutcomesRepo.save(tasksExpectedOutcomes);
+		return list;
 	}
 
 }

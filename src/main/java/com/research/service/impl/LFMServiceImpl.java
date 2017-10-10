@@ -20,6 +20,7 @@ import com.research.entity.Lfm;
 import com.research.entity.Project;
 import com.research.entity.Tasks;
 import com.research.entity.TasksExpectedOutcomes;
+import com.research.exception.BusinessException;
 import com.research.repositories.BaseRepository;
 import com.research.repositories.project.LFMRepo;
 import com.research.service.BaseServiceImpl;
@@ -60,9 +61,12 @@ public class LFMServiceImpl extends BaseServiceImpl<Lfm> implements LFMService {
 	}
 
 	@Override
-	public LFMDto getLFM() {
-		// TODO Auto-generated method stub
-		return null;
+	public Lfm getLFM(Long id) {
+		Lfm lfm = lFMRepo.findOne(id);
+		if (lfm == null){
+			throw new BusinessException();
+		}
+		return lfm;
 	}
 
 	@Override
