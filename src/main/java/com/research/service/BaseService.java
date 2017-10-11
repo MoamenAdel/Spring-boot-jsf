@@ -21,5 +21,5 @@ public interface BaseService<T extends BaseEntity> {
 	void delete(Iterable<T> list);
 
 	public BaseRepository getBaseRepo();
-
+        Long count();
 }
