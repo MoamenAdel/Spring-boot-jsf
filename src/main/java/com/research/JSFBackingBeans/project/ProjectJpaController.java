@@ -48,7 +48,7 @@ import org.springframework.stereotype.Component;
  * @author Moamenovic
  */
 
-//@Scope(value = "session")
+// @Scope(value = "session")
 @Scope(value = "view")
 @Component(value = "ProjectJpaController")
 @ManagedBean(name = "ProjectJpaController")
@@ -67,22 +67,22 @@ public class ProjectJpaController implements Serializable {
 	private List<ProjectTypeDto> projectTypes = new ArrayList<>();
 	private List<String> types = new ArrayList<>();
 	private String selectedType = new String();
-//	private UploadedFile file;
+	// private UploadedFile file;
 	private StreamedContent file;
 
 	@PostConstruct
-	public void getProjectTypeList() throws ServletException, IOException{
+	public void getProjectTypeList() throws ServletException, IOException {
 		projectTypes = projectService.getProjectTypes();
-		
-		for (ProjectTypeDto projectType : projectTypes){
+
+		for (ProjectTypeDto projectType : projectTypes) {
 			types.add(projectType.getType());
 		}
-		
+
 		InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/Test.txt");
 		file = new DefaultStreamedContent(stream);
 		System.out.println("ready");
 	}
-	
+
 	public StreamedContent getFile() {
 		return file;
 	}
@@ -123,20 +123,25 @@ public class ProjectJpaController implements Serializable {
 		this.selected = selected;
 	}
 
-	public String create() throws ServletException, IOException{
-//		if (file != null){
-////			Files.copy(file.getInputstream(), new File("D:/", file.getFileName()).toPath());
-//			FileUtils.copyInputStreamToFile(file.getInputstream(), new File("D:/File", file.getFileName()));
-//			}
+	public String create() throws ServletException, IOException {
+		// if (file != null){
+		//// Files.copy(file.getInputstream(), new File("D:/",
+		// file.getFileName()).toPath());
+		// FileUtils.copyInputStreamToFile(file.getInputstream(), new
+		// File("D:/File", file.getFileName()));
+		// }
 		selected.setType(selectedType);
 		projectService.addProject(selected);
 		selected = new ProjectDto();
 		return null;
 	}
-//	
-//	public static Collection<Part> getAllParts(Part part) throws ServletException, IOException {
-//	    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//	    return request.getParts().stream().filter(p -> part.getName().equals(p.getName())).collect(Collectors.toList());
-//	}
+	//
+	// public static Collection<Part> getAllParts(Part part) throws
+	// ServletException, IOException {
+	// HttpServletRequest request = (HttpServletRequest)
+	// FacesContext.getCurrentInstance().getExternalContext().getRequest();
+	// return request.getParts().stream().filter(p ->
+	// part.getName().equals(p.getName())).collect(Collectors.toList());
+	// }
 
 }

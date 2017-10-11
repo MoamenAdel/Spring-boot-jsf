@@ -4,9 +4,8 @@ import java.util.Date;
 
 import com.research.dto.BaseDto;
 
-public class ProjectDto extends BaseDto {
+public class ProjectDto extends BaseDto implements Comparable<ProjectDto>{
 
-	
 	/**
 	 * 
 	 */
@@ -19,7 +18,8 @@ public class ProjectDto extends BaseDto {
 	private Double budget;
 	private String abbreviation;
 	private Long ProjectTypeId;
-	
+	private Date createDate;
+
 	public Long getProjectTypeId() {
 		return ProjectTypeId;
 	}
@@ -36,13 +36,13 @@ public class ProjectDto extends BaseDto {
 		this.abbreviation = abbreviation;
 	}
 
-//	public Long getId() {
-//		return id;
-//	}
-//
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
+	// public Long getId() {
+	// return id;
+	// }
+	//
+	// public void setId(Long id) {
+	// this.id = id;
+	// }
 
 	public String getTitle() {
 		return title;
@@ -90,6 +90,19 @@ public class ProjectDto extends BaseDto {
 
 	public void setSubmissionDate(Date submissionDate) {
 		this.submissionDate = submissionDate;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	@Override
+	public int compareTo(ProjectDto o) {
+		 return getCreateDate().compareTo(o.getCreateDate());
 	}
 
 }

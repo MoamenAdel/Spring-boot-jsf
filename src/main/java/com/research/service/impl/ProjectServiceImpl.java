@@ -1,6 +1,8 @@
 package com.research.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -57,13 +59,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	public List<ProjectDto> getAllProjects() {
 		List<ProjectDto> projectsDto = new ArrayList<>();
-//		PageRequest request = new PageRequest(1, 1);
-//		Page<Project> projectsPage = projectRepo.findAll(request);
+		// PageRequest request = new PageRequest(1, 1);
+		// Page<Project> projectsPage = projectRepo.findAll(request);
 		List<Project> projects = getAll();
-		if (projects == null){
+		if (projects == null) {
 			throw new RuntimeException();
 		}
-		for(Project project : projects){
+		for (Project project : projects) {
 			ProjectDto projectDto = new ProjectDto();
 			mapper.map(project, projectDto);
 			projectDto.setType(project.getTypeId().getType());
@@ -86,7 +88,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	public ProjectDto findOne(Long id) {
 		Project project = projectRepo.findOne(id);
-		if (project == null){
+		if (project == null) {
 			throw new RuntimeException();
 		}
 		return mapper.map(project, ProjectDto.class);
@@ -99,15 +101,17 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		PageRequest request = new PageRequest(first, pageSize);
 		Page<Project> projectsPage = projectRepo.findAll(request);
 		List<Project> projects = projectsPage.getContent();
-		if (projects == null){
+		if (projects == null) {
 			throw new RuntimeException();
 		}
-		for(Project project : projects){
+		for (Project project : projects) {
 			ProjectDto projectDto = new ProjectDto();
 			mapper.map(project, projectDto);
 			projectDto.setType(project.getTypeId().getType());
 			projectsDto.add(projectDto);
 		}
+
+		Collections.reverse(projectsDto);
 		return projectsDto;
 	}
 
@@ -115,7 +119,5 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public long count() {
 		return projectRepo.count();
 	}
-	
-	
 
 }
