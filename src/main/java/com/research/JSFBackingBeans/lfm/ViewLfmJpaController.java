@@ -21,6 +21,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -142,6 +143,7 @@ public class ViewLfmJpaController implements Serializable {
 		selected.getTasksDtoCollection().add(newTaskDTO);
 		calculateMonths();
 		newTaskDTO = new TaskDTO();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", "Task added successfully"));
 		return null;
 	}
 

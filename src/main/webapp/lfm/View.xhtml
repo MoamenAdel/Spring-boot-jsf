@@ -17,6 +17,7 @@
 				layout="table" />
 		</h:panelGroup>
 		<h:form>
+			<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true" ></p:growl>
 			<p:dialog header="Add Task" widgetVar="dlg" position="center center"
 				onShow="PF('dlg').initPosition()" modal="true" closeOnEscape="true"
 				resizable="false">

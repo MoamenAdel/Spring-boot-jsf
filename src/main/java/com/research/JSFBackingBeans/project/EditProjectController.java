@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -50,6 +51,7 @@ public class EditProjectController {
 		projectDto.setType(selectedType);
 		projectService.updateProject(projectDto);
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", "Project successfully edited"));
 		return "View";
 	}
 

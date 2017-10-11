@@ -106,7 +106,7 @@ public class TasksServiceImpl extends BaseServiceImpl<Tasks> implements TasksSer
 			throw new BusinessException();
 		}
 			
-		if (projectEnd.compareTo(startDate) < 0 || projectEnd.compareTo(endDate) < 0){
+		if (projectEnd.before(startDate) || projectEnd.before(endDate)){
 			throw new BusinessException();
 		}
 	}
