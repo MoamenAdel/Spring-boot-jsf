@@ -5,7 +5,7 @@
 
 	<mapping>
 		<class-a>com.research.entity.ProjectTypes</class-a>
-		<class-b>com.research.dto.ProjectTypeDto</class-b>
+		<class-b>com.research.dto.project.ProjectTypeDto</class-b>
 	</mapping>
 
 </mappings>

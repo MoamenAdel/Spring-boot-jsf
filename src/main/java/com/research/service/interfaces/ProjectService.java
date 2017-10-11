@@ -20,5 +20,5 @@ public interface ProjectService extends BaseService<Project> {
 	
 	List<ProjectDto> getProjectPage(int first, int pageSize);
 	
-	long count();
+	
 }

@@ -10,5 +10,6 @@ public interface ProjectTypeService extends BaseService<ProjectTypes> {
 	ProjectTypeDto addProjectType(ProjectTypeDto projectTypeDto);
 	List<ProjectTypeDto> getAllProjectTypes();
 	ProjectTypes findByType(String type);
+        List<ProjectTypeDto> getPage(int first,int pagesize);
 
 }

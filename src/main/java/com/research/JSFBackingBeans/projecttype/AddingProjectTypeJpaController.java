@@ -3,28 +3,34 @@ package com.research.JSFBackingBeans.projecttype;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component(value = "test2")
+import com.research.dto.project.ProjectTypeDto;
+import com.research.service.interfaces.ProjectService;
+import com.research.service.interfaces.ProjectTypeService;
+
+@Component(value = "AddProjectTypeController")
 @Scope(value = "view")
-@ManagedBean(name = "test2")
+@ManagedBean(name = "AddProjectTypeController")
 @ViewScoped
 public class AddingProjectTypeJpaController {
 
-	private String str = "helloworld";
-	
-	public String getStr() {
-		return str;
+	ProjectTypeDto projectTypeDto = new ProjectTypeDto();
+	@Autowired
+	ProjectTypeService projectTypeService;
+
+	public void addProject() {
+		projectTypeService.addProjectType(projectTypeDto);
 	}
 
-	public void setStr(String str) {
-		this.str = str;
+	public ProjectTypeDto getProjectTypeDto() {
+		return projectTypeDto;
 	}
 
-	public AddingProjectTypeJpaController() {
-		System.out.println("testing");
+	public void setProjectTypeDto(ProjectTypeDto projectTypeDto) {
+		this.projectTypeDto = projectTypeDto;
 	}
-	
-	
+
 }
