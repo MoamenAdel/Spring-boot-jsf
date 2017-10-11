@@ -47,18 +47,18 @@ import com.lowagie.text.Phrase;
 @ManagedBean
 @ViewScoped
 public class ViewLfmJpaController implements Serializable {
+	
 	private static final long serialVersionUID = -9006980830134897009L;
 	@Autowired
 	LFMService lfmService;
+	@Autowired
+	private TasksService tasksService;
+	
 	private LFMDto selected = new LFMDto();
 	private int numberOfMonths, listSize;
 	private ProjectDto projectDto;
 	DateFormat dt1 = new SimpleDateFormat("d MMM yyyy");
-
 	private List<String> outcomes;
-	@Autowired
-	private TasksService tasksService;
-
 	private TaskDTO newTaskDTO = new TaskDTO();
 
 	public ViewLfmJpaController() {
@@ -131,9 +131,11 @@ public class ViewLfmJpaController implements Serializable {
 		for (String str : outcomes) {
 			TasksExpectedOutcomesDto teod = new TasksExpectedOutcomesDto();
 			teod.setExpectation(str);
+			teod.setTaskDTO(newTaskDTO);
 			newTaskDTO.getTasksExpectedOutcomesCollection().add(teod);
 		}
 		newTaskDTO.setLfmId(selected.getId());
+		newTaskDTO.setProjectEndDate(projectDto.getSubmissionDate());
 		newTaskDTO = tasksService.addTask(newTaskDTO);
 		newTaskDTO.setFormatedEndDate(dt1.format(newTaskDTO.getEndDate()));
 		newTaskDTO.setFormatedStartDate(dt1.format(newTaskDTO.getStartDate()));

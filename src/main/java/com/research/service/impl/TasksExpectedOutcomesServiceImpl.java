@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.research.dto.project.TasksExpectedOutcomesDto;
 import com.research.entity.Tasks;
 import com.research.entity.TasksExpectedOutcomes;
+import com.research.exception.BusinessException;
 import com.research.repositories.BaseRepository;
 import com.research.repositories.project.TasksExpectedOutcomesRepo;
 import com.research.service.BaseServiceImpl;
@@ -92,12 +93,19 @@ public class TasksExpectedOutcomesServiceImpl extends BaseServiceImpl<TasksExpec
 		List<TasksExpectedOutcomes> tasksExpectedOutcomes = new ArrayList<>();
 		for (TasksExpectedOutcomesDto expectedOutcomeDto: list){
 			TasksExpectedOutcomes expectedOutcome = new TasksExpectedOutcomes();
+			if (expectedOutcomeDto.getExpectation() == null || task == null || task.getId() == null){
+				throw new BusinessException();
+			}
 			expectedOutcome.setExpectation(expectedOutcomeDto.getExpectation());
 			expectedOutcome.setTaskId(task);
 			tasksExpectedOutcomes.add(expectedOutcome);
 		}
 		tasksExpectedOutcomesRepo.save(tasksExpectedOutcomes);
 		return list;
+	}
+	
+	private void validateDTO(TasksExpectedOutcomesDto dto){
+		
 	}
 
 }

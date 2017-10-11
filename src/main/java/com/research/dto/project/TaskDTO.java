@@ -24,6 +24,15 @@ public class TaskDTO extends BaseDto implements Serializable {
 	private List<TasksExpectedOutcomesDto> tasksExpectedOutcomesCollection;
 	private int startMonth = 0;
 	private int endMonth = 0;
+	private Date projectEndDate ;
+
+	public Date getProjectEndDate() {
+		return projectEndDate;
+	}
+
+	public void setProjectEndDate(Date projectEndDate) {
+		this.projectEndDate = projectEndDate;
+	}
 
 	public TaskDTO(String name, String formatedStartDate,
 			String formatedEndDate, Integer duration) {
