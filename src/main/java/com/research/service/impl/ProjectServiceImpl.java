@@ -1,9 +1,10 @@
 package com.research.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Date;
+import java.util.GregorianCalendar;import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -17,6 +18,7 @@ import com.research.dto.project.ProjectDto;
 import com.research.dto.project.ProjectTypeDto;
 import com.research.entity.Lfm;
 import com.research.entity.Project;
+import com.research.exception.BusinessException;
 import com.research.repositories.BaseRepository;
 import com.research.repositories.project.ProjectRepo;
 import com.research.service.BaseServiceImpl;
@@ -45,6 +47,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 
 	@Override
 	public ProjectDto addProject(ProjectDto projectDto) {
+		validateDto(projectDto);
 		Project project = new Project();
 		mapper.map(projectDto, project);
 		project.setId(null);
@@ -76,8 +79,15 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 
 	@Override
 	public ProjectDto updateProject(ProjectDto projectDto) {
-		// TODO Auto-generated method stub
-		return null;
+		validateDto(projectDto);
+		Project project = projectRepo.findOne(projectDto.getId());
+		if (project == null){
+			throw new BusinessException();
+		}
+		mapper.map(projectDto, project);
+		projectRepo.save(project);
+		mapper.map(project, projectDto);
+		return projectDto;
 	}
 
 	@Override
@@ -119,5 +129,26 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public long count() {
 		return projectRepo.count();
 	}
-
+private void validateDto(ProjectDto dto){
+		if (dto.getTitle() == null || dto.getTitle().equals("")
+				|| dto.getAbbreviation() == null || dto.getAbbreviation().equals("")
+				|| dto.getApplicantName() == null || dto.getApplicantName().equals("")
+				|| dto.getApplicantOrganization() == null || dto.getApplicantOrganization().equals("")
+				|| dto.getBudget() == null || dto.getBudget() == 0
+				|| dto.getType() == null || dto.getType().equals("")
+				|| dto.getSubmissionDate() == null){
+			throw new BusinessException();
+		}
+		Calendar now = new GregorianCalendar();
+		now.setTime(new Date());
+		Calendar projectCal = new GregorianCalendar();
+		projectCal.setTime(dto.getSubmissionDate());
+		
+		int yearDef = projectCal.get(Calendar.YEAR) - now.get(Calendar.YEAR);
+		int diff = yearDef * 12 + projectCal.get(Calendar.MONTH) - now.get(Calendar.MONTH);
+		
+		if (diff <= 0){
+			throw new BusinessException();
+		}
+}
 }

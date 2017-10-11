@@ -67,7 +67,7 @@ public class TasksServiceImpl extends BaseServiceImpl<Tasks> implements TasksSer
 		tasks.setDuration(duration);
 		tasks.setEndDate(taskDTO.getEndDate());
 		tasks.setName(taskDTO.getName());
-		tasks.setStartDate(new Date());
+		tasks.setStartDate(taskDTO.getStartDate());
 		tasks = this.save(tasks);
 		taskDTO.setId(tasks.getId());
 		taskDTO.setDuration(duration);
@@ -79,7 +79,34 @@ public class TasksServiceImpl extends BaseServiceImpl<Tasks> implements TasksSer
 	}
 
 	private void validateDTO(TaskDTO taskDTO) {
-		if (taskDTO.getEndDate().compareTo(taskDTO.getStartDate()) <= 0) {
+		
+		if (taskDTO.getName() == null){
+			throw new BusinessException();
+		}
+		List<TasksExpectedOutcomesDto> list = taskDTO.getTasksExpectedOutcomesCollection();
+		
+		if (list == null || list.isEmpty()){
+			throw new BusinessException();
+		}
+		if (taskDTO.getStartDate() == null || taskDTO.getEndDate() == null){
+			throw new BusinessException();
+		}
+		
+		Date projectEnd = taskDTO.getProjectEndDate();
+		if (projectEnd == null){
+			throw new BusinessException();
+		}
+		Date startDate = taskDTO.getStartDate();
+		Date endDate = taskDTO.getEndDate();
+		if (endDate.compareTo(startDate) <= 0) {
+			throw new BusinessException();
+		}
+		
+		if (startDate.compareTo(new Date()) < 0 || endDate.compareTo(new Date()) < 0){
+			throw new BusinessException();
+		}
+			
+		if (projectEnd.compareTo(startDate) < 0 || projectEnd.compareTo(endDate) < 0){
 			throw new BusinessException();
 		}
 	}

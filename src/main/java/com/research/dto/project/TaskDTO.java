@@ -22,16 +22,46 @@ public class TaskDTO extends BaseDto implements Serializable {
 	private String formatedStartDate;
 	private String formatedEndDate;
 	private List<TasksExpectedOutcomesDto> tasksExpectedOutcomesCollection;
+	private int startMonth = 0;
+	private int endMonth = 0;
+	private Date projectEndDate ;
 
-	public TaskDTO(String name, String formatedStartDate, String formatedEndDate, Integer duration) {
+	public Date getProjectEndDate() {
+		return projectEndDate;
+	}
+
+	public void setProjectEndDate(Date projectEndDate) {
+		this.projectEndDate = projectEndDate;
+	}
+
+	public TaskDTO(String name, String formatedStartDate,
+			String formatedEndDate, Integer duration) {
 		this.duration = duration;
 		this.name = name;
 		this.formatedStartDate = formatedStartDate;
 		this.formatedEndDate = formatedEndDate;
 	}
-	public TaskDTO(){
-		
+
+	public TaskDTO() {
+
 	}
+	
+	public int getStartMonth() {
+		return startMonth;
+	}
+
+	public void setStartMonth(int startMonth) {
+		this.startMonth = startMonth;
+	}
+
+	public int getEndMonth() {
+		return endMonth;
+	}
+
+	public void setEndMonth(int endMonth) {
+		this.endMonth = endMonth;
+	}
+
 
 	public String getName() {
 		return name;
@@ -135,7 +165,8 @@ public class TaskDTO extends BaseDto implements Serializable {
 		return tasksExpectedOutcomesCollection;
 	}
 
-	public void setTasksExpectedOutcomesCollection(List<TasksExpectedOutcomesDto> tasksExpectedOutcomesCollection) {
+	public void setTasksExpectedOutcomesCollection(
+			List<TasksExpectedOutcomesDto> tasksExpectedOutcomesCollection) {
 		this.tasksExpectedOutcomesCollection = tasksExpectedOutcomesCollection;
 	}
 

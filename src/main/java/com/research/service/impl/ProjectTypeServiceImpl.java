@@ -42,6 +42,9 @@ public class ProjectTypeServiceImpl extends BaseServiceImpl<ProjectTypes> implem
 	public List<ProjectTypeDto> getAllProjectTypes() {
 		List<ProjectTypeDto> projectTypeDtos = new ArrayList<>();
 		List<ProjectTypes> projectTypes = getAll();
+		if (projectTypes == null || projectTypes.isEmpty()){
+			throw new BusinessException();
+		}
 		for (ProjectTypes projectType : projectTypes){
 			ProjectTypeDto projectTypeDto = new ProjectTypeDto();
 			mapper.map(projectType, projectTypeDto);
