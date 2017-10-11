@@ -19,15 +19,25 @@
 
 
 
-			<p:dataTable value="#{ListProjectJpaController.model}" var="item"
-				resizableColumns="true" border="0" cellpadding="2" cellspacing="0"
-				rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all"
-				rows="10" paginator="true" lazy="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
-				<p:column headerText="Title">
-					<h:outputText value="#{item.title}" />
-				</p:column>
+			<p:dataTable id="table1" value="#{ListProjectJpaController.model}"
+				var="item" resizableColumns="true" border="0" cellpadding="2"
+				cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row"
+				rules="all" rows="10" paginator="true" lazy="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+				rowsPerPageTemplate="5,10,15">
+					<f:facet name="header">
+					List All projects
+					<div align="right">
+						<h:commandLink ajax="true" id="imgpdf">
+							<p:graphicImage library="images" name="pdf.png" width="24" />
+							<p:dataExporter type="pdf" target="table1" fileName="lfm" />
+						</h:commandLink>
+						<p:tooltip id="toolTipGrow" for="imgpdf"
+							value="All projects" showEffect="clip"
+							hideEffect="explode" position="left" />
+					</div>
+
+				</f:facet>
 				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListProjectTitle_title}" />
@@ -72,7 +82,7 @@
 					</f:facet>
 					<h:outputText value="#{item.type}" />
 				</p:column>
-				<p:column>
+				<p:column exportable="false">
 					<p:commandLink ajax="false" title="View"
 						action="#{ListProjectJpaController.viewProject(item)}">View</p:commandLink>
 				</p:column>
