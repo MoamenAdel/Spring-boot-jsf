@@ -24,6 +24,7 @@ import org.springframework.data.domain.PageRequest;
 @Transactional
 public class ProjectTypeServiceImpl extends BaseServiceImpl<ProjectTypes> implements ProjectTypeService {
 
+
     @Autowired
     DozerBeanMapper mapper;
     @Autowired
@@ -76,5 +77,8 @@ public class ProjectTypeServiceImpl extends BaseServiceImpl<ProjectTypes> implem
         }
         return projectTypeDtos;
     }
+
+	
+
 
 }

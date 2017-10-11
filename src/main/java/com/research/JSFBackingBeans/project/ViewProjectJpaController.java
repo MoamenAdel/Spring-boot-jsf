@@ -83,4 +83,8 @@ public class ViewProjectJpaController {
 		return null;
 	}
 	
+	public String editProject(){
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
+		return "Edit";
+	}
 }
