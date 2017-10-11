@@ -7,10 +7,10 @@
 
 	<changeSet id="201710041029" author="abdelrhman">
 		<addNotNullConstraint tableName="PROJECT" columnName="TITLE"/>
-		<addUniqueConstraint columnNames="PROJECT" tableName="TITLE"/>
+		<addUniqueConstraint tableName="PROJECT" columnNames="TITLE"/>
 	</changeSet>
 	<changeSet id="201710041032" author="abdelrhman">
-		<addNotNullConstraint tableName="PROJECT" columnName="APLLICANT_NAME"/>
+		<addNotNullConstraint tableName="PROJECT" columnName="APPLICANT_NAME"/>
 	</changeSet>
 	<changeSet id="201710041034" author="abdelrhman">
 		<addNotNullConstraint tableName="PROJECT" columnName="SUBMISSION_DATE"/>
@@ -25,10 +25,10 @@
 		<addNotNullConstraint tableName="DOCS" columnName="DOC_PATH"/>
 	</changeSet>
 	<changeSet id="201710041042" author="abdelrhman">
-		<addNotNullConstraint tableName="PROJECT_TYPE" columnName="type"/>
+		<addNotNullConstraint tableName="PROJECT_TYPES" columnName="type"/>
 	</changeSet>
 	<changeSet id="201710041044" author="abdelrhman">
-		<addNotNullConstraint tableName="PROJECT_TYPE" columnName="DESCRIPTION"/>
+		<addNotNullConstraint tableName="PROJECT_TYPES" columnName="DESCRIPTION"/>
 	</changeSet>
 	<changeSet id="201710041046" author="abdelrhman">
 		<addNotNullConstraint tableName="TASKS" columnName="NAME"/>

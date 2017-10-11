@@ -29,7 +29,7 @@ public class LiquibaseConfigurer {
 	@Bean
 	public SpringLiquibase liquibase() throws PropertyVetoException {
 	    SpringLiquibase liquibase = new SpringLiquibase();
-	    liquibase.setChangeLog("classpath:liquibase-changelog.xml");
+	    liquibase.setChangeLog(env.getProperty("database.liquibase.configuration"));
 	    liquibase.setDataSource(dataSource());
 	    liquibase.setDefaultSchema("research_center");
 	    return liquibase;
