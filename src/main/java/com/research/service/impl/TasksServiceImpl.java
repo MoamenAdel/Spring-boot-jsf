@@ -67,7 +67,7 @@ public class TasksServiceImpl extends BaseServiceImpl<Tasks> implements TasksSer
 		tasks.setDuration(duration);
 		tasks.setEndDate(taskDTO.getEndDate());
 		tasks.setName(taskDTO.getName());
-		tasks.setStartDate(new Date());
+		tasks.setStartDate(taskDTO.getStartDate());
 		tasks = this.save(tasks);
 		taskDTO.setId(tasks.getId());
 		taskDTO.setDuration(duration);

@@ -60,8 +60,7 @@
 			<p:dataTable id="Matrix" resizableColumns="true" scrollable="true"
 				scrollHeight="80%"
 				value="#{ViewLfmJpaController.selected.tasksDtoCollection}"
-				var="item" resizeMode="expand" 
-				style="margin-bottom:20px">
+				var="item" resizeMode="expand" style="margin-bottom:20px">
 				<f:facet name="header">
 			   		Logical Framewrok Matrix
 			   </f:facet>
@@ -81,7 +80,9 @@
 				</p:column>
 				<c:forEach var="i" begin="1"
 					end="#{ViewLfmJpaController.numberOfMonths}">
-					<p:column headerText="m ${i}" colspan="1"></p:column>
+					<p:column headerText="m ${i}" colspan="1">
+							<p:outputLabel value="x" rendered="#{item.endMonth ge i and item.startMonth le i}"></p:outputLabel>
+					</p:column>
 				</c:forEach>
 				<p:column headerText="Exptected Outcomes" colspan="4">
 					<ui:repeat value="#{item.tasksExpectedOutcomesCollection}"

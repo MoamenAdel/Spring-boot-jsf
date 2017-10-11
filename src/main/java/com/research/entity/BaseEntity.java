@@ -88,8 +88,4 @@ public abstract class BaseEntity implements Serializable {
 		this.setModifyDate(new Date());
 	}
 	
-	@PostLoad
-	public void onLoad(){
-		System.out.println(this.id + "//////////////////////////////");
-	}
 }
