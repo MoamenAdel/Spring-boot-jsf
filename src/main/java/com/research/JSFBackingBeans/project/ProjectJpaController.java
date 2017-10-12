@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.nio.file.Files;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -133,6 +134,7 @@ public class ProjectJpaController implements Serializable {
 		selected.setType(selectedType);
 		projectService.addProject(selected);
 		selected = new ProjectDto();
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Successful", "Project successfully Saved"));
 		return null;
 	}
 	//

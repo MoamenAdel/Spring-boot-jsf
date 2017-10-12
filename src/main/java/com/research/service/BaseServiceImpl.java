@@ -77,4 +77,10 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
 		// TODO Auto-generated method stub
 		checkBaseRepo().softDelete(list);
 	}
+
+    @Override
+    public Long count() {
+      return  checkBaseRepo().count();
+    }
+        
 }

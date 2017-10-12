@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,68 +15,37 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListProjectTypesEmpty}" rendered="#{projectTypesController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{projectTypesController.items.rowCount > 0}">
-                    <h:outputText value="#{projectTypesController.pagination.pageFirstItem + 1}..#{projectTypesController.pagination.pageLastItem + 1}/#{projectTypesController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{projectTypesController.previous}" value="#{bundle.Previous} #{projectTypesController.pagination.pageSize}" rendered="#{projectTypesController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{projectTypesController.next}" value="#{bundle.Next} #{projectTypesController.pagination.pageSize}" rendered="#{projectTypesController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{projectTypesController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProjectTypesTitle_type}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.type}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProjectTypesTitle_description}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.description}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProjectTypesTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProjectTypesTitle_createDate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.createDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProjectTypesTitle_modifyDate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.modifyDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProjectTypesTitle_retireDate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.retireDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{projectTypesController.prepareView}" value="#{bundle.ListProjectTypesViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{projectTypesController.prepareEdit}" value="#{bundle.ListProjectTypesEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{projectTypesController.destroy}" value="#{bundle.ListProjectTypesDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-     
+               	<p:dataTable id="table1" value="#{ListProjectTypeJpaController.model}"
+                             var="item" resizableColumns="true" 
+                             rows="10" paginator="true" lazy="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+                             rowsPerPageTemplate="5,10,15">
+                    <f:facet name="header">
+                        List All projects Type
+                        <div align="right">
+                            <h:commandLink ajax="true" id="imgpdf">
+                                <p:graphicImage library="images" name="pdf.png" width="24" />
+                                <p:dataExporter type="pdf" target="table1" fileName="lfm" />
+                            </h:commandLink>
+                            <p:tooltip id="toolTipGrow" for="imgpdf"
+                                       value="All projects" showEffect="clip"
+                                       hideEffect="explode" position="left" />
+                        </div>
+
+                    </f:facet>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{ListProjectTypesTitle_type}" />
+                        </f:facet>
+                        <h:outputText value="#{item.type}" />
+                    </p:column>
+                              <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{ListProjectTypesTitle_description}" />
+                        </f:facet>
+                        <h:outputText value="#{item.description}" />
+                    </p:column>
+                </p:dataTable>     
             </h:form>
         </ui:define>
     </ui:composition>

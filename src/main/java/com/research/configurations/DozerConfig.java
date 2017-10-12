@@ -16,8 +16,7 @@ public class DozerConfig {
 
 		DozerBeanMapper dozerBean = new DozerBeanMapper();
 		dozerBean.setMappingFiles(Arrays.<String>asList("classpath:Mapping/ProjectMapping.xml",
-				"classpath:Mapping/LFMMapping.xml", "classpath:Mapping/ProjectTypeMapping.xml","classpath:Mapping/TasksMapping.xml",
-				"classpath:Mapping/TasksExpectedOutcomesMapping.xml"));
+				 "classpath:Mapping/ProjectTypeMapping.xml"));
 
 		return dozerBean;
 	}

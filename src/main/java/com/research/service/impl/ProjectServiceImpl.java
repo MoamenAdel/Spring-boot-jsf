@@ -126,10 +126,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return projectsDto;
 	}
 
-	@Override
-	public long count() {
-		return projectRepo.count();
-	}
+
+
 
 	private void validateDto(ProjectDto dto) {
 		if (dto.getTitle() == null || dto.getTitle().equals("") || dto.getAbbreviation() == null

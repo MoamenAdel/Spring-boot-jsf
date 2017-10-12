@@ -23,7 +23,7 @@ public class ProjectLazyDataModel extends LazyDataModel<ProjectDto> {
 	
 	@PostConstruct
 	public void init(){
-		setRowCount((int) projectService.count());
+		setRowCount( projectService.count().intValue());
 	}
 	
 	@Override
