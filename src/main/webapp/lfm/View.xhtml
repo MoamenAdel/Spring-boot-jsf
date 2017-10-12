@@ -68,11 +68,11 @@
 			   		Logical Framewrok Matrix
 			   		<div align="right">
 						<h:commandLink ajax="true" id="imgpdf">
-							<p:graphicImage library="images" name="pdf.png" width="24" />
-							<p:dataExporter type="pdf" target="Matrix" fileName="lfm" />
+							<p:graphicImage library="images" name="xls.png" width="24" />
+							<p:dataExporter type="xls" target="Matrix" fileName="lfm"  />
 						</h:commandLink>
 						<p:tooltip id="toolTipGrow" for="imgpdf"
-							value="export matrix as pdf" showEffect="clip"
+							value="export matrix as xls" showEffect="clip"
 							hideEffect="explode" position="left" />
 					</div>
 					
@@ -97,7 +97,7 @@
 							<p:outputLabel value="x" rendered="#{item.endMonth ge i and item.startMonth le i}"></p:outputLabel>
 					</p:column>
 				</c:forEach>
-				<p:column headerText="Exptected Outcomes" colspan="4">
+				<p:column headerText="Exptected Outcomes" colspan="4" exportable="false">
 					<ui:repeat value="#{item.tasksExpectedOutcomesCollection}"
 						var="teo">
 						<li><h:outputText value="#{teo.expectation}"></h:outputText>

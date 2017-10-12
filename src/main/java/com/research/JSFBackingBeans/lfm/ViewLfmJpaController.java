@@ -37,7 +37,6 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.Phrase;
-
 /**
  *
  * @author Moamenovic

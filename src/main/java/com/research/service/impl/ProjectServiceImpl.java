@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;import java.util.List;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -81,7 +82,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public ProjectDto updateProject(ProjectDto projectDto) {
 		validateDto(projectDto);
 		Project project = projectRepo.findOne(projectDto.getId());
-		if (project == null){
+		if (project == null) {
 			throw new BusinessException();
 		}
 		mapper.map(projectDto, project);
@@ -129,26 +130,25 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public long count() {
 		return projectRepo.count();
 	}
-private void validateDto(ProjectDto dto){
-		if (dto.getTitle() == null || dto.getTitle().equals("")
-				|| dto.getAbbreviation() == null || dto.getAbbreviation().equals("")
-				|| dto.getApplicantName() == null || dto.getApplicantName().equals("")
-				|| dto.getApplicantOrganization() == null || dto.getApplicantOrganization().equals("")
-				|| dto.getBudget() == null || dto.getBudget() == 0
-				|| dto.getType() == null || dto.getType().equals("")
-				|| dto.getSubmissionDate() == null){
+
+	private void validateDto(ProjectDto dto) {
+		if (dto.getTitle() == null || dto.getTitle().equals("") || dto.getAbbreviation() == null
+				|| dto.getAbbreviation().equals("") || dto.getApplicantName() == null
+				|| dto.getApplicantName().equals("") || dto.getApplicantOrganization() == null
+				|| dto.getApplicantOrganization().equals("") || dto.getBudget() == null || dto.getBudget() == 0
+				|| dto.getType() == null || dto.getType().equals("") || dto.getSubmissionDate() == null) {
 			throw new BusinessException();
 		}
 		Calendar now = new GregorianCalendar();
 		now.setTime(new Date());
 		Calendar projectCal = new GregorianCalendar();
 		projectCal.setTime(dto.getSubmissionDate());
-		
+
 		int yearDef = projectCal.get(Calendar.YEAR) - now.get(Calendar.YEAR);
 		int diff = yearDef * 12 + projectCal.get(Calendar.MONTH) - now.get(Calendar.MONTH);
-		
-		if (diff <= 0){
+
+		if (diff <= 0) {
 			throw new BusinessException();
 		}
-}
+	}
 }
