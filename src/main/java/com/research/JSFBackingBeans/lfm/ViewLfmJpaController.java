@@ -48,13 +48,13 @@ import com.lowagie.text.Phrase;
 @ManagedBean
 @ViewScoped
 public class ViewLfmJpaController implements Serializable {
-	
+
 	private static final long serialVersionUID = -9006980830134897009L;
 	@Autowired
 	LFMService lfmService;
 	@Autowired
 	private TasksService tasksService;
-	
+
 	private LFMDto selected = new LFMDto();
 	private int numberOfMonths, listSize;
 	private ProjectDto projectDto;
@@ -71,59 +71,67 @@ public class ViewLfmJpaController implements Serializable {
 		if (projectDto == null || projectDto.getId() == null) {
 			throw new RuntimeException();
 		}
+
 		calculateMonths();
 	}
-	
-	private void calculateMonths(){
+
+	private void calculateMonths() {
 		selected = lfmService.findByProjectId(projectDto.getId());
+		
 		List<TaskDTO> taskDTOs = (List<TaskDTO>) selected.getTasksDtoCollection();
 		numberOfMonths = 0;
-		if (taskDTOs == null || taskDTOs.isEmpty()){
-			return ;
+		if (taskDTOs == null || taskDTOs.isEmpty()) {
+			return;
 		}
 		Date endDate = taskDTOs.get(0).getEndDate();
 		Date startDate = taskDTOs.get(0).getStartDate();
 		for (TaskDTO taskDTO : taskDTOs) {
-			if (endDate.compareTo(taskDTO.getEndDate()) <= 0 ){
+			// MOA outcomes string
+			for (TasksExpectedOutcomesDto teod : taskDTO.getTasksExpectedOutcomesCollection()) {
+				taskDTO.setTasksExpectedOutcomesString(
+						taskDTO.getTasksExpectedOutcomesString() + "\r\n\n" + teod.getExpectation());
+			}
+
+			if (endDate.compareTo(taskDTO.getEndDate()) <= 0) {
 				endDate = taskDTO.getEndDate();
 			}
-			if (startDate.compareTo(taskDTO.getStartDate()) > 0){
+			if (startDate.compareTo(taskDTO.getStartDate()) > 0) {
 				startDate = taskDTO.getStartDate();
 			}
 		}
-		
+
 		Calendar calStart = new GregorianCalendar();
 		calStart.setTime(startDate);
 		Calendar calEnd = new GregorianCalendar();
 		calEnd.setTime(endDate);
-		
+
 		int yearDef = calEnd.get(Calendar.YEAR) - calStart.get(Calendar.YEAR);
 		numberOfMonths = yearDef * 12 + calEnd.get(Calendar.MONTH) - calStart.get(Calendar.MONTH);
-		
-		for (TaskDTO taskDTO : taskDTOs){
+
+		for (TaskDTO taskDTO : taskDTOs) {
 			calculateTaskMonths(startDate, taskDTO);
 		}
-		
+
 	}
-	
-	private void calculateTaskMonths (Date projectStart, TaskDTO taskDTO){
+
+	private void calculateTaskMonths(Date projectStart, TaskDTO taskDTO) {
 		Date taskStartDate = taskDTO.getStartDate();
 		Date taskEndDate = taskDTO.getEndDate();
-		
+
 		Calendar calProject = new GregorianCalendar();
 		calProject.setTime(projectStart);
 		Calendar calTask = new GregorianCalendar();
 		calTask.setTime(taskStartDate);
-		
+
 		int yearDef = calTask.get(Calendar.YEAR) - calProject.get(Calendar.YEAR);
 		int monthDef = yearDef * 12 + calTask.get(Calendar.MONTH) - calProject.get(Calendar.MONTH);
-		
+
 		taskDTO.setStartMonth(monthDef);
 		calTask.setTime(taskEndDate);
 
 		yearDef = calTask.get(Calendar.YEAR) - calProject.get(Calendar.YEAR);
 		monthDef = yearDef * 12 + calTask.get(Calendar.MONTH) - calProject.get(Calendar.MONTH);
-		
+
 		taskDTO.setEndMonth(monthDef);
 	}
 

@@ -101,15 +101,14 @@ public class TasksServiceImpl extends BaseServiceImpl<Tasks> implements TasksSer
 		if (endDate.compareTo(startDate) <= 0) {
 			throw new BusinessException();
 		}
-		
-		if (startDate.compareTo(new Date()) < 0 || endDate.compareTo(new Date()) < 0){
-			throw new BusinessException();
-		}
-			
-		if (projectEnd.before(startDate) || projectEnd.before(endDate)){
-			throw new BusinessException();
-		}
 	}
+//		if (startDate.compareTo(new Date()) < 0 || endDate.compareTo(new Date()) < 0){
+//			throw new BusinessException();
+//		}
+//			
+//		if (projectEnd.compareTo(startDate) < 0 || projectEnd.compareTo(endDate) < 0){
+//			throw new BusinessException();
+//		}	}
 
 	@Override
 	public List<TaskDTO> getAllTasks() {

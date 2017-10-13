@@ -24,7 +24,8 @@ public class TaskDTO extends BaseDto implements Serializable {
 	private List<TasksExpectedOutcomesDto> tasksExpectedOutcomesCollection;
 	private int startMonth = 0;
 	private int endMonth = 0;
-	private Date projectEndDate ;
+	private Date projectEndDate;
+	private String tasksExpectedOutcomesString;
 
 	public Date getProjectEndDate() {
 		return projectEndDate;
@@ -34,8 +35,7 @@ public class TaskDTO extends BaseDto implements Serializable {
 		this.projectEndDate = projectEndDate;
 	}
 
-	public TaskDTO(String name, String formatedStartDate,
-			String formatedEndDate, Integer duration) {
+	public TaskDTO(String name, String formatedStartDate, String formatedEndDate, Integer duration) {
 		this.duration = duration;
 		this.name = name;
 		this.formatedStartDate = formatedStartDate;
@@ -45,7 +45,7 @@ public class TaskDTO extends BaseDto implements Serializable {
 	public TaskDTO() {
 
 	}
-	
+
 	public int getStartMonth() {
 		return startMonth;
 	}
@@ -61,7 +61,6 @@ public class TaskDTO extends BaseDto implements Serializable {
 	public void setEndMonth(int endMonth) {
 		this.endMonth = endMonth;
 	}
-
 
 	public String getName() {
 		return name;
@@ -165,9 +164,19 @@ public class TaskDTO extends BaseDto implements Serializable {
 		return tasksExpectedOutcomesCollection;
 	}
 
-	public void setTasksExpectedOutcomesCollection(
-			List<TasksExpectedOutcomesDto> tasksExpectedOutcomesCollection) {
+	public void setTasksExpectedOutcomesCollection(List<TasksExpectedOutcomesDto> tasksExpectedOutcomesCollection) {
 		this.tasksExpectedOutcomesCollection = tasksExpectedOutcomesCollection;
+	}
+
+	public String getTasksExpectedOutcomesString() {
+		if (tasksExpectedOutcomesString == null) {
+			tasksExpectedOutcomesString = new String();
+		}
+		return tasksExpectedOutcomesString;
+	}
+
+	public void setTasksExpectedOutcomesString(String tasksExpectedOutcomesString) {
+		this.tasksExpectedOutcomesString = tasksExpectedOutcomesString;
 	}
 
 }

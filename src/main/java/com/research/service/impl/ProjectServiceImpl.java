@@ -139,6 +139,10 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return projectsDto;
 	}
 
+
+
+
+
 	private void validateDto(ProjectDto dto) {
 		if (dto.getTitle() == null || dto.getTitle().equals("") || dto.getAbbreviation() == null
 				|| dto.getAbbreviation().equals("") || dto.getApplicantName() == null
@@ -159,6 +163,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			throw new BusinessException();
 		}
 	}
+
 
 //	@Override
 //	public List<StreamedContent> getDocsPage(ProjectDto project, int i, int pageSize) throws IOException {
