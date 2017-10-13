@@ -17,7 +17,7 @@
 				layout="table" />
 		</h:panelGroup>
 		<h:form>
-			<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true" ></p:growl>
+			<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true"></p:growl>
 			<p:dialog header="Add Task" widgetVar="dlg" position="center center"
 				onShow="PF('dlg').initPosition()" modal="true" closeOnEscape="true"
 				resizable="false">
@@ -70,13 +70,13 @@
 			   		<div align="right">
 						<h:commandLink ajax="true" id="imgpdf">
 							<p:graphicImage library="images" name="xls.png" width="24" />
-							<p:dataExporter type="xls" target="Matrix" fileName="lfm"  />
+							<p:dataExporter type="xls" target="Matrix" fileName="lfm" />
 						</h:commandLink>
 						<p:tooltip id="toolTipGrow" for="imgpdf"
 							value="export matrix as xls" showEffect="clip"
 							hideEffect="explode" position="left" />
 					</div>
-					
+
 				</f:facet>
 				<p:column headerText="Index" colspan="1">
 					<c:forEach var="i" begin="1" end="#{ViewLfmJpaController.listSize}">
@@ -95,15 +95,20 @@
 				<c:forEach var="i" begin="1"
 					end="#{ViewLfmJpaController.numberOfMonths}">
 					<p:column headerText="m ${i}" colspan="1">
-							<p:outputLabel value="x" rendered="#{item.endMonth ge i and item.startMonth le i}"></p:outputLabel>
+						<p:outputLabel value="x"
+							rendered="#{item.endMonth ge i and item.startMonth le i}"></p:outputLabel>
 					</p:column>
 				</c:forEach>
-				<p:column headerText="Exptected Outcomes" colspan="4" exportable="false">
-					<ui:repeat value="#{item.tasksExpectedOutcomesCollection}"
-						var="teo">
+				<p:column headerText="Exptected Outcomes" colspan="6" exportable="false" >
+
+					<p:repeat value="#{item.tasksExpectedOutcomesCollection}" var="teo">
 						<li><h:outputText value="#{teo.expectation}"></h:outputText>
 						</li>
-					</ui:repeat>
+					</p:repeat>
+				</p:column>
+				<p:column headerText="Exptected Outcomes" style="display:none;">
+
+					<h:outputText value="#{item.tasksExpectedOutcomesString}"></h:outputText>
 				</p:column>
 			</p:dataTable>
 
