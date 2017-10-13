@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.FileUtils;
 import org.dozer.DozerBeanMapper;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,6 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 	@Autowired
 	private DozerBeanMapper mapper;
 
-
 	@Override
 	public BaseRepository getBaseRepo() {
 		return docsRepository;
@@ -45,12 +45,16 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 	public DocsDTO addNewDoc(DocsDTO docDTO) {
 		UploadedFile file = docDTO.getFile();
 		try (InputStream stream = file.getInputstream()) {
-			File localVersion = new File(
-					"C:/Users/sherif/Desktop/test/" + docDTO.getProjectId() + "/" + file.getFileName());
-			if (localVersion.exists())
-				return null;
-			Files.copy(stream, localVersion.toPath());
-			String path = resolvePath(docDTO);
+//			File createFolder=new File(env.getProperty("upload.path")+"/"+docDTO.getProjectId());
+//			createFolder.mkdirs();
+//			File localVersion = new File(
+//					env.getProperty("upload.path")	 + docDTO.getProjectId() + "/" + file.getFileName());
+//			if (localVersion.exists())
+//				return null;
+//			Files.copy(stream, localVersion.toPath());
+//			String path = resolvePath(docDTO);
+			String path = env.getProperty("upload.path")  + "/" + docDTO.getProjectDTO().getTitle()+ "/" + file.getFileName();
+			FileUtils.copyInputStreamToFile(stream, new File(path));
 			Docs doc = new Docs();
 			doc.setDocPath(path);
 			doc.setIsUploaded(true);
@@ -65,7 +69,8 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 	}
 
 	private String resolvePath(DocsDTO docDTO) {
-		String path = env.getProperty("upload.path") + "/" + docDTO.getFile().getFileName();
+		String path = env.getProperty("upload.path") + "/" + docDTO.getProjectId() + "/"
+				+ docDTO.getFile().getFileName();
 		return path;
 	}
 

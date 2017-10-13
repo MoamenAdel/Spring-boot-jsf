@@ -97,7 +97,7 @@ public class ViewProjectJpaController {
 		File file=new File(docsDTO.getPath());
 		try {
 			InputStream inputStream=new  FileInputStream(file);
-			streamedContent=new  DefaultStreamedContent(inputStream,
+			streamedContent=new DefaultStreamedContent(inputStream,
 					Files.probeContentType(file.toPath()), docsDTO.getPath());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

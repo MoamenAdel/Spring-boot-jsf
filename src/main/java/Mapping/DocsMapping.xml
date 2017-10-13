@@ -6,7 +6,16 @@
 	<mapping>
 		<class-a>com.research.entity.Docs</class-a>
 		<class-b>com.research.dto.project.DocsDTO</class-b>
-	
+		<field>
+			<a>docPath</a>
+			<b>path</b>
+		</field>
+		<field-exclude>
+			<a>projectId</a>
+			<b>projectId</b>
+			
+		</field-exclude>
 	</mapping>
+
 
 </mappings>
