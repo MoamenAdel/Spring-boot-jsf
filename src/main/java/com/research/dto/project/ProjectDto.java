@@ -1,10 +1,15 @@
 package com.research.dto.project;
 
+import java.util.Collection;
 import java.util.Date;
 
 import com.research.dto.BaseDto;
+import com.research.entity.Docs;
 
-public class ProjectDto extends BaseDto implements Comparable<ProjectDto>{
+import lombok.Data;
+
+@Data
+public class ProjectDto extends BaseDto implements Comparable<ProjectDto> {
 
 	/**
 	 * 
@@ -102,7 +107,7 @@ public class ProjectDto extends BaseDto implements Comparable<ProjectDto>{
 
 	@Override
 	public int compareTo(ProjectDto o) {
-		 return getCreateDate().compareTo(o.getCreateDate());
+		return getCreateDate().compareTo(o.getCreateDate());
 	}
 
 }

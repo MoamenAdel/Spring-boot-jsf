@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.FileUtils;
+import org.dozer.DozerBeanMapper;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -31,48 +33,8 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 	private Environment env;
 	@Autowired
 	private ProjectService projectService;
-	
-	@Override
-	public List<Docs> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Docs save(Docs entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Docs update(Docs entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Docs getOne(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(Docs entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(Iterable<Docs> list) {
-		// TODO Auto-generated method stub
-
-	}
+	@Autowired
+	private DozerBeanMapper mapper;
 
 	@Override
 	public BaseRepository getBaseRepo() {
@@ -82,10 +44,17 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 	@Override
 	public DocsDTO addNewDoc(DocsDTO docDTO) {
 		UploadedFile file = docDTO.getFile();
-		try (InputStream stream = file.getInputstream()){
-			Files.copy(stream, new File(env.getProperty("upload.path") + "/" + docDTO.getProjectDTO().getTitle()
-		, file.getFileName()).toPath());
-			String path = resolvePath(docDTO);
+		try (InputStream stream = file.getInputstream()) {
+//			File createFolder=new File(env.getProperty("upload.path")+"/"+docDTO.getProjectId());
+//			createFolder.mkdirs();
+//			File localVersion = new File(
+//					env.getProperty("upload.path")	 + docDTO.getProjectId() + "/" + file.getFileName());
+//			if (localVersion.exists())
+//				return null;
+//			Files.copy(stream, localVersion.toPath());
+//			String path = resolvePath(docDTO);
+			String path = env.getProperty("upload.path")  + "/" + docDTO.getProjectDTO().getTitle()+ "/" + file.getFileName();
+			FileUtils.copyInputStreamToFile(stream, new File(path));
 			Docs doc = new Docs();
 			doc.setDocPath(path);
 			doc.setIsUploaded(true);
@@ -100,7 +69,8 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 	}
 
 	private String resolvePath(DocsDTO docDTO) {
-		String path = env.getProperty("upload.path") + "/" + docDTO.getFile().getFileName();
+		String path = env.getProperty("upload.path") + "/" + docDTO.getProjectId() + "/"
+				+ docDTO.getFile().getFileName();
 		return path;
 	}
 
