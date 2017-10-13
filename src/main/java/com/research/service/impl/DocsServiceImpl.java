@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.dozer.DozerBeanMapper;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -31,48 +32,9 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 	private Environment env;
 	@Autowired
 	private ProjectService projectService;
-	
-	@Override
-	public List<Docs> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@Autowired
+	private DozerBeanMapper mapper;
 
-	@Override
-	public Docs save(Docs entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Docs update(Docs entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Docs getOne(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(Docs entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(Iterable<Docs> list) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public BaseRepository getBaseRepo() {
@@ -82,9 +44,12 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 	@Override
 	public DocsDTO addNewDoc(DocsDTO docDTO) {
 		UploadedFile file = docDTO.getFile();
-		try (InputStream stream = file.getInputstream()){
-			Files.copy(stream, new File(env.getProperty("upload.path") + "/" + docDTO.getProjectDTO().getTitle()
-		, file.getFileName()).toPath());
+		try (InputStream stream = file.getInputstream()) {
+			File localVersion = new File(
+					"C:/Users/sherif/Desktop/test/" + docDTO.getProjectId() + "/" + file.getFileName());
+			if (localVersion.exists())
+				return null;
+			Files.copy(stream, localVersion.toPath());
 			String path = resolvePath(docDTO);
 			Docs doc = new Docs();
 			doc.setDocPath(path);

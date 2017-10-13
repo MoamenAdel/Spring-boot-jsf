@@ -1,21 +1,31 @@
 package com.research.service.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;import java.util.List;
+import java.util.GregorianCalendar;
+import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.transaction.Transactional;
 
 import org.dozer.DozerBeanMapper;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.research.dto.project.DocsDTO;
 import com.research.dto.project.ProjectDto;
 import com.research.dto.project.ProjectTypeDto;
+import com.research.entity.Docs;
 import com.research.entity.Lfm;
 import com.research.entity.Project;
 import com.research.exception.BusinessException;
@@ -39,6 +49,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	ProjectTypeService projectTypeService;
 	@Autowired
 	private LFMService lfmService;
+	@Autowired
+	private Environment env;
 
 	@Override
 	public BaseRepository getBaseRepo() {
@@ -56,6 +68,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		Lfm lfm = new Lfm();
 		lfm.setProjectId(project);
 		lfmService.save(lfm);
+		File file = new File(env.getProperty("upload.path") + projectDto.getTitle());
+		file.mkdirs();
 		return mapper.map(project, projectDto.getClass());
 	}
 
@@ -81,7 +95,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public ProjectDto updateProject(ProjectDto projectDto) {
 		validateDto(projectDto);
 		Project project = projectRepo.findOne(projectDto.getId());
-		if (project == null){
+		if (project == null) {
 			throw new BusinessException();
 		}
 		mapper.map(projectDto, project);
@@ -125,29 +139,47 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return projectsDto;
 	}
 
-
-
-private void validateDto(ProjectDto dto){
-		if (dto.getTitle() == null || dto.getTitle().equals("")
-				|| dto.getAbbreviation() == null || dto.getAbbreviation().equals("")
-				|| dto.getApplicantName() == null || dto.getApplicantName().equals("")
-				|| dto.getApplicantOrganization() == null || dto.getApplicantOrganization().equals("")
-				|| dto.getBudget() == null || dto.getBudget() == 0
-				|| dto.getType() == null || dto.getType().equals("")
-				|| dto.getSubmissionDate() == null){
+	private void validateDto(ProjectDto dto) {
+		if (dto.getTitle() == null || dto.getTitle().equals("") || dto.getAbbreviation() == null
+				|| dto.getAbbreviation().equals("") || dto.getApplicantName() == null
+				|| dto.getApplicantName().equals("") || dto.getApplicantOrganization() == null
+				|| dto.getApplicantOrganization().equals("") || dto.getBudget() == null || dto.getBudget() == 0
+				|| dto.getType() == null || dto.getType().equals("") || dto.getSubmissionDate() == null) {
 			throw new BusinessException();
 		}
 		Calendar now = new GregorianCalendar();
 		now.setTime(new Date());
 		Calendar projectCal = new GregorianCalendar();
 		projectCal.setTime(dto.getSubmissionDate());
-		
+
 		int yearDef = projectCal.get(Calendar.YEAR) - now.get(Calendar.YEAR);
 		int diff = yearDef * 12 + projectCal.get(Calendar.MONTH) - now.get(Calendar.MONTH);
-		
-		if (diff <= 0){
+
+		if (diff <= 0) {
 			throw new BusinessException();
 		}
-}
+	}
+
+//	@Override
+//	public List<StreamedContent> getDocsPage(ProjectDto project, int i, int pageSize) throws IOException {
+//		// TODO Auto-generated method stub
+//		List<StreamedContent> streamedContents = new ArrayList<>();
+//		Project project2 = getOne(project.getId());
+//		for (Docs docs : project2.getDocsCollection()) {
+//			streamedContents.add(n);
+//
+//		}
+//		return streamedContents;
+//
+//	}
+
+	@Override
+	public List<DocsDTO> getDocs(ProjectDto projectDto) {
+		// TODO Auto-generated method stub
+		List<DocsDTO> docsDTOs = new ArrayList<>();
+		for (Docs docs : projectRepo.findOne(projectDto.getId()).getDocsCollection())
+			docsDTOs.add(mapper.map(docs, DocsDTO.class));
+		return docsDTOs;
+	}
 
 }
