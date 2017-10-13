@@ -145,8 +145,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		int yearDef = projectCal.get(Calendar.YEAR) - now.get(Calendar.YEAR);
 		int diff = yearDef * 12 + projectCal.get(Calendar.MONTH) - now.get(Calendar.MONTH);
 
-		if (diff <= 0) {
-			throw new BusinessException();
-		}
+//		if (diff <= 0) {
+//			throw new BusinessException();
+//		}
 	}
 }

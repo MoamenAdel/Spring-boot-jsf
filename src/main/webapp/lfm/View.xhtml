@@ -17,23 +17,23 @@
 				layout="table" />
 		</h:panelGroup>
 		<h:form>
-			<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true"></p:growl>
-			<p:dialog header="Add Task" widgetVar="dlg" position="center center"
+			<p:growl id="growl" showDetail="true" autoUpdate="true" life="5000"></p:growl>
+			<p:dialog header="Add Task" widgetVar="dlg" position="center center" id="dialogId"
 				onShow="PF('dlg').initPosition()" modal="true" closeOnEscape="true"
 				resizable="false">
 
 				<h:panelGrid columns="2">
 					<p:outputLabel value="#{bundle.CreateTaskLabel_name}" for="name" />
-					<p:inputText id="name"
+					<p:inputText id="name" placeholder="task title" required="true"
 						value="#{ViewLfmJpaController.newTaskDTO.name}"
 						title="#{bundle.CreateTaskTitle_name}" />
 					<p:outputLabel></p:outputLabel>
 					<p:outputLabel></p:outputLabel>
 					<p:outputLabel value="#{bundle.CreateTaskLabel_startDate}"
 						for="startDate" />
-					<p:calendar id="startDate"
+					<p:calendar id="startDate" placeholder="Start Date" required="true"
 						value="#{ViewLfmJpaController.newTaskDTO.startDate}"
-						title="#{bundle.CreateTaskTitle_startDate}" pattern="d MMM yyyy"
+						title="#{bundle.CreateTaskTitle_startDate}" pattern="d MMM yyyy" readonly="true" 
 						effect="fold">
 						<f:convertDateTime pattern="d MMM yyyy" />
 					</p:calendar>
@@ -41,27 +41,27 @@
 					<p:outputLabel></p:outputLabel>
 					<p:outputLabel value="#{bundle.CreateTaskLabel_endDate}"
 						for="endDate" />
-					<p:calendar id="endDate"
+					<p:calendar id="endDate" placeholder="End Date" required="true"
 						value="#{ViewLfmJpaController.newTaskDTO.endDate}"
-						title="#{bundle.CreateTaskTitle_endDate}" pattern="d MMM yyyy"
+						title="#{bundle.CreateTaskTitle_endDate}" pattern="d MMM yyyy" readonly="true" 
 						effect="fold">
 						<f:convertDateTime pattern="d MMM yyyy" />
 					</p:calendar>
 					<p:outputLabel></p:outputLabel>
 					<p:outputLabel></p:outputLabel>
 					<p:outputLabel for="Outcomes" value="Outcomes:" />
-					<p:chips id="Outcomes" value="#{ViewLfmJpaController.outcomes}"
+					<p:chips id="Outcomes" placeholder="enter your outcomes " value="#{ViewLfmJpaController.outcomes}"
 						style="height:50px" />
 					<p:tooltip id="toolTipGrow2" for="Outcomes"
 						value="enter outcome and press enter" position="right" />
 					<f:facet name="footer">
-						<p:commandButton value="Add"
-							actionListener="#{ViewLfmJpaController.addTask}" update="Matrix"
+						<p:commandButton value="Add" 
+							actionListener="#{ViewLfmJpaController.addTask}" update="Matrix , dialogId"
 							oncomplete="PF('dlg').hide()" styleClass="btn btn-primary" />
 					</f:facet>
 				</h:panelGrid>
 			</p:dialog>
-			<p:dataTable id="Matrix" resizableColumns="true" scrollable="true"
+			<p:dataTable id="Matrix" resizableColumns="true" scrollable="true" rowIndexVar="rowIndex"
 				scrollHeight="80%"
 				value="#{ViewLfmJpaController.selected.tasksDtoCollection}"
 				var="item" resizeMode="expand" style="margin-bottom:20px">
@@ -78,10 +78,9 @@
 					</div>
 
 				</f:facet>
-				<p:column headerText="Index" colspan="1">
-					<c:forEach var="i" begin="1" end="#{ViewLfmJpaController.listSize}">
-						<p:outputLabel value="#{i}"></p:outputLabel>
-					</c:forEach>
+				<p:column headerText="Index" colspan="1" >
+						<p:outputLabel value="#{rowIndex + 1}"></p:outputLabel>
+					
 				</p:column>
 				<p:column headerText="Task Title">
 					<p:outputLabel value="#{item.name}"></p:outputLabel>
@@ -94,7 +93,7 @@
 				</p:column>
 				<c:forEach var="i" begin="1"
 					end="#{ViewLfmJpaController.numberOfMonths}">
-					<p:column headerText="m ${i}" colspan="1">
+					<p:column headerText="${i}" colspan="1">
 						<p:outputLabel value="x"
 							rendered="#{item.endMonth ge i and item.startMonth le i}"></p:outputLabel>
 					</p:column>
@@ -112,7 +111,7 @@
 				</p:column>
 			</p:dataTable>
 
-			<p:commandButton value="Add Task" oncomplete="PF('dlg').show()"
+			<p:commandButton value="Add Task" oncomplete="PF('dlg').show()" immediate="true"
 				styleClass="btn btn-primary"></p:commandButton>
 
 		</h:form>

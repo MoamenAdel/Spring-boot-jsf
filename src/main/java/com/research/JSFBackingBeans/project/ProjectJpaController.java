@@ -134,8 +134,8 @@ public class ProjectJpaController implements Serializable {
 		selected.setType(selectedType);
 		projectService.addProject(selected);
 		selected = new ProjectDto();
-		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Successful", "Project successfully Saved"));
-		return null;
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Project successfully Saved"));
+		return "Create";
 	}
 	//
 	// public static Collection<Part> getAllParts(Part part) throws
