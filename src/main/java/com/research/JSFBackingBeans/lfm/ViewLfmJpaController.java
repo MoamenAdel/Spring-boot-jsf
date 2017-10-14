@@ -56,7 +56,7 @@ public class ViewLfmJpaController implements Serializable {
 	private TasksService tasksService;
 
 	private LFMDto selected = new LFMDto();
-	private int numberOfMonths, listSize;
+	private int numberOfMonths;
 	private ProjectDto projectDto;
 	DateFormat dt1 = new SimpleDateFormat("d MMM yyyy");
 	private List<String> outcomes;
@@ -85,6 +85,7 @@ public class ViewLfmJpaController implements Serializable {
 		}
 		Date endDate = taskDTOs.get(0).getEndDate();
 		Date startDate = taskDTOs.get(0).getStartDate();
+
 		for (TaskDTO taskDTO : taskDTOs) {
 			// MOA outcomes string
 			for (TasksExpectedOutcomesDto teod : taskDTO.getTasksExpectedOutcomesCollection()) {
@@ -151,7 +152,8 @@ public class ViewLfmJpaController implements Serializable {
 		selected.getTasksDtoCollection().add(newTaskDTO);
 		calculateMonths();
 		newTaskDTO = new TaskDTO();
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", "Task added successfully"));
+		outcomes = new ArrayList<>();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Task added successfully"));
 		return null;
 	}
 
@@ -169,14 +171,6 @@ public class ViewLfmJpaController implements Serializable {
 
 	public void setNumberOfMonths(int numberOfMonths) {
 		this.numberOfMonths = numberOfMonths;
-	}
-
-	public int getListSize() {
-		return listSize;
-	}
-
-	public void setListSize(int listSize) {
-		this.listSize = listSize;
 	}
 
 	public ProjectDto getProjectDto() {

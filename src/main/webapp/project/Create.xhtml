@@ -15,26 +15,29 @@
 			<h:messages errorStyle="color: red" infoStyle="color: green"
 				layout="table" />
 		</h:panelGroup>
-		<h:form enctype="multipart/form-data">
-			<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true"></p:growl>
+		<h:form id="create" enctype="multipart/form-data">
+			<p:growl id="growl" autoUpdate="true" life="5000"></p:growl>
 			<h:panelGrid columns="2" cellpadding="10">
 				<h:outputLabel value="#{bundle.CreateProjectLabel_title}"
 					for="title" />
-				<p:inputText id="title"
+				<p:inputText id="title" placeholder="title" required="true"
+					requiredMessage="please don't leave title empty"
 					value="#{ProjectJpaController.selected.title}"
 					title="#{bundle.CreateProjectTitle_title}" />
 				<h:outputLabel />
 				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectLabel_applicantName}"
 					for="applicantName" />
-				<p:inputText id="applicantName"
+				<p:inputText id="applicantName" placeholder="applicant name"
+					required="true"
+					requiredMessage="please don't leave Applicant Name empty"
 					value="#{ProjectJpaController.selected.applicantName}"
 					title="#{bundle.CreateProjectTitle_applicantName}" />
 				<h:outputLabel />
 				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectLabel_apllicantOrg}"
 					for="apllicantOrg" />
-				<p:inputText id="apllicantOrg"
+				<p:inputText id="apllicantOrg" placeholder="applicant organization"
 					value="#{ProjectJpaController.selected.applicantOrganization}"
 					title="#{bundle.CreateProjectTitle_apllicantOrg}" />
 				<h:outputLabel />
@@ -42,14 +45,20 @@
 
 				<p:outputLabel value="#{bundle.CreateProjectLabel_budget}"
 					for="budget" />
-				<p:inputText id="budget"
+				<p:inputNumber id="budget" placeholder="budget" required="true"
+				requiredMessage="please don't leave budget empty"
 					value="#{ProjectJpaController.selected.budget}"
-					title="#{bundle.CreateProjectTitle_budget}" />
+					title="#{bundle.CreateProjectTitle_budget}">
+					<f:validateDoubleRange minimum="100.0" />
+				</p:inputNumber>
+
 				<h:outputLabel />
 				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectLabel_submissionDate}"
 					for="submissionDate" />
-				<p:calendar id="submissionDate"
+				<p:calendar id="submissionDate" placeholder="submission date"
+					required="true"
+					requiredMessage="please don't leave Submission Date empty"
 					value="#{ProjectJpaController.selected.submissionDate}"
 					pattern="d MMM yyyy"
 					title="#{bundle.CreateProjectTitle_submissionDate}" effect="fold">
@@ -59,14 +68,17 @@
 				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectLabel_abbreviation}"
 					for="abbreviation" />
-				<p:inputText id="abbreviation"
+				<p:inputText id="abbreviation" placeholder="project abbreviation"
+					required="true"
+					requiredMessage="please don't leave abbreviation empty"
 					value="#{ProjectJpaController.selected.abbreviation}"
 					title="#{bundle.CreateProjectTitle_abbreviation}" />
 				<h:outputLabel />
 				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectLabel_Type}"
 					for="typeId" />
-				<p:selectOneMenu id="typeId"
+				<p:selectOneMenu id="typeId" required="true"
+					requiredMessage="please select project type"
 					value="#{ProjectJpaController.selectedType}" effect="fold"
 					lazy="true">
 					<f:selectItem itemLabel="--Select Project Type--" itemValue=""
@@ -75,7 +87,8 @@
 				</p:selectOneMenu>
 			</h:panelGrid>
 			<br />
-			<p:commandButton action="#{ProjectJpaController.create}"
+			<p:commandButton update="create"
+				action="#{ProjectJpaController.create}"
 				value="#{bundle.CreateProjectSaveLink}" styleClass="btn btn-primary" />
 		</h:form>
 	</ui:define>

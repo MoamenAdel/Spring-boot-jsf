@@ -58,6 +58,7 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 			Docs doc = new Docs();
 			doc.setDocPath(path);
 			doc.setIsUploaded(true);
+			doc.setName(file.getFileName());
 			doc.setProjectId(projectService.getOne(docDTO.getProjectDTO().getId()));
 			doc = this.save(doc);
 			docDTO.setId(doc.getId());
@@ -72,6 +73,12 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 		String path = env.getProperty("upload.path") + "/" + docDTO.getProjectId() + "/"
 				+ docDTO.getFile().getFileName();
 		return path;
+	}
+
+	@Override
+	public int getCountByProject(Long id) {
+		Long count = docsRepository.countByProject(id);
+		return count.intValue();
 	}
 
 }

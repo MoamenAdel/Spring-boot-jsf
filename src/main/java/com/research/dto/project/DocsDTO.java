@@ -11,6 +11,7 @@ public class DocsDTO extends BaseDto {
 	private ProjectDto projectDTO;
 	private String path;
 	private boolean isUploaded;
+	private String name;
 
 	public UploadedFile getFile() {
 		return file;
@@ -50,6 +51,14 @@ public class DocsDTO extends BaseDto {
 
 	public void setUploaded(boolean isUploaded) {
 		this.isUploaded = isUploaded;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

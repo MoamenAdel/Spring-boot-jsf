@@ -27,6 +27,7 @@ import com.research.service.BaseServiceImpl;
 import com.research.service.interfaces.LFMService;
 import com.research.service.interfaces.ProjectService;
 import com.research.service.interfaces.TasksExpectedOutcomesService;
+import com.research.service.interfaces.TasksService;
 
 @Service
 @Transactional
@@ -40,6 +41,8 @@ public class LFMServiceImpl extends BaseServiceImpl<Lfm> implements LFMService {
 	ProjectService projectService;
 	@Autowired
 	private TasksExpectedOutcomesService tasksExpectedOutcomesService;
+	@Autowired
+	private TasksService tasksService;
 
 	@Override
 	public BaseRepository getBaseRepo() {
@@ -63,7 +66,7 @@ public class LFMServiceImpl extends BaseServiceImpl<Lfm> implements LFMService {
 	@Override
 	public Lfm getLFM(Long id) {
 		Lfm lfm = lFMRepo.findOne(id);
-		if (lfm == null){
+		if (lfm == null) {
 			throw new BusinessException();
 		}
 		return lfm;
@@ -84,17 +87,19 @@ public class LFMServiceImpl extends BaseServiceImpl<Lfm> implements LFMService {
 	@Override
 	public LFMDto findByProjectId(Long id) {
 		Lfm lfm = lFMRepo.findByProjectId(id);
-		if (lfm == null){
+		if (lfm == null) {
 			throw new RuntimeException();
 		}
 		LFMDto lfmDto = mapper.map(lfm, LFMDto.class);
-		List<Tasks> tasks = (List<Tasks>) lfm.getTasksCollection();
+		// List<Tasks> tasks = (List<Tasks>) lfm.getTasksCollection();
+		List<Tasks> tasks = tasksService.getTasksByLfm(lfm.getId());
 		List<TaskDTO> taskDTOs = new ArrayList<>();
 		DateFormat dt1 = new SimpleDateFormat("d MMM yyyy");
-		for (Tasks task : tasks){ 
-			List<TasksExpectedOutcomesDto> tasksExpectedOutcomesDtos = tasksExpectedOutcomesService.findByTaskId(task.getId());
+		for (Tasks task : tasks) {
+			List<TasksExpectedOutcomesDto> tasksExpectedOutcomesDtos = tasksExpectedOutcomesService
+					.findByTaskId(task.getId());
 			TaskDTO taskDTO = new TaskDTO();
-//			mapper.map(task, taskDTO);
+			// mapper.map(task, taskDTO);
 			taskDTO.setEndDate(task.getEndDate());
 			taskDTO.setStartDate(task.getStartDate());
 			taskDTO.setDuration(task.getDuration());
@@ -106,8 +111,7 @@ public class LFMServiceImpl extends BaseServiceImpl<Lfm> implements LFMService {
 			taskDTOs.add(taskDTO);
 		}
 		lfmDto.setTasksDtoCollection(taskDTOs);
-		
-		
+
 		return lfmDto;
 	}
 

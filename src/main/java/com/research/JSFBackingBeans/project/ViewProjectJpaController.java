@@ -63,6 +63,7 @@ public class ViewProjectJpaController {
 		if (temp != null) {
 			projectDto = temp;
 		}
+		docsLazyDataModel.setRowCount(docsService.getCountByProject(projectDto.getId()));
 		// projectDto = projectService.findOne((long) 38);
 	}
 

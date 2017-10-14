@@ -10,4 +10,6 @@ public interface ProjectTypeRepo extends BaseRepository<ProjectTypes>{
 	@Query("select t from ProjectTypes t where retired = 0 and t.type = ?")
 	ProjectTypes findByType(String type);
 
+	@Query("select count(*) from ProjectTypes p")
+	long count();
 }

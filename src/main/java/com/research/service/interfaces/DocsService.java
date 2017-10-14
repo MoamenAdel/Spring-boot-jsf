@@ -7,4 +7,6 @@ import com.research.service.BaseService;
 public interface DocsService extends BaseService<Docs>{
 
 	DocsDTO addNewDoc(DocsDTO docDTO);
+
+	int getCountByProject(Long id);
 }

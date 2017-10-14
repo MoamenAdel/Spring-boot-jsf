@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -30,8 +31,10 @@ import com.research.entity.Lfm;
 import com.research.entity.Project;
 import com.research.exception.BusinessException;
 import com.research.repositories.BaseRepository;
+import com.research.repositories.project.DocsRepository;
 import com.research.repositories.project.ProjectRepo;
 import com.research.service.BaseServiceImpl;
+import com.research.service.interfaces.DocsService;
 import com.research.service.interfaces.LFMService;
 import com.research.service.interfaces.ProjectService;
 import com.research.service.interfaces.ProjectTypeService;
@@ -51,6 +54,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private LFMService lfmService;
 	@Autowired
 	private Environment env;
+	@Autowired
+	DocsRepository docsRepo;
 
 	@Override
 	public BaseRepository getBaseRepo() {
@@ -139,10 +144,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return projectsDto;
 	}
 
-
-
-
-
 	private void validateDto(ProjectDto dto) {
 		if (dto.getTitle() == null || dto.getTitle().equals("") || dto.getAbbreviation() == null
 				|| dto.getAbbreviation().equals("") || dto.getApplicantName() == null
@@ -159,31 +160,36 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		int yearDef = projectCal.get(Calendar.YEAR) - now.get(Calendar.YEAR);
 		int diff = yearDef * 12 + projectCal.get(Calendar.MONTH) - now.get(Calendar.MONTH);
 
-		if (diff <= 0) {
-			throw new BusinessException();
-		}
+		// if (diff <= 0) {
+		// throw new BusinessException();
+		// }
 	}
 
-
-//	@Override
-//	public List<StreamedContent> getDocsPage(ProjectDto project, int i, int pageSize) throws IOException {
-//		// TODO Auto-generated method stub
-//		List<StreamedContent> streamedContents = new ArrayList<>();
-//		Project project2 = getOne(project.getId());
-//		for (Docs docs : project2.getDocsCollection()) {
-//			streamedContents.add(n);
-//
-//		}
-//		return streamedContents;
-//
-//	}
+	// @Override
+	// public List<StreamedContent> getDocsPage(ProjectDto project, int i, int
+	// pageSize) throws IOException {
+	// // TODO Auto-generated method stub
+	// List<StreamedContent> streamedContents = new ArrayList<>();
+	// Project project2 = getOne(project.getId());
+	// for (Docs docs : project2.getDocsCollection()) {
+	// streamedContents.add(n);
+	//
+	// }
+	// return streamedContents;
+	//
+	// }
 
 	@Override
 	public List<DocsDTO> getDocs(ProjectDto projectDto) {
 		// TODO Auto-generated method stub
 		List<DocsDTO> docsDTOs = new ArrayList<>();
-		for (Docs docs : projectRepo.findOne(projectDto.getId()).getDocsCollection())
-			docsDTOs.add(mapper.map(docs, DocsDTO.class));
+		Project project = projectRepo.findOne(projectDto.getId());
+		// List<Docs> docses = (List<Docs>) project.getDocsCollection();
+		// Iterator<Docs> docsIterator = project.getDocsCollection().iterator();
+		List<Docs> docs = docsRepo.findByProjectId(project);
+		for (Docs doc : docs)
+			docsDTOs.add(mapper.map(doc, DocsDTO.class));
+
 		return docsDTOs;
 	}
 

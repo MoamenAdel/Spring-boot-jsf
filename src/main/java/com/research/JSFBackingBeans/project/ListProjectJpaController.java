@@ -29,41 +29,42 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class ListProjectJpaController implements Serializable {
 
-    private static final long serialVersionUID = 9006980830134897009L;
-    @Autowired
-    ProjectService projectService;
+	private static final long serialVersionUID = 9006980830134897009L;
+	@Autowired
+	ProjectService projectService;
 
-    private List<ProjectDto> items;
-    @Autowired
-    private ProjectLazyDataModel model;
-      @PostConstruct
-    public void loadData() {
-//		items = projectService.getAllProjects();
-        model.setRowCount(projectService.count().intValue());
-    }
+	private List<ProjectDto> items;
+	@Autowired
+	private ProjectLazyDataModel model;
 
-    public List<ProjectDto> getItems() {
-        if (items == null) {
-            items = new ArrayList<ProjectDto>();
-        }
-        return items;
-    }
+	@PostConstruct
+	public void loadData() {
+		// items = projectService.getAllProjects();
+		model.setRowCount(projectService.count().intValue());
+	}
 
-    public void setItems(List<ProjectDto> items) {
-        this.items = items;
-    }
+	public List<ProjectDto> getItems() {
+		if (items == null) {
+			items = new ArrayList<ProjectDto>();
+		}
+		return items;
+	}
 
-    public ProjectLazyDataModel getModel() {
-        return model;
-    }
+	public void setItems(List<ProjectDto> items) {
+		this.items = items;
+	}
 
-    public void setModel(ProjectLazyDataModel model) {
-        this.model = model;
-    }
+	public ProjectLazyDataModel getModel() {
+		return model;
+	}
 
-    public String viewProject(ProjectDto project) {
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", project);
-        return "View";
-    }
+	public void setModel(ProjectLazyDataModel model) {
+		this.model = model;
+	}
+
+	public String viewProject(ProjectDto project) {
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", project);
+		return "View";
+	}
 
 }
