@@ -8,6 +8,7 @@ package com.research.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +26,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -58,8 +61,10 @@ public class Tasks extends BaseEntity implements Serializable {
     private Integer duration;
     @Column(name = "name")
     private String name;
+    @JsonIgnore
 	@OneToMany(mappedBy = "taskId")
     private Collection<TasksExpectedOutcomes> tasksExpectedOutcomesCollection;
+    @JsonIgnore
     @JoinColumn(name = "lfm_id", referencedColumnName = "id")
     @ManyToOne
     private Lfm lfmId;
