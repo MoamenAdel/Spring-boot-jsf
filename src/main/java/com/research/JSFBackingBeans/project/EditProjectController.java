@@ -72,6 +72,7 @@ public class EditProjectController {
 		docDTO.setFile(uploadedFile);
 		docDTO.setProjectId(projectDto.getId());
 		docDTO.setProjectDTO(projectDto);
+		docDTO.setName(uploadedFile.getFileName());
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, docDTO.getName() + " successfully uploaded", ""));
 
