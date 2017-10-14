@@ -27,59 +27,64 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name = "docs")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Docs.findAll", query = "SELECT d FROM Docs d")
-    , @NamedQuery(name = "Docs.findById", query = "SELECT d FROM Docs d WHERE d.id = :id")
-    , @NamedQuery(name = "Docs.findByCreateDate", query = "SELECT d FROM Docs d WHERE d.createDate = :createDate")
-    , @NamedQuery(name = "Docs.findByModifyDate", query = "SELECT d FROM Docs d WHERE d.modifyDate = :modifyDate")
-    , @NamedQuery(name = "Docs.findByRetireDate", query = "SELECT d FROM Docs d WHERE d.retireDate = :retireDate")
-    , @NamedQuery(name = "Docs.findByRetired", query = "SELECT d FROM Docs d WHERE d.retired = :retired")
-    , @NamedQuery(name = "Docs.findByDocPath", query = "SELECT d FROM Docs d WHERE d.docPath = :docPath")
-    , @NamedQuery(name = "Docs.findByIsUploaded", query = "SELECT d FROM Docs d WHERE d.isUploaded = :isUploaded")})
-@SequenceGenerator(name="SEQ",allocationSize=1,sequenceName="SEQ_PROJECT")
+@NamedQueries({ @NamedQuery(name = "Docs.findAll", query = "SELECT d FROM Docs d"),
+		@NamedQuery(name = "Docs.findById", query = "SELECT d FROM Docs d WHERE d.id = :id"),
+		@NamedQuery(name = "Docs.findByCreateDate", query = "SELECT d FROM Docs d WHERE d.createDate = :createDate"),
+		@NamedQuery(name = "Docs.findByModifyDate", query = "SELECT d FROM Docs d WHERE d.modifyDate = :modifyDate"),
+		@NamedQuery(name = "Docs.findByRetireDate", query = "SELECT d FROM Docs d WHERE d.retireDate = :retireDate"),
+		@NamedQuery(name = "Docs.findByRetired", query = "SELECT d FROM Docs d WHERE d.retired = :retired"),
+		@NamedQuery(name = "Docs.findByDocPath", query = "SELECT d FROM Docs d WHERE d.docPath = :docPath"),
+		@NamedQuery(name = "Docs.findByIsUploaded", query = "SELECT d FROM Docs d WHERE d.isUploaded = :isUploaded") })
+@SequenceGenerator(name = "SEQ", allocationSize = 1, sequenceName = "SEQ_PROJECT")
 public class Docs extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Size(max = 255)
-    @Column(name = "doc_path")
-    private String docPath;
-    @Column(name = "is_uploaded", columnDefinition = "SMALLINT default 0")
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean isUploaded;
-    @JoinColumn(name = "project_id", referencedColumnName = "id")
-    @ManyToOne
-    private Project projectId;
+	@Size(max = 255)
+	@Column(name = "doc_path")
+	private String docPath;
+	@Column(name = "is_uploaded", columnDefinition = "SMALLINT default 0")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean isUploaded;
+	@JoinColumn(name = "project_id", referencedColumnName = "id")
+	@ManyToOne
+	private Project projectId;
+	@Column(name = "name")
+	private String name;
 
-    public Docs() {
-    }
+	public Docs() {
+	}
 
+	public String getDocPath() {
+		return docPath;
+	}
 
-      public String getDocPath() {
-        return docPath;
-    }
+	public void setDocPath(String docPath) {
+		this.docPath = docPath;
+	}
 
-    public void setDocPath(String docPath) {
-        this.docPath = docPath;
-    }
+	public boolean getIsUploaded() {
+		return isUploaded;
+	}
 
-    public boolean getIsUploaded() {
-        return isUploaded;
-    }
+	public void setIsUploaded(boolean isUploaded) {
+		this.isUploaded = isUploaded;
+	}
 
-    public void setIsUploaded(boolean isUploaded) {
-        this.isUploaded = isUploaded;
-    }
+	public Project getProjectId() {
+		return projectId;
+	}
 
-    public Project getProjectId() {
-        return projectId;
-    }
+	public void setProjectId(Project projectId) {
+		this.projectId = projectId;
+	}
 
-    public void setProjectId(Project projectId) {
-        this.projectId = projectId;
-    }
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    
-    
 }

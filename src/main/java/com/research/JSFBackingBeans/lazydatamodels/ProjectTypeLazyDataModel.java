@@ -24,23 +24,31 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProjectTypeLazyDataModel extends LazyDataModel<ProjectTypeDto> {
 
-    @Autowired
-    ProjectTypeService projectTypeService;
+	@Autowired
+	ProjectTypeService projectTypeService;
 
-    @PostConstruct
-    public void init() {
-        setRowCount( projectTypeService.count().intValue());
-    }
+	@PostConstruct
+	public void init() {
+		setRowCount(projectTypeService.count().intValue());
+	}
 
-    @Override
-    public List<ProjectTypeDto> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        return projectTypeService.getPage(first, pageSize);
-        
-    }
+	@Override
+	public List<ProjectTypeDto> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+			Map<String, Object> filters) {
+		return projectTypeService.getPage(first, pageSize);
 
-    @Override
-    public List<ProjectTypeDto> load(int first, int pageSize, List<SortMeta> multiSortMeta, Map<String, Object> filters) {
-        return super.load(first, pageSize, multiSortMeta, filters); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+	}
+
+	@Override
+	public List<ProjectTypeDto> load(int first, int pageSize, List<SortMeta> multiSortMeta,
+			Map<String, Object> filters) {
+		return super.load(first, pageSize, multiSortMeta, filters); // To change
+																	// body of
+																	// generated
+																	// methods,
+																	// choose
+																	// Tools |
+																	// Templates.
+	}
+
 }

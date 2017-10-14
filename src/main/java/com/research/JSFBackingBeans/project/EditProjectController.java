@@ -72,7 +72,9 @@ public class EditProjectController {
 		docDTO.setFile(uploadedFile);
 		docDTO.setProjectId(projectDto.getId());
 		docDTO.setProjectDTO(projectDto);
-		
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, docDTO.getName() + " successfully uploaded", ""));
+
 		docsService.addNewDoc(docDTO);
 
 	}
@@ -81,7 +83,7 @@ public class EditProjectController {
 		if (uploadedFile != null)
 			disableSubmit = false;
 		this.uploadedFile = uploadedFile;
-		
+
 	}
 
 }

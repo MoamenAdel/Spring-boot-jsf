@@ -45,6 +45,7 @@ public class TasksServiceImpl extends BaseServiceImpl<Tasks> implements TasksSer
 	public BaseRepository getBaseRepo() {
 		return taskRepo;
 	}
+	
 
 	@Override
 	public TaskDTO addTask(TaskDTO taskDTO) {
@@ -130,5 +131,13 @@ public class TasksServiceImpl extends BaseServiceImpl<Tasks> implements TasksSer
 	public void deleteTask(Long taskId) {
 		// TODO Auto-generated method stub
 
+	}
+
+
+	@Override
+	public List<Tasks> getTasksByLfm(Long lfm) {
+	
+		List<Tasks> tasks = taskRepo.getTaskByLfm(lfm);
+		return tasks;
 	}
 }

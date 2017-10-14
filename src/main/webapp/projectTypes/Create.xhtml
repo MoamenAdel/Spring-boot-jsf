@@ -17,50 +17,34 @@
 				layout="table" />
 		</h:panelGroup>
 
-		<h:form>
+		<h:form id="create">
+			<p:growl id="growl"  autoUpdate="true" life="5000"></p:growl>
 			<h:panelGrid columns="2">
 				<p:outputLabel value="#{bundle.CreateProjectTypesLabel_type}"
 					for="type" />
-				<p:inputText id="type"
-					value="#{AddProjectTypeController.projectTypeDto.type}" placeholder="project type"
-					title="#{bundle.CreateProjectTypesTitle_type}" required="true" />
+				<p:inputText id="type" required="true"
+					requiredMessage="please don't leave name empty"
+					value="#{AddProjectTypeController.projectTypeDto.type}"
+					placeholder="project type"
+					title="#{bundle.CreateProjectTypesTitle_type}" />
+				<h:outputLabel />
+				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateProjectTypesLabel_description}"
 					for="description" />
 				<p:inputText id="description" placeholder="description"
+					required="true"
+					requiredMessage="please don't leave description empty"
 					value="#{AddProjectTypeController.projectTypeDto.description}"
-					title="#{bundle.CreateProjectTypesTitle_description}"
-					required="true" />
+					title="#{bundle.CreateProjectTypesTitle_description}" />
 
 			</h:panelGrid>
 			<br />
-			<p:commandLink
-				actionListener="#{AddProjectTypeController.addProject}"
-				value="#{bundle.CreateProjectTypesSaveLink}" />
+		
+				
+			<p:commandButton update="create" action="#{AddProjectTypeController.addProject}"
+				value="#{bundle.CreateProjectSaveLink}" styleClass="btn btn-primary" />
 
 		</h:form>
 	</ui:define>
 </ui:composition>
-<ui:composition template="/template.xhtml">
-	<ui:define name="title">
-		<h:outputText value="#{bundle.CreateProjectTypesTitle}"></h:outputText>
-	</ui:define>
-	<ui:define name="body">
-		<h:panelGroup id="messagePanel" layout="block">
-			<h:messages errorStyle="color: red" infoStyle="color: green"
-				layout="table" />
-		</h:panelGroup>
-		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="#{test2.str}" />
-			</h:panelGrid>
-			<br />
-
-		</h:form>
-	</ui:define>
-</ui:composition>
-
-
-
-
-
 </html>

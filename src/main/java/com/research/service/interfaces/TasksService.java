@@ -16,6 +16,8 @@ public interface TasksService extends BaseService<Tasks> {
 
 	List<TaskDTO> getTaskForProject(Long projectId);
 	void deleteTask(Long taskId);
+
+	List<Tasks> getTasksByLfm(Long lfm);
 	
 
 

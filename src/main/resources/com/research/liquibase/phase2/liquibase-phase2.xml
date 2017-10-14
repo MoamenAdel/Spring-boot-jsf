@@ -45,4 +45,9 @@
 	<changeSet id="201710041054" author="abdelrhman">
 		<addNotNullConstraint tableName="TASKS_EXPECTED_OUTCOMES" columnName="EXPECTATION"/>
 	</changeSet>
+	<changeSet id="201710130821" author="abdelrhman">
+		<addColumn tableName="DOCS">
+			<column type="character varying(255)" name="name"></column>
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>
