@@ -1,0 +1,57 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="201710170759" author="abdelrhman">
+		<addColumn tableName="EMPLOYEE">
+			<column name="MONTHLY_INCENTIVE" type="float(53)" />
+		</addColumn>
+	</changeSet>
+	<changeSet id="201710170802" author="abdelrhman">
+		<addColumn tableName="PROJECT">
+			<column name="DURATION" type="integer" />
+			<column name="AFFILIATION_OF_APPLICANT" type="VARCHAR(255)" />
+			<column name="PRINCIPAL" type="varchar(500)" />
+		</addColumn>
+	</changeSet>
+	<changeSet id="201710170811" author="abdelrhman">
+		<renameColumn tableName="PROJECT" oldColumnName="APLLICANT_ORG"
+			newColumnName="END_GRANTEE" />
+	</changeSet>
+	<changeSet id="201710170814" author="abdelrhman">
+		<createSequence sequenceName="SEQ_EMPLOYEE_WEEK" />
+	</changeSet>
+	<changeSet id="201710170816" author="abdelrhman">
+		<createTable tableName="EMPLOYEE_WEEK">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="EMPLOYEE_ID" type="bigint" />
+			<column name="WEEK_1" type="integer" />
+			<column name="WEEK_2" type="integer" />
+			<column name="WEEK_3" type="integer" />
+			<column name="WEEK_4" type="integer" />
+			<column name="MONTH" type="TIMESTAMP WITH TIME ZONE" />
+		</createTable>
+		<addPrimaryKey columnNames="ID" tableName="EMPLOYEE_WEEK"/>
+		<addForeignKeyConstraint constraintName="EMPLOYEE_WEEK_FK"
+			referencedTableName="EMPLOYEE" baseColumnNames="EMPLOYEE_ID" baseTableName="EMPLOYEE_WEEK"
+			referencedColumnNames="ID"/>
+	</changeSet>
+	<changeSet id="201710170838" author="abdelrhman">
+		<addUniqueConstraint columnNames="TYPE" tableName="PROJECT_TYPES"/>
+	</changeSet>
+	<changeSet id="201710170840" author="abdelrhman">
+		<addUniqueConstraint columnNames="ROLE" tableName="ROLE"/>
+	</changeSet>
+	<changeSet id="201710170847" author="abdelrhman">
+		<addColumn tableName="EMPLOYEE">
+			<column name="CERTIFICATE" type="VARCHAR(255)"/>
+		</addColumn>
+	</changeSet>
+</databaseChangeLog>
