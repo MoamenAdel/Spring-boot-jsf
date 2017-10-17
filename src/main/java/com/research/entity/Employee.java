@@ -72,6 +72,10 @@ public class Employee extends BaseEntity implements Serializable {
     @Size(max = 255)
     @Column(name = "serial_number")
     private String serialNumber;
+    @Column(name = "MONTHLY_INCENTIVE")
+    private double monthlyIncentive;
+    @Column(name = "CERTIFICATE")
+    private String certificate;
     @OneToMany(mappedBy = "employeeId")
     private Collection<ProjectEmployees> projectEmployeesCollection;
 
@@ -151,6 +155,26 @@ public class Employee extends BaseEntity implements Serializable {
     public void setProjectEmployeesCollection(Collection<ProjectEmployees> projectEmployeesCollection) {
         this.projectEmployeesCollection = projectEmployeesCollection;
     }
+
+
+	public double getMonthlyIncentive() {
+		return monthlyIncentive;
+	}
+
+
+	public void setMonthlyIncentive(double monthlyIncentive) {
+		this.monthlyIncentive = monthlyIncentive;
+	}
+
+
+	public String getCertificate() {
+		return certificate;
+	}
+
+
+	public void setCertificate(String certificate) {
+		this.certificate = certificate;
+	}
 
 
 

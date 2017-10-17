@@ -7,4 +7,5 @@
 
 	<include file="classpath:com/research/liquibase/phase1/liquibase-phase1.xml"/>
 	<include file="classpath:com/research/liquibase/phase2/liquibase-phase2.xml"/>
+	<include file="classpath:com/research/liquibase/phase3/liquibase-phase3.xml"/>
 </databaseChangeLog>
