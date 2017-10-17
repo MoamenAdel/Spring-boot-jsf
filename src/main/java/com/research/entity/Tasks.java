@@ -27,6 +27,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Where;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -36,6 +38,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @SequenceGenerator(name="SEQ",allocationSize=1,sequenceName="SEQ_PROJECT")
 @Entity
 @Table(name = "tasks")
+@Where(clause = "retired = 0")
 //@XmlRootElement
 //@NamedQueries({
 //    @NamedQuery(name = "Tasks.findAll", query = "SELECT t FROM Tasks t")

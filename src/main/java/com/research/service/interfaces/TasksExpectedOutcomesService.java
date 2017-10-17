@@ -12,4 +12,6 @@ public interface TasksExpectedOutcomesService extends BaseService<TasksExpectedO
 	List<TasksExpectedOutcomesDto> findByTaskId(Long id);
 	
 	List<TasksExpectedOutcomesDto> save(List<TasksExpectedOutcomesDto> list, Tasks task);
+
+	void retireByTaskId(Long id);
 }

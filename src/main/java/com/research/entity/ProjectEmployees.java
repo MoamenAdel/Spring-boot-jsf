@@ -7,6 +7,7 @@ package com.research.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +23,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -42,6 +45,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "ProjectEmployees.findByParticipation", query = "SELECT p FROM ProjectEmployees p WHERE p.participation = :participation")
     , @NamedQuery(name = "ProjectEmployees.findByMonths", query = "SELECT p FROM ProjectEmployees p WHERE p.months = :months")
     , @NamedQuery(name = "ProjectEmployees.findByBonus", query = "SELECT p FROM ProjectEmployees p WHERE p.bonus = :bonus")})
+@Where(clause = "retired = 0")
 public class ProjectEmployees extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

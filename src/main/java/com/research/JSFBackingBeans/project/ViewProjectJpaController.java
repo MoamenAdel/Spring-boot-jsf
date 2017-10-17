@@ -19,7 +19,9 @@ import org.ocpsoft.rewrite.el.ELBeanName;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeType;
@@ -44,11 +46,10 @@ public class ViewProjectJpaController {
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
-	private DocsService docsService;
+	private BeanFactory beanFactory;
 	private ProjectDto projectDto;
 
 	private Boolean editable = false;
-	@Autowired
 	private DocsLazyDataModel docsLazyDataModel;
 
 	private StreamedContent streamedContent;
@@ -62,8 +63,9 @@ public class ViewProjectJpaController {
 				.get("projectDto");
 		if (temp != null) {
 			projectDto = temp;
+			docsLazyDataModel = beanFactory.getBean(DocsLazyDataModel.class, temp);
 		}
-		docsLazyDataModel.setRowCount(docsService.getCountByProject(projectDto.getId()));
+		docsLazyDataModel.setRowCount(projectService.countDocs(projectDto.getId()).intValue());
 		// projectDto = projectService.findOne((long) 38);
 	}
 
@@ -101,10 +103,8 @@ public class ViewProjectJpaController {
 			streamedContent=new DefaultStreamedContent(inputStream,
 					Files.probeContentType(file.toPath()), docsDTO.getPath());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

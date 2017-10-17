@@ -108,4 +108,9 @@ public class TasksExpectedOutcomesServiceImpl extends BaseServiceImpl<TasksExpec
 		
 	}
 
+	@Override
+	public void retireByTaskId(Long id) {
+		tasksExpectedOutcomesRepo.retireByTaskId(id);
+	}
+
 }

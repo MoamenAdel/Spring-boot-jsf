@@ -7,6 +7,7 @@ package com.research.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +23,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,6 +44,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
     , @NamedQuery(name = "TasksExpectedOutcomes.findByRetireDate", query = "SELECT t FROM TasksExpectedOutcomes t WHERE t.retireDate = :retireDate")
     , @NamedQuery(name = "TasksExpectedOutcomes.findByRetired", query = "SELECT t FROM TasksExpectedOutcomes t WHERE t.retired = :retired")
     , @NamedQuery(name = "TasksExpectedOutcomes.findByExpectation", query = "SELECT t FROM TasksExpectedOutcomes t WHERE t.expectation = :expectation")})
+@Where(clause = "retired = 0")
 public class TasksExpectedOutcomes extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

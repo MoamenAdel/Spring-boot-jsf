@@ -22,7 +22,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 
 @MappedSuperclass
-@Where(clause="retired<>1")
+@Where(clause="retired = 0")
 public abstract class BaseEntity implements Serializable {
     /**
 	 * 

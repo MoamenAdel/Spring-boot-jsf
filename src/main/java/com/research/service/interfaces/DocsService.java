@@ -8,5 +8,5 @@ public interface DocsService extends BaseService<Docs>{
 
 	DocsDTO addNewDoc(DocsDTO docDTO);
 
-	int getCountByProject(Long id);
+	Long getCountByProject(Long id);
 }

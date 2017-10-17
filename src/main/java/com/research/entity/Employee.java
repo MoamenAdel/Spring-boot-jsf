@@ -7,6 +7,7 @@ package com.research.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
@@ -17,6 +18,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -41,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByCenter", query = "SELECT e FROM Employee e WHERE e.center = :center")
     , @NamedQuery(name = "Employee.findBySerialNumber", query = "SELECT e FROM Employee e WHERE e.serialNumber = :serialNumber")})
 @SequenceGenerator(name="SEQ",allocationSize=1,sequenceName="SEQ_PROJECT")
+@Where(clause = "retired = 0")
 public class Employee extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

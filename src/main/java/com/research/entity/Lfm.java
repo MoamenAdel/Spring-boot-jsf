@@ -23,6 +23,8 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Where;
+
 /**
  *
  * @author Sheko
@@ -38,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Lfm.findByModifyDate", query = "SELECT l FROM Lfm l WHERE l.modifyDate = :modifyDate")
     , @NamedQuery(name = "Lfm.findByRetireDate", query = "SELECT l FROM Lfm l WHERE l.retireDate = :retireDate")
     , @NamedQuery(name = "Lfm.findByRetired", query = "SELECT l FROM Lfm l WHERE l.retired = :retired")})
+@Where(clause = "retired = 0")
 public class Lfm extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

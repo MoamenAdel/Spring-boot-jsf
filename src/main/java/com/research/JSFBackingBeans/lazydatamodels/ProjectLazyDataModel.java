@@ -9,13 +9,15 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.research.dto.project.ProjectDto;
 import com.research.entity.Project;
 import com.research.service.interfaces.ProjectService;
 
-@Component("prototype")
+@Component
+@Scope("prototype")
 public class ProjectLazyDataModel extends LazyDataModel<ProjectDto> {
 
 	@Autowired

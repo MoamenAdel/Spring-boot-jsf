@@ -1,6 +1,7 @@
 package com.research.JSFBackingBeans.lazydatamodels;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -22,31 +24,34 @@ import com.research.service.interfaces.DocsService;
 import com.research.service.interfaces.ProjectService;
 
 @Component
-@Scope("view")
+@Scope("prototype")
+@Lazy
 public class DocsLazyDataModel extends LazyDataModel<DocsDTO> {
 
 	@Autowired
-	ProjectService projectService;
+	private ProjectService projectService;
+	private ProjectDto projectDto;
 
+	public DocsLazyDataModel(ProjectDto projectDto) {
+		this.projectDto = projectDto;
+	}
 	@PostConstruct
 	void init() {
-
-		ProjectDto projectDto = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash()
-				.get("projectDto");
-		if (projectDto == null)
+		if (projectDto == null){
 			return;
-		Collection<DocsDTO> docsDTOs = projectService.getDocs(projectDto);
-		setRowCount(docsDTOs.size());
-
+		}
+		setRowCount(projectService.countDocs(projectDto.getId()).intValue());
 	}
 
 	@Override
 	public List<DocsDTO> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, Object> filters) {
-		// TODO Auto-generated method stub
-		ProjectDto projectDto = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash()
-				.get("projectDto");
-		return projectService.getDocs(projectDto);
+//		ProjectDto projectDto = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash()
+//				.get("projectDto");
+		if (projectDto == null){
+			return new ArrayList<DocsDTO>();
+		}
+		return projectService.getDocs(projectDto, first / pageSize, pageSize);
 
 	}
 

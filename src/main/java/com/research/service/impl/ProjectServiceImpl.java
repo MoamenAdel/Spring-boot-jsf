@@ -56,6 +56,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private Environment env;
 	@Autowired
 	DocsRepository docsRepo;
+	@Autowired
+	private DocsService docsService;
 
 	@Override
 	public BaseRepository getBaseRepo() {
@@ -126,7 +128,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	public List<ProjectDto> getProjectPage(int first, int pageSize) {
 		List<ProjectDto> projectsDto = new ArrayList<>();
-		System.out.println("first : " + first + "  pageSize : " + pageSize);
 		PageRequest request = new PageRequest(first, pageSize);
 		Page<Project> projectsPage = projectRepo.findAll(request);
 		List<Project> projects = projectsPage.getContent();
@@ -168,7 +169,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	// @Override
 	// public List<StreamedContent> getDocsPage(ProjectDto project, int i, int
 	// pageSize) throws IOException {
-	// // TODO Auto-generated method stub
 	// List<StreamedContent> streamedContents = new ArrayList<>();
 	// Project project2 = getOne(project.getId());
 	// for (Docs docs : project2.getDocsCollection()) {
@@ -180,17 +180,23 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	// }
 
 	@Override
-	public List<DocsDTO> getDocs(ProjectDto projectDto) {
-		// TODO Auto-generated method stub
+	public List<DocsDTO> getDocs(ProjectDto projectDto, int first, int pageSize) {
 		List<DocsDTO> docsDTOs = new ArrayList<>();
+		PageRequest request = new PageRequest(first, pageSize);
 		Project project = projectRepo.findOne(projectDto.getId());
 		// List<Docs> docses = (List<Docs>) project.getDocsCollection();
 		// Iterator<Docs> docsIterator = project.getDocsCollection().iterator();
-		List<Docs> docs = docsRepo.findByProjectId(project);
+		Page<Docs> docsPage = docsRepo.findByProjectId(project, request);
+		List<Docs> docs = docsPage.getContent();
 		for (Docs doc : docs)
 			docsDTOs.add(mapper.map(doc, DocsDTO.class));
 
 		return docsDTOs;
+	}
+
+	@Override
+	public Long countDocs(Long projectId) {
+		return docsService.getCountByProject(projectId);
 	}
 
 }

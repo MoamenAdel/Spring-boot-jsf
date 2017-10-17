@@ -26,6 +26,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -61,6 +63,7 @@ public class ViewLfmJpaController implements Serializable {
 	DateFormat dt1 = new SimpleDateFormat("d MMM yyyy");
 	private List<String> outcomes;
 	private TaskDTO newTaskDTO = new TaskDTO();
+	private TaskDTO selectedTask = new TaskDTO();
 
 	public ViewLfmJpaController() {
 	}
@@ -156,7 +159,58 @@ public class ViewLfmJpaController implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Task added successfully"));
 		return null;
 	}
+	
+	public void editEventHandler(SelectEvent event){
+		TaskDTO dto = (TaskDTO) event.getObject();
+		for (TasksExpectedOutcomesDto outcomeDto : dto.getTasksExpectedOutcomesCollection()){
+			outcomes.add(outcomeDto.getExpectation());
+		}
+	}
+	
+	public String editTask(){
+		selectedTask.setTasksExpectedOutcomesCollection(constructOutcomes(outcomes, selectedTask));
+		selectedTask.setLfmId(selected.getId());
+		selectedTask.setProjectEndDate(projectDto.getSubmissionDate());
+		selectedTask = lfmService.editTask(selectedTask);
+		selectedTask.setFormatedEndDate(dt1.format(selectedTask.getEndDate()));
+		selectedTask.setFormatedStartDate(dt1.format(selectedTask.getStartDate()));
+		selected.getTasksDtoCollection().add(selectedTask);
+		calculateMonths();
+		outcomes = new ArrayList<>();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Task edited successfully"));
+		return null;
+	}
+	
+	public String deleteTask(Long id){
+		lfmService.retireTask(id);
+		TaskDTO taskdto = null;
+		for (TaskDTO task : selected.getTasksDtoCollection()){
+			if (task.getId() == selectedTask.getId()){
+				selected.getTasksDtoCollection().remove(task);
+				break;
+			}
+				
+		}
+		calculateMonths();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Task deleted successfully"));
+		return null;
+	}
 
+	private List<TasksExpectedOutcomesDto> constructOutcomes(List<String> expectations, TaskDTO taskDTO){
+		List<TasksExpectedOutcomesDto> outcomesDtos = new ArrayList<>();
+		for (String expectation : expectations){
+			TasksExpectedOutcomesDto outcomeDto = new TasksExpectedOutcomesDto();
+			outcomeDto.setExpectation(expectation);
+			outcomeDto.setTaskDTO(taskDTO);
+			outcomesDtos.add(outcomeDto);
+		}
+		return outcomesDtos;
+	}
+	
+	public void clearOutcomes(CloseEvent event){
+		outcomes = new ArrayList<>();
+	}
+	
 	public LFMDto getSelected() {
 		return selected;
 	}
@@ -202,6 +256,14 @@ public class ViewLfmJpaController implements Serializable {
 
 	public void setOutcomes(List<String> outcomes) {
 		this.outcomes = outcomes;
+	}
+
+	public TaskDTO getSelectedTask() {
+		return selectedTask;
+	}
+
+	public void setSelectedTask(TaskDTO selectedTask) {
+		this.selectedTask = selectedTask;
 	}
 
 }

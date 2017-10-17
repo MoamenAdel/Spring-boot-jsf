@@ -140,4 +140,10 @@ public class TasksServiceImpl extends BaseServiceImpl<Tasks> implements TasksSer
 		List<Tasks> tasks = taskRepo.getTaskByLfm(lfm);
 		return tasks;
 	}
+
+
+	@Override
+	public void retireTask(Long id) {
+		taskRepo.retireTask(id);
+	}
 }

@@ -19,6 +19,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -36,6 +37,7 @@ import org.hibernate.annotations.Type;
 		@NamedQuery(name = "Docs.findByDocPath", query = "SELECT d FROM Docs d WHERE d.docPath = :docPath"),
 		@NamedQuery(name = "Docs.findByIsUploaded", query = "SELECT d FROM Docs d WHERE d.isUploaded = :isUploaded") })
 @SequenceGenerator(name = "SEQ", allocationSize = 1, sequenceName = "SEQ_PROJECT")
+@Where(clause = "retired = 0")
 public class Docs extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

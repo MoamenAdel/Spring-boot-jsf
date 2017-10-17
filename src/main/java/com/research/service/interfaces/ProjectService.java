@@ -25,6 +25,8 @@ public interface ProjectService extends BaseService<Project> {
 	List<ProjectDto> getProjectPage(int first, int pageSize);
 
 //	List<StreamedContent> getDocsPage(ProjectDto projectDto,int i, int pageSize) throws IOException;
-	List<DocsDTO> getDocs(ProjectDto projectDto);
+	List<DocsDTO> getDocs(ProjectDto projectDto, int first, int pageSize);
+	
+	Long countDocs(Long projectId);
 	
 }

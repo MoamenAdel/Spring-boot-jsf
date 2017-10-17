@@ -18,6 +18,8 @@ public interface TasksService extends BaseService<Tasks> {
 	void deleteTask(Long taskId);
 
 	List<Tasks> getTasksByLfm(Long lfm);
+
+	void retireTask(Long id);
 	
 
 

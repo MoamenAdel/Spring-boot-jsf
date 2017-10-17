@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
  * @author sherif
  */
 @Component
+@Scope("prototype")
 public class ProjectTypeLazyDataModel extends LazyDataModel<ProjectTypeDto> {
 
 	@Autowired
@@ -35,7 +36,7 @@ public class ProjectTypeLazyDataModel extends LazyDataModel<ProjectTypeDto> {
 	@Override
 	public List<ProjectTypeDto> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, Object> filters) {
-		return projectTypeService.getPage(first, pageSize);
+		return projectTypeService.getPage(first / pageSize, pageSize);
 
 	}
 

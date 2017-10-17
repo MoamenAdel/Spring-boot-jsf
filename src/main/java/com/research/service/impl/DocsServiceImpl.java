@@ -76,9 +76,9 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 	}
 
 	@Override
-	public int getCountByProject(Long id) {
+	public Long getCountByProject(Long id) {
 		Long count = docsRepository.countByProject(id);
-		return count.intValue();
+		return count;
 	}
 
 }

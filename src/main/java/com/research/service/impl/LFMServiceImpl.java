@@ -100,6 +100,7 @@ public class LFMServiceImpl extends BaseServiceImpl<Lfm> implements LFMService {
 					.findByTaskId(task.getId());
 			TaskDTO taskDTO = new TaskDTO();
 			// mapper.map(task, taskDTO);
+			taskDTO.setId(task.getId());
 			taskDTO.setEndDate(task.getEndDate());
 			taskDTO.setStartDate(task.getStartDate());
 			taskDTO.setDuration(task.getDuration());
@@ -113,6 +114,21 @@ public class LFMServiceImpl extends BaseServiceImpl<Lfm> implements LFMService {
 		lfmDto.setTasksDtoCollection(taskDTOs);
 
 		return lfmDto;
+	}
+
+	@Override
+	public TaskDTO editTask(TaskDTO selectedTask) {
+		tasksExpectedOutcomesService.retireByTaskId(selectedTask.getId());
+		tasksService.retireTask(selectedTask.getId());
+		selectedTask.setId(null);
+		selectedTask = tasksService.addTask(selectedTask);
+		return selectedTask;
+	}
+
+	@Override
+	public void retireTask(Long id) {
+		tasksExpectedOutcomesService.retireByTaskId(id);
+		tasksService.retireTask(id);
 	}
 
 }

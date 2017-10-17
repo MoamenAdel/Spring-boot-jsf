@@ -8,6 +8,7 @@ package com.research.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -40,6 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 		@NamedQuery(name = "SysUser.findByRetired", query = "SELECT s FROM SysUser s WHERE s.retired = :retired"),
 		@NamedQuery(name = "SysUser.findByUserName", query = "SELECT s FROM SysUser s WHERE s.userName = :userName"),
 		@NamedQuery(name = "SysUser.findByPassword", query = "SELECT s FROM SysUser s WHERE s.password = :password") })
+@Where(clause = "retired = 0")
 public class SysUser extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
