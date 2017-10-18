@@ -1,12 +1,14 @@
 package com.research.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
 
+@Entity
 @Table(name = "PAYMENT_REQUEST")
 @Where(clause="retired = 0")
 public class PaymentRequest extends BaseEntity {
