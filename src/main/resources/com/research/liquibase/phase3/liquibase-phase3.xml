@@ -54,6 +54,9 @@
 			<column name="CERTIFICATE" type="VARCHAR(255)" />
 		</addColumn>
 	</changeSet>
+	<changeSet id="201710181048" author="abdelrhman">
+		<createSequence sequenceName="SEQ_PAYMENT_REQUEST"/>
+	</changeSet>
 	<changeSet id="201710181049" author="abdelrhman">
 		<createTable tableName="PAYMENT_REQUEST">
 			<column name="ID" type="bigint" />
