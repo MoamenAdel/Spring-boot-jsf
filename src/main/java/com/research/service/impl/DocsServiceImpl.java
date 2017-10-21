@@ -81,4 +81,10 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 		return count;
 	}
 
+    @Override
+    public Long getCountByEmployee(Long id) {
+        Long count = docsRepository.countByEmployee(id);
+		return count;
+    }
+
 }

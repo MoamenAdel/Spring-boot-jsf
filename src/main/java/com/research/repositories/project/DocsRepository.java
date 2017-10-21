@@ -16,4 +16,7 @@ public interface DocsRepository extends BaseRepository<Docs> {
 
 	@Query("select count(d) from Docs d where d.projectId.id = ?")
 	Long countByProject(Long id);
+        @Query("select count(d) from Docs d where d.projectId.id = ?") //MOA to Do
+	Long countByEmployee(Long id);
+        
 }

@@ -14,42 +14,52 @@
 		<h:panelGroup id="messagePanel" layout="block">
 		</h:panelGroup>
 		<h:form>
+			<p:growl id="growl" autoUpdate="true" life="5000"></p:growl>
 			<h:panelGrid columns="2">
-				<p:outputLabel value="#{bundle.CreateEmployeeLabel_name}" for="name" />
-				<p:inputText id="name" value="#{employeeController.selected.name}"
+					<p:outputLabel value="#{bundle.CreateEmployeeLabel_name}" for="name" />
+				<p:inputText id="name"
+					value="#{AddEmployeeController.selected.name}"
 					title="#{bundle.CreateEmployeeTitle_name}"></p:inputText>
 
 				<h:outputLabel />
 				<h:outputLabel />
-				<p:outputLabel value="#{bundle.CreateEmployeeLabel_comments}"
-					for="comments" />
-				<p:inputText id="comments"
-					value="#{employeeController.selected.comments}"
-					title="#{bundle.CreateEmployeeTitle_comments}" />
+					<p:outputLabel value="#{bundle.CreateEmployeeLabel_serialNumber}"
+					for="serialNumber" />
+				<p:inputText id="serialNumber"
+					value="#{AddEmployeeController.selected.serialNumber}"
+					title="#{bundle.CreateEmployeeTitle_serialNumber}" />
+                                
 				<h:outputLabel />
 				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateEmployeeLabel_position}"
 					for="position" />
 				<p:inputText id="position"
-					value="#{employeeController.selected.position}"
+					value="#{AddEmployeeController.selected.position}"
 					title="#{bundle.CreateEmployeeTitle_position}" />
 				<h:outputLabel />
 				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateEmployeeLabel_center}"
 					for="center" />
 				<p:inputText id="center"
-					value="#{employeeController.selected.center}"
+					value="#{AddEmployeeController.selected.center}"
 					title="#{bundle.CreateEmployeeTitle_center}" />
 				<h:outputLabel />
 				<h:outputLabel />
-				<p:outputLabel value="#{bundle.CreateEmployeeLabel_serialNumber}"
-					for="serialNumber" />
-				<p:inputText id="serialNumber"
-					value="#{employeeController.selected.serialNumber}"
-					title="#{bundle.CreateEmployeeTitle_serialNumber}" />
+                                <p:outputLabel value="#{bundle.CreateEmployeeLabel_comments}"
+					for="comments" />
+				<p:inputText id="comments"
+					value="#{AddEmployeeController.selected.comments}"
+					title="#{bundle.CreateEmployeeTitle_comments}" />
+                                <h:outputLabel />
+				<h:outputLabel />
+                                <p:outputLabel value="#{bundle.ViewEmployeeLabel_hiringNote}"
+					for="hiringNote" />
+				<p:inputText id="hiringNote"
+                                             value="#{AddEmployeeController.selected.hiringNote}"
+					title="#{bundle.ViewEmployeeLabel_hiringNote}" />
 			</h:panelGrid>
 			<br />
-			<p:commandButton action="#{employeeController.create}"
+			<p:commandButton action="#{AddEmployeeController.create}"
 				value="#{bundle.CreateEmployeeSaveLink}" />
 
 		</h:form>

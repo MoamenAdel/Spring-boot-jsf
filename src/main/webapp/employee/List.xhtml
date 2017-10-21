@@ -1,122 +1,86 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListEmployeeTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-        <h:form styleClass="jsfcrud_list_form">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:outputText escape="false" value="#{bundle.ListEmployeeEmpty}" rendered="#{employeeController.items.rowCount == 0}"/>
-            <h:panelGroup rendered="#{employeeController.items.rowCount > 0}">
-                <h:outputText value="#{employeeController.pagination.pageFirstItem + 1}..#{employeeController.pagination.pageLastItem + 1}/#{employeeController.pagination.itemsCount}"/>&nbsp;
-                <h:commandLink action="#{employeeController.previous}" value="#{bundle.Previous} #{employeeController.pagination.pageSize}" rendered="#{employeeController.pagination.hasPreviousPage}"/>&nbsp;
-                <h:commandLink action="#{employeeController.next}" value="#{bundle.Next} #{employeeController.pagination.pageSize}" rendered="#{employeeController.pagination.hasNextPage}"/>&nbsp;
-                <h:dataTable value="#{employeeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_name}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.name}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_comments}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.comments}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_criminalStatus}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.criminalStatus}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_cv}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.cv}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_hiringNote}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.hiringNote}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_position}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.position}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_center}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.center}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_serialNumber}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.serialNumber}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_id}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.id}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_createDate}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.createDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_modifyDate}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.modifyDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListEmployeeTitle_retireDate}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.retireDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
-                        </f:facet>
-                        <h:commandLink action="#{employeeController.prepareView}" value="#{bundle.ListEmployeeViewLink}"/>
-                        <h:outputText value=" "/>
-                        <h:commandLink action="#{employeeController.prepareEdit}" value="#{bundle.ListEmployeeEditLink}"/>
-                        <h:outputText value=" "/>
-                        <h:commandLink action="#{employeeController.destroy}" value="#{bundle.ListEmployeeDestroyLink}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:panelGroup>
-            <br />
-            <h:commandLink action="#{employeeController.prepareCreate}" value="#{bundle.ListEmployeeCreateLink}"/>
-            <br />
-            <br />
-            <h:link outcome="/index" value="#{bundle.ListEmployeeIndexLink}"/>
-        </h:form>
-        </ui:define>
-    </ui:composition>
+<ui:composition template="/template.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{bundle.ListEmployeeTitle}"></h:outputText>
+	</ui:define>
+	<ui:define name="body">
+		<h:form styleClass="jsfcrud_list_form">
+			<h:panelGroup id="messagePanel" layout="block">
+				<h:messages errorStyle="color: red" infoStyle="color: green"
+					layout="table" />
+			</h:panelGroup>
+
+			<p:dataTable id="table1" value="#{ListEmployeeController.model}"
+				var="item" resizableColumns="true" rows="10" paginator="true"
+				lazy="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+				rowsPerPageTemplate="5,10,15">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{bundle.ListEmployeeTitle_serialNumber}" />
+					</f:facet>
+					<h:outputText value="#{item.serialNumber}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{bundle.ListEmployeeTitle_name}" />
+					</f:facet>
+					<h:outputText value="#{item.name}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{bundle.ListEmployeeTitle_center}" />
+					</f:facet>
+					<h:outputText value="#{item.center}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{bundle.ListEmployeeTitle_position}" />
+					</f:facet>
+					<h:outputText value="#{item.position}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{bundle.ListEmployeeTitle_hiringNote}" />
+					</f:facet>
+					<h:outputText value="#{item.hiringNote}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{bundle.ListEmployeeTitle_cv}" />
+					</f:facet>
+					<h:outputText value="#{item.cv}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{bundle.ListEmployeeTitle_criminalStatus}" />
+					</f:facet>
+					<h:outputText value="#{item.criminalStatus}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{bundle.ListEmployeeTitle_comments}" />
+					</f:facet>
+					<h:outputText value="#{item.comments}" />
+				</p:column>
+				<p:column exportable="false">
+					<f:facet name="header">
+						<h:outputText value="Options" />
+					</f:facet>
+					<p:commandLink ajax="false" title="View"
+                                                       action="#{ListEmployeeController.viewEmployee(item)}">View</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
 
 </html>
