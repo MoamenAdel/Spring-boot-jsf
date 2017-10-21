@@ -47,6 +47,7 @@ public class ViewProjectJpaController {
 	private ProjectService projectService;
 	@Autowired
 	private BeanFactory beanFactory;
+	
 	private ProjectDto projectDto;
 
 	private Boolean editable = false;
@@ -63,6 +64,7 @@ public class ViewProjectJpaController {
 				.get("projectDto");
 		if (temp != null) {
 			projectDto = temp;
+			
 			docsLazyDataModel = beanFactory.getBean(DocsLazyDataModel.class, temp);
 		}
 		docsLazyDataModel.setRowCount(projectService.countDocs(projectDto.getId()).intValue());

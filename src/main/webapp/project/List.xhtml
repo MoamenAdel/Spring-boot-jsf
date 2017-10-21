@@ -82,13 +82,13 @@
                         </f:facet>
                         <h:outputText value="#{item.type}" />
                     </p:column>
-                    <p:column exportable="false">
-                         <f:facet name="header">
-                            <h:outputText value="Options" />
-                        </f:facet>
-                        <p:commandLink ajax="false" title="View"
-                                       action="#{ListProjectJpaController.viewProject(item)}">View</p:commandLink>
-                    </p:column>
+                            <p:column exportable="false">
+                                <f:facet name="header">
+                                    <h:outputText value="Options" />
+                                </f:facet>
+                                <p:commandLink ajax="false" title="View"
+                                               action="#{ListProjectJpaController.viewProject(item)}">View</p:commandLink>
+                            </p:column>
 
                 </p:dataTable>
 
