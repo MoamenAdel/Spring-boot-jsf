@@ -72,7 +72,7 @@ public class AssignEmployeeToProjectController implements Serializable {
         return "AssignEmployees";
     }
 
-    /// MOA auto complete tring
+    /// MOA auto complete trying
     @FacesConverter(forClass = EmployeeDto.class)
     public static class EmployeeDtoControllerConverter implements Converter {
 
