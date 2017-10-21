@@ -1,0 +1,102 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="201710170759" author="abdelrhman">
+		<addColumn tableName="EMPLOYEE">
+			<column name="MONTHLY_INCENTIVE" type="float(53)" />
+		</addColumn>
+	</changeSet>
+	<changeSet id="201710170802" author="abdelrhman">
+		<addColumn tableName="PROJECT">
+			<column name="DURATION" type="integer" />
+			<column name="AFFILIATION_OF_APPLICANT" type="VARCHAR(255)" />
+			<column name="PRINCIPAL" type="varchar(500)" />
+		</addColumn>
+	</changeSet>
+	<changeSet id="201710170811" author="abdelrhman">
+		<renameColumn tableName="PROJECT" oldColumnName="APLLICANT_ORG"
+			newColumnName="END_GRANTEE" />
+	</changeSet>
+	<changeSet id="201710170814" author="abdelrhman">
+		<createSequence sequenceName="SEQ_EMPLOYEE_WEEK" />
+	</changeSet>
+	<changeSet id="201710170816" author="abdelrhman">
+		<createTable tableName="EMPLOYEE_WEEK">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="EMPLOYEE_ID" type="bigint" />
+			<column name="WEEK_1" type="integer" />
+			<column name="WEEK_2" type="integer" />
+			<column name="WEEK_3" type="integer" />
+			<column name="WEEK_4" type="integer" />
+			<column name="MONTH" type="TIMESTAMP WITH TIME ZONE" />
+		</createTable>
+		<addPrimaryKey columnNames="ID" tableName="EMPLOYEE_WEEK" />
+		<addForeignKeyConstraint constraintName="EMPLOYEE_WEEK_FK"
+			referencedTableName="EMPLOYEE" baseColumnNames="EMPLOYEE_ID"
+			baseTableName="EMPLOYEE_WEEK" referencedColumnNames="ID" />
+	</changeSet>
+	<changeSet id="201710170838" author="abdelrhman">
+		<addUniqueConstraint columnNames="TYPE" tableName="PROJECT_TYPES" />
+	</changeSet>
+	<changeSet id="201710170840" author="abdelrhman">
+		<addUniqueConstraint columnNames="ROLE" tableName="ROLE" />
+	</changeSet>
+	<changeSet id="201710170847" author="abdelrhman">
+		<addColumn tableName="EMPLOYEE">
+			<column name="CERTIFICATE" type="VARCHAR(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet id="201710181048" author="abdelrhman">
+		<createSequence sequenceName="SEQ_PAYMENT_REQUEST"/>
+	</changeSet>
+	<changeSet id="201710181049" author="abdelrhman">
+		<createTable tableName="PAYMENT_REQUEST">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="EMPLOYEE_ID" type="bigint" />
+			<column name="EMPLOYEE_NAME" type="VARCHAR(255)" />
+			<column name="ROLE" type="VARCHAR(100)" />
+			<column name="MONTHLY_INCENTIVE" type="float(53)" />
+			<column name="HOURS_PER_WEEK" type="integer" />
+			<column name="PARTICIPATION" type="float(53)" />
+			<column name="NUMBER_OF_MONTHS" type="integer" />
+			<column name="TOTAL" type="float(53)"/>
+		</createTable>
+		<addPrimaryKey columnNames="ID" tableName="PAYMENT_REQUEST" />
+		<addForeignKeyConstraint constraintName="PAYMENT_REQUEST_EMPLOYEE_FK"
+			referencedTableName="EMPLOYEE" baseColumnNames="EMPLOYEE_ID"
+			baseTableName="PAYMENT_REQUEST" referencedColumnNames="ID" />
+	</changeSet>
+	<changeSet id="201710181056" author="abdelrhman">
+		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="EMPLOYEE_NAME"/>
+	</changeSet>
+	<changeSet id="201710181057" author="abdelrhman">
+		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="ROLE"/>
+	</changeSet>
+	<changeSet id="201710181058" author="abdelrhman">
+		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="MONTHLY_INCENTIVE"/>
+	</changeSet>
+	<changeSet id="201710181059" author="abdelrhman">
+		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="HOURS_PER_WEEK"/>
+	</changeSet>
+	<changeSet id="201710181060" author="abdelrhman">
+		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="PARTICIPATION"/>
+	</changeSet>
+	<changeSet id="201710181061" author="abdelrhman">
+		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="NUMBER_OF_MONTHS"/>
+	</changeSet>
+	<changeSet id="201710181062" author="abdelrhman">
+		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="TOTAL"/>
+	</changeSet>
+</databaseChangeLog>

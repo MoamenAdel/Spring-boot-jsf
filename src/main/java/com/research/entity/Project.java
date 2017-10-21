@@ -39,19 +39,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "PROJECT")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p")
-    , @NamedQuery(name = "Project.findById", query = "SELECT p FROM Project p WHERE p.id = :id")
-    , @NamedQuery(name = "Project.findByCreateDate", query = "SELECT p FROM Project p WHERE p.createDate = :createDate")
-    , @NamedQuery(name = "Project.findByModifyDate", query = "SELECT p FROM Project p WHERE p.modifyDate = :modifyDate")
-    , @NamedQuery(name = "Project.findByRetireDate", query = "SELECT p FROM Project p WHERE p.retireDate = :retireDate")
-    , @NamedQuery(name = "Project.findByRetired", query = "SELECT p FROM Project p WHERE p.retired = :retired")
-    , @NamedQuery(name = "Project.findByTitle", query = "SELECT p FROM Project p WHERE p.title = :title")
-    , @NamedQuery(name = "Project.findByApplicantName", query = "SELECT p FROM Project p WHERE p.applicantName = :applicantName")
-    , @NamedQuery(name = "Project.findByApllicantOrg", query = "SELECT p FROM Project p WHERE p.apllicantOrg = :apllicantOrg")
-    , @NamedQuery(name = "Project.findByBudget", query = "SELECT p FROM Project p WHERE p.budget = :budget")
-    , @NamedQuery(name = "Project.findBySubmissionDate", query = "SELECT p FROM Project p WHERE p.submissionDate = :submissionDate")
-    , @NamedQuery(name = "Project.findByAbbreviation", query = "SELECT p FROM Project p WHERE p.abbreviation = :abbreviation")})
+//@NamedQueries({
+//    @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p")
+//    , @NamedQuery(name = "Project.findById", query = "SELECT p FROM Project p WHERE p.id = :id")
+//    , @NamedQuery(name = "Project.findByCreateDate", query = "SELECT p FROM Project p WHERE p.createDate = :createDate")
+//    , @NamedQuery(name = "Project.findByModifyDate", query = "SELECT p FROM Project p WHERE p.modifyDate = :modifyDate")
+//    , @NamedQuery(name = "Project.findByRetireDate", query = "SELECT p FROM Project p WHERE p.retireDate = :retireDate")
+//    , @NamedQuery(name = "Project.findByRetired", query = "SELECT p FROM Project p WHERE p.retired = :retired")
+//    , @NamedQuery(name = "Project.findByTitle", query = "SELECT p FROM Project p WHERE p.title = :title")
+//    , @NamedQuery(name = "Project.findByApplicantName", query = "SELECT p FROM Project p WHERE p.applicantName = :applicantName")
+//    , @NamedQuery(name = "Project.findByApllicantOrg", query = "SELECT p FROM Project p WHERE p.apllicantOrg = :apllicantOrg")
+//    , @NamedQuery(name = "Project.findByBudget", query = "SELECT p FROM Project p WHERE p.budget = :budget")
+//    , @NamedQuery(name = "Project.findBySubmissionDate", query = "SELECT p FROM Project p WHERE p.submissionDate = :submissionDate")
+//    , @NamedQuery(name = "Project.findByAbbreviation", query = "SELECT p FROM Project p WHERE p.abbreviation = :abbreviation")})
 @SequenceGenerator(name="SEQ",allocationSize=1,sequenceName="SEQ_PROJECT")
 @Where(clause = "retired = 0")
 public class Project extends BaseEntity implements Serializable {
@@ -65,8 +65,8 @@ public class Project extends BaseEntity implements Serializable {
     @Column(name = "applicant_name")
     private String applicantName;
     @Size(max = 255)
-    @Column(name = "apllicant_org")
-    private String apllicantOrg;
+    @Column(name = "END_GRANTEE")
+    private String endGrantee;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "budget")
     private Double budget;
@@ -76,6 +76,12 @@ public class Project extends BaseEntity implements Serializable {
     @Size(max = 255)
     @Column(name = "abbreviation")
     private String abbreviation;
+    @Column(name = "DURATION")
+    private Integer duration;
+    @Column(name = "AFFILIATION_OF_APPLICANT")
+    private String affiliationOfApplicant;
+    @Column(name = "PRINCIPAL")
+    private String principal;
     @OneToMany(mappedBy = "projectId", fetch = FetchType.EAGER)
     private Collection<ProjectEmployees> projectEmployeesCollection;
     @OneToMany(mappedBy = "projectId",fetch = FetchType.EAGER)
@@ -106,11 +112,11 @@ public class Project extends BaseEntity implements Serializable {
     }
 
     public String getApllicantOrg() {
-        return apllicantOrg;
+        return endGrantee;
     }
 
     public void setApllicantOrg(String apllicantOrg) {
-        this.apllicantOrg = apllicantOrg;
+        this.endGrantee = apllicantOrg;
     }
 
     public Double getBudget() {
@@ -199,5 +205,29 @@ public class Project extends BaseEntity implements Serializable {
     public String toString() {
         return "com.mycompany.cassandrarest.Project[ id=" + id + " ]";
     }
+
+	public Integer getDuration() {
+		return duration;
+	}
+
+	public void setDuration(Integer duration) {
+		this.duration = duration;
+	}
+
+	public String getAffiliationOfApplicant() {
+		return affiliationOfApplicant;
+	}
+
+	public void setAffiliationOfApplicant(String affiliationOfApplicant) {
+		this.affiliationOfApplicant = affiliationOfApplicant;
+	}
+
+	public String getPrincipal() {
+		return principal;
+	}
+
+	public void setPrincipal(String principal) {
+		this.principal = principal;
+	}
     
 }
