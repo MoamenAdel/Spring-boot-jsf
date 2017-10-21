@@ -1,7 +1,9 @@
 package com.research.JSFBackingBeans.projecttype;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -23,6 +25,9 @@ public class AddingProjectTypeJpaController {
 
 	public void addProject() {
 		projectTypeService.addProjectType(projectTypeDto);
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Project type successfully Saved",""));
+		projectTypeDto=new ProjectTypeDto();
+		
 	}
 
 	public ProjectTypeDto getProjectTypeDto() {

@@ -11,6 +11,8 @@ import com.research.dto.project.ProjectTypeDto;
 import com.research.service.interfaces.ProjectService;
 import com.research.service.interfaces.ProjectTypeService;
 
+import lombok.Data;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -28,30 +30,25 @@ import javax.faces.bean.ViewScoped;
 @Component("ListProjectTypeJpaController")
 @ManagedBean(value = "ListProjectTypeJpaController")
 @ViewScoped
+@Data
 public class ListProjectTypeController implements Serializable {
 	private static final long serialVersionUID = 9006980830134897009L;
-	@Autowired
-	ProjectService projectService;
+
 	@Autowired
 	private ProjectTypeService projectTypeService;
 
 	@Autowired
 	private ProjectTypeLazyDataModel model;
-	
+
 	@PostConstruct
 	public void loadData() {
-//		items = projectService.getAllProjects();
-		model.setRowCount( projectTypeService.count().intValue());
+		// items = projectService.getAllProjects();
+		model.setRowCount(projectTypeService.count().intValue());
 	}
 
-	
-	public ProjectTypeLazyDataModel getModel() {
-		return model;
-	}
+	public void delete(ProjectTypeDto projectTypeDto) {
+		projectTypeService.delete(projectTypeDto.getId());
 
-	public void setModel(ProjectTypeLazyDataModel model) {
-		this.model = model;
 	}
-
 
 }
