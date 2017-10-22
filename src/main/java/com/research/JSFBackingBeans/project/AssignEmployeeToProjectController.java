@@ -5,25 +5,21 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-
-import com.research.JSFBackingBeans.lazydatamodels.ProjectLazyDataModel;
 import com.research.dto.employee.EmployeeDto;
 import com.research.dto.project.ProjectDto;
 import com.research.dto.project.ProjectEmployeesDto;
 import com.research.service.interfaces.EmployeeService;
+import com.research.service.interfaces.ProjectEmployeeService;
 import com.research.service.interfaces.ProjectService;
-
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 import lombok.Data;
 
 /**
@@ -37,85 +33,92 @@ import lombok.Data;
 @Data
 public class AssignEmployeeToProjectController implements Serializable {
 
-    private static final long serialVersionUID = 9006980830134897009L;
-    @Autowired
-    ProjectService projectService;
-    @Autowired
-    EmployeeService employeeService;
-    EmployeeDto selectedEmployeeDto;
-    List<ProjectEmployeesDto> thisProjectsEmployees;
-    ProjectDto selectedProjectDto;
-    List<EmployeeDto> employees;
+	private static final long serialVersionUID = 9006980830134897009L;
+	@Autowired
+	ProjectService projectService;
+	@Autowired
+	EmployeeService employeeService;
+	@Autowired
+	ProjectEmployeeService projectEmployeeService;
+	EmployeeDto selectedEmployeeDto;
+	List<ProjectEmployeesDto> thisProjectsEmployees;
+	ProjectDto selectedProjectDto;
+	List<EmployeeDto> employees;
+	List<EmployeeDto> autoComplete;
 
-    @PostConstruct
-    public void loadData() {
-        selectedProjectDto = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash()
-                .get("projectDto");
-        employees = completeEmps();
+	@PostConstruct
+	public void loadData() {
+		selectedProjectDto = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash()
+				.get("projectDto");
+		employees = employeeService.getAllEmployees();
+		// thisProjectsEmployees = (List<ProjectEmployeesDto>)
+		// FacesContext.getCurrentInstance().getExternalContext()
+		// .getFlash().get("thisProjectsEmployees");
 
-    }
+		setThisProjectsEmployees(
+				projectEmployeeService.getSelectedProjectEmployeesByProjectId(selectedProjectDto.getId()));
+	
+	}
 
-    //  public List<EmployeeDto> completeEmps(String name) {
-    public List<EmployeeDto> completeEmps() {
-//        List<EmployeeDto> temp = employeeService.getAvailableItems(name);
-        return employeeService.getAllEmployees();
-    }
+	public List<EmployeeDto> completeEmps(String name) {
+		autoComplete = new ArrayList<>();
+		// autoComplete = employees.parallelStream().filter(emp ->
+		// emp.getName().contains(name))
+		// .collect(Collectors.toList());
+		for (EmployeeDto ed : employees) {
+			if (ed.getName().contains(name)) {
+				autoComplete.add(ed);
+			}
+		}
+		return autoComplete;
+	}
 
-    public String addNewEmployeeToProject() {
-        if (selectedEmployeeDto != null) {
-            ProjectEmployeesDto ped = new ProjectEmployeesDto();
-            ped.setEmployeeId(selectedEmployeeDto);
-            ped.setProjectId(selectedProjectDto);
-            thisProjectsEmployees.add(ped);
-        }
-        selectedEmployeeDto = null;
-        return "AssignEmployees";
-    }
+	public String addNewEmployeeToProject() {
+		if (selectedEmployeeDto != null) {
+			ProjectEmployeesDto ped = new ProjectEmployeesDto();
+			ped.setEmployeeId(selectedEmployeeDto);
+			ped.setProjectId(selectedProjectDto);
+			thisProjectsEmployees.add(ped);
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().put("thisProjectsEmployees",
+					thisProjectsEmployees);
+			employees.remove(selectedEmployeeDto);
+		}
+		selectedEmployeeDto = null;
+		return "AssignEmployees";
+	}
 
-    /// MOA auto complete trying
-    @FacesConverter(forClass = EmployeeDto.class)
-    public static class EmployeeDtoControllerConverter implements Converter {
+	public List<EmployeeDto> getEmployees() {
+		if (employees == null) {
+			employees = new ArrayList<>();
+		}
+		return employees;
+	}
 
-        @Override
-        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0) {
-                return null;
-            }
-            AssignEmployeeToProjectController controller = (AssignEmployeeToProjectController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "AssignEmployeeToProjectController");
-            return controller.employeeService.findOne(getKey(value));
-        }
+	public String deleteFromThisProjectsEmployees(ProjectEmployeesDto projectEmployeesDto) {
+		thisProjectsEmployees.remove(projectEmployeesDto);
+		employees.add(projectEmployeesDto.getEmployeeId());
+		return "AssignEmployees";
+	}
 
-        java.lang.Long getKey(String value) {
-            java.lang.Long key;
-            key = Long.valueOf(value);
-            return key;
-        }
+	public String create() {
+		for (ProjectEmployeesDto ped : thisProjectsEmployees) {
+			projectEmployeeService.addProjectEmployee(ped);
+		}
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Employees successfully added", ""));
 
-        String getStringKey(java.lang.Long value) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(value);
-            return sb.toString();
-        }
+		return "AssignEmployees";
+	}
 
-        @Override
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object instanceof EmployeeDto) {
-                EmployeeDto o = (EmployeeDto) object;
-                return getStringKey(o.getId());
-            } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + EmployeeDto.class.getName());
-            }
-        }
-    }
+	public List<ProjectEmployeesDto> getThisProjectsEmployees() {
+		if (thisProjectsEmployees == null) {
+			thisProjectsEmployees = new ArrayList<ProjectEmployeesDto>();
+		}
+		return thisProjectsEmployees;
+	}
 
-    public List<EmployeeDto> getEmployees() {
-        if (employees == null) {
-            employees = new ArrayList<>();
-        }
-        return employees;
-    }
+	public void setThisProjectsEmployees(List<ProjectEmployeesDto> thisProjectsEmployees) {
+		this.thisProjectsEmployees = thisProjectsEmployees;
+	}
+
 }

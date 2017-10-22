@@ -14,8 +14,6 @@ public class EmployeeDto extends BaseDto implements Comparable<EmployeeDto> {
 	private String center;
 	private String serialNumber;
 
-	
-
 	public String getName() {
 		return name;
 	}
@@ -84,6 +82,23 @@ public class EmployeeDto extends BaseDto implements Comparable<EmployeeDto> {
 	public int compareTo(EmployeeDto o) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof EmployeeDto)) {
+			return false;
+		}
+		EmployeeDto other = (EmployeeDto) obj;
+		if (this.getId() != null && other.getId() != null && this.getId() == other.getId()) {
+			return true;
+		}
+		return super.equals(obj);
 	}
 
 }

@@ -10,11 +10,12 @@ public interface EmployeeService extends BaseService<Employee> {
 
 	List<EmployeeDto> getAllEmployees();
 
+	List<EmployeeDto> getAutoCompleteEmployees(String name);
+
 	EmployeeDto updateEmployee(EmployeeDto employeeDto);
 
 	EmployeeDto findOne(Long id);
 
 	List<EmployeeDto> getEmployeePage(int first, int pageSize);
-
 
 }

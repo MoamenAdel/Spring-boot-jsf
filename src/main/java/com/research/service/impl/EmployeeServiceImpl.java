@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import com.research.dto.employee.EmployeeDto;
 import com.research.entity.Employee;
@@ -16,7 +19,8 @@ import com.research.repositories.BaseRepository;
 import com.research.repositories.employee.EmployeeRepo;
 import com.research.service.BaseServiceImpl;
 import com.research.service.interfaces.EmployeeService;
-
+@Service
+@Transactional
 public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements EmployeeService {
 
 	@Autowired
@@ -50,6 +54,8 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements Em
 		return employeesDto;
 
 	}
+	
+	
 
 	@Override
 	public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
@@ -94,6 +100,18 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements Em
 	@Override
 	public BaseRepository getBaseRepo() {
 		return employeeRepo;
+	}
+
+	@Override
+	public List<EmployeeDto> getAutoCompleteEmployees(String name) {
+		List<Employee> emps = employeeRepo.getAutoCompleteEmployees(name);
+		List<EmployeeDto> empsDto  =  new ArrayList<EmployeeDto>();
+		for(Employee e : emps){
+			EmployeeDto edto =  new EmployeeDto();
+			mapper.map(e, edto);
+			empsDto.add(edto);
+		}
+		return empsDto;
 	}
 
 }
