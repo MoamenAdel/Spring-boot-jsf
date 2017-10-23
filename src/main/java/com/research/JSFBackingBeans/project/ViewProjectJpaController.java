@@ -88,6 +88,11 @@ public class ViewProjectJpaController {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
 		return "../lfm/View";
 	}
+	
+	public String viewPaymentRequest() {
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
+		return "../payment/List";
+	}
 
 	public String editProject() {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
