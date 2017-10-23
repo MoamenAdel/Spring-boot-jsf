@@ -57,7 +57,7 @@ public class ProjectEmployeeServiceImpl extends
 
 	@Override
 	public List<ProjectEmployees> findByProjectId(Long id) {
-		return projectEmployeeRepo.findByProjectId(id);
+		return projectEmployeeRepo.getSelectedProjectEmployeesByProjectId(id);
 	}
 
 }

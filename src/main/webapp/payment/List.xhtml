@@ -11,11 +11,8 @@
 		<h:outputText value="#{bundle.ListProjectTitle}"></h:outputText>
 	</ui:define>
 	<ui:define name="body">
-		<h:form styleClass="jsfcrud_list_form">
-			<h:panelGroup id="messagePanel" layout="block">
-				<h:messages errorStyle="color: red" infoStyle="color: green"
-					layout="table" />
-			</h:panelGroup>
+		<h:form>
+
 			<p:growl id="growl" showDetail="true" autoUpdate="true" life="5000"></p:growl>
 			<p:dialog header="Add Task" widgetVar="dlg" position="center center"
 				id="dialogId" onShow="PF('dlg').initPosition()" modal="true"
@@ -41,7 +38,7 @@
 						<p:commandButton value="Add"
 							actionListener="#{ListPaymentRequestController.addPaymentRequest}"
 							update="dialogId" process="dialogId"
-							oncomplete="PF('dlg').hide()" styleClass="btn btn-primary" />
+							oncomplete="PF('dlg').hide()" styleClass="btn btn-primary"></p:commandButton>
 					</f:facet>
 				</h:panelGrid>
 			</p:dialog>
@@ -49,7 +46,9 @@
 				value="#{ListPaymentRequestController.paymentRequestDtos}"
 				var="item" resizableColumns="true" border="0" cellpadding="2"
 				cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row"
-				rowIndexVar="rowIndex" rules="all" rows="10" lazy="true" selectionMode="single" selection="#{ListPaymentRequestController.paymentRequestParentDto}">
+				rowIndexVar="rowIndex" rules="all" rows="10" lazy="true"
+				selectionMode="single" rowKey="#{item.id}"
+				selection="#{ListPaymentRequestController.paymentRequestParentDto}">
 
 				<f:facet name="header">
 					<h:outputText
@@ -78,7 +77,8 @@
 				</p:column>
 				<f:facet name="footer">
 					<div align="left">
-						<p:commandButton value="View" action="#{ListPaymentRequestController.viewPaymentRequest}"/>
+						<p:commandButton value="View"
+							action="#{ListPaymentRequestController.viewPaymentRequest}"></p:commandButton>
 					</div>
 
 				</f:facet>

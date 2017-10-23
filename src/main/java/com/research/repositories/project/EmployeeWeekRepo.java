@@ -10,7 +10,7 @@ import com.research.repositories.BaseRepository;
 
 public interface EmployeeWeekRepo extends BaseRepository<EmployeeWeek> {
 
-	@Query("SELECT ew FROM EmployeeWeek ew WHERE employee.id = ?1 AND month >= ?2 AND month <= ?3")
+	@Query("SELECT ew FROM EmployeeWeek ew WHERE ew.employee.id = ?1 AND ew.month BETWEEN ?2 AND ?3")
 	List<EmployeeWeek> findWithinDate(Long id, Date startDate, Date endDate);
 
 //	@Query("SELECT ew FROM EmployeeWeek ew WHERE employeeId IN ")

@@ -47,9 +47,9 @@ public class PaymentRequestServiceImpl extends BaseServiceImpl<PaymentRequest> i
 	@Override
 	public List<PaymentRequestDto> calculatePaymentRequest(PaymentRequestParent paymentRequestParent,
 			List<EmployeeDto> employeeDtos, Date startDate, Date endDate) {
-		if (endDate.after(new Date()) || startDate.after(endDate)){
-			throw new BusinessException();
-		}
+//		if (endDate.after(new Date()) || startDate.after(endDate)){
+//			throw new BusinessException();
+//		}
 		Calendar start = new GregorianCalendar();
 		start.setTime(startDate);
 		Calendar end = new GregorianCalendar();
@@ -69,9 +69,9 @@ public class PaymentRequestServiceImpl extends BaseServiceImpl<PaymentRequest> i
 				hoursWorked += employeeWeekDto.getWeek1() + employeeWeekDto.getWeek2() 
 						+ employeeWeekDto.getWeek3() + employeeWeekDto.getWeek4();
 			}
-			Double participation = (double)hoursWorked / (double)(months * 8);  
-			// TODO change the fixed 8 number 
-			Double total = employeeDto.getMonthlyIncentive() * participation * months;
+			Double participation = (double)hoursWorked / (double)(months * 8 * 4);  
+			// TODO change the fixed 8 number & null validation 
+			Double total = employee.getMonthlyIncentive() * participation * months;
 			PaymentRequest paymentRequest = new PaymentRequest();
 			paymentRequest.setEmployee(employee);
 			paymentRequest.setEmployeeName(employee.getName());
