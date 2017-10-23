@@ -3,6 +3,7 @@ package com.research.dto.project;
 import java.util.Date;
 
 import com.research.dto.BaseDto;
+import com.research.dto.employee.EmployeeDto;
 
 public class EmployeeWeekDto extends BaseDto {
 	

@@ -1,8 +1,8 @@
-package com.research.dto.project;
+package com.research.dto.employee;
 
 import com.research.dto.BaseDto;
 
-public class EmployeeDto extends BaseDto {
+public class EmployeeDto extends BaseDto implements Comparable<EmployeeDto> {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
@@ -94,6 +94,29 @@ public class EmployeeDto extends BaseDto {
 
 	public void setCertificate(String certificate) {
 		this.certificate = certificate;
+	}
+
+	@Override
+	public int compareTo(EmployeeDto o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof EmployeeDto)) {
+			return false;
+		}
+		EmployeeDto other = (EmployeeDto) obj;
+		if (this.getId() != null && other.getId() != null && this.getId() == other.getId()) {
+			return true;
+		}
+		return super.equals(obj);
 	}
 
 }

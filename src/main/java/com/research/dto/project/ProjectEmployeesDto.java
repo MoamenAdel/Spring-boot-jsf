@@ -1,6 +1,7 @@
 package com.research.dto.project;
 
 import com.research.dto.BaseDto;
+import com.research.dto.employee.EmployeeDto;
 
 public class ProjectEmployeesDto extends BaseDto {
 

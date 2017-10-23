@@ -1,14 +1,23 @@
 package com.research.service.interfaces;
 
 import java.util.List;
-
-import com.research.dto.project.EmployeeDto;
-import com.research.dto.project.ProjectDto;
+import com.research.dto.employee.EmployeeDto;
 import com.research.entity.Employee;
 import com.research.service.BaseService;
+import com.research.dto.project.ProjectDto;
 
 public interface EmployeeService extends BaseService<Employee> {
+	EmployeeDto addEmployee(EmployeeDto employeeDto);
+
+	List<EmployeeDto> getAllEmployees();
+
+	List<EmployeeDto> getAutoCompleteEmployees(String name);
+
+	EmployeeDto updateEmployee(EmployeeDto employeeDto);
+
+	EmployeeDto findOne(Long id);
+
+	List<EmployeeDto> getEmployeePage(int first, int pageSize);
 
 	List<EmployeeDto> findByProjectId(ProjectDto projectDto);
-
 }

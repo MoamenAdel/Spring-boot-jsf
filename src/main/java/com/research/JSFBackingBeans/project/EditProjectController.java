@@ -86,5 +86,9 @@ public class EditProjectController {
 		this.uploadedFile = uploadedFile;
 
 	}
+        public String assignEmployees(){
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
+            return "AssignEmployees";
+        }
 
 }

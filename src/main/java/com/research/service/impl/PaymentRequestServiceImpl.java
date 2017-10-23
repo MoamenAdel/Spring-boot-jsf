@@ -10,7 +10,7 @@ import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.research.dto.project.EmployeeDto;
+import com.research.dto.employee.EmployeeDto;
 import com.research.dto.project.EmployeeWeekDto;
 import com.research.dto.project.PaymentRequestDto;
 import com.research.dto.project.ProjectDto;

@@ -3,7 +3,7 @@ package com.research.service.interfaces;
 import java.util.Date;
 import java.util.List;
 
-import com.research.dto.project.EmployeeDto;
+import com.research.dto.employee.EmployeeDto;
 import com.research.dto.project.EmployeeWeekDto;
 import com.research.entity.EmployeeWeek;
 import com.research.service.BaseService;
