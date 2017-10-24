@@ -15,4 +15,7 @@ public interface PaymentRequestService extends BaseService<PaymentRequest> {
 	List<PaymentRequestDto> calculatePaymentRequest(PaymentRequestParent paymentRequestParent, List<EmployeeDto> employeeDtos, Date startDate, Date endDate);
 	
 	List<PaymentRequestDto> calculatePaymentRequestByProject(ProjectDto projectDto, Date startDate, Date endDate);
+
+	List<PaymentRequestDto> getAllByParentId(Long id, int i, int pageSize);
+
 }
