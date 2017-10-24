@@ -47,6 +47,7 @@ public class EditProjectController {
 	public void init() {
 		ProjectDto temp = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash()
 				.get("projectDto");
+		selectedType= temp.getTypeId().getType();
 		if (temp != null) {
 			projectDto = temp;
 		}

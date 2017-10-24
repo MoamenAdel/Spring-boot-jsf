@@ -24,6 +24,7 @@ public class ProjectDto extends BaseDto implements Comparable<ProjectDto> {
 	private String abbreviation;
 	private Long ProjectTypeId;
 	private Date createDate;
+	private ProjectTypeDto typeId;
 
 	public Long getProjectTypeId() {
 		return ProjectTypeId;

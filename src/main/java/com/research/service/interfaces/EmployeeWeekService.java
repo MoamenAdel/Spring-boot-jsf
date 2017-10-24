@@ -10,10 +10,10 @@ import com.research.service.BaseService;
 
 public interface EmployeeWeekService extends BaseService<EmployeeWeek> {
 
-	List<EmployeeWeekDto> getEmployeeHoursWithin(Long id, Date startDate,
-			Date endDate);
+	List<EmployeeWeekDto> getEmployeeHoursWithin(Long id, Date startDate, Date endDate);
 
-	List<EmployeeWeek> getEmployeeHoursWithin(List<EmployeeDto> employeeDtos,
-			Date startDate, Date endDate);
+	List<EmployeeWeek> getEmployeeHoursWithin(List<EmployeeDto> employeeDtos, Date startDate, Date endDate);
+
+	void addEmployeeWeek(EmployeeWeekDto employeeWeekDto);
 
 }
