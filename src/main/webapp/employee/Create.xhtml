@@ -13,22 +13,22 @@
 	<ui:define name="body">
 		<h:panelGroup id="messagePanel" layout="block">
 		</h:panelGroup>
-		<h:form>
+		<h:form enctype="multipart/form-data">
 			<p:growl id="growl" autoUpdate="true" life="5000"></p:growl>
 			<h:panelGrid columns="2">
-					<p:outputLabel value="#{bundle.CreateEmployeeLabel_name}" for="name" />
+				<p:outputLabel value="#{bundle.CreateEmployeeLabel_name}" for="name" />
 				<p:inputText id="name"
 					value="#{AddEmployeeController.selected.name}"
 					title="#{bundle.CreateEmployeeTitle_name}"></p:inputText>
 
 				<h:outputLabel />
 				<h:outputLabel />
-					<p:outputLabel value="#{bundle.CreateEmployeeLabel_serialNumber}"
+				<p:outputLabel value="#{bundle.CreateEmployeeLabel_serialNumber}"
 					for="serialNumber" />
 				<p:inputText id="serialNumber"
 					value="#{AddEmployeeController.selected.serialNumber}"
 					title="#{bundle.CreateEmployeeTitle_serialNumber}" />
-                                
+
 				<h:outputLabel />
 				<h:outputLabel />
 				<p:outputLabel value="#{bundle.CreateEmployeeLabel_position}"
@@ -45,22 +45,39 @@
 					title="#{bundle.CreateEmployeeTitle_center}" />
 				<h:outputLabel />
 				<h:outputLabel />
-                                <p:outputLabel value="#{bundle.CreateEmployeeLabel_comments}"
+				<p:outputLabel value="#{bundle.CreateEmployeeLabel_comments}"
 					for="comments" />
 				<p:inputText id="comments"
 					value="#{AddEmployeeController.selected.comments}"
 					title="#{bundle.CreateEmployeeTitle_comments}" />
-                                <h:outputLabel />
 				<h:outputLabel />
-                                <p:outputLabel value="#{bundle.ViewEmployeeLabel_hiringNote}"
+				<h:outputLabel />
+				<p:outputLabel value="#{bundle.ViewEmployeeLabel_hiringNote}"
 					for="hiringNote" />
 				<p:inputText id="hiringNote"
-                                             value="#{AddEmployeeController.selected.hiringNote}"
+					value="#{AddEmployeeController.selected.hiringNote}"
 					title="#{bundle.ViewEmployeeLabel_hiringNote}" />
+				<h:outputLabel />
+				<h:outputLabel />
+				<p:outputLabel value="CV" for="uploadCV" />
+				<p:fileUpload id="uploadCV" value="#{AddEmployeeController.cv}"
+					mode="simple" skinSimple="true" />
+				<h:outputLabel />
+				<h:outputLabel />
+				<p:outputLabel value="Certificate" for="uploadCertificate" />
+				<p:fileUpload id="uploadCertificate"
+					value="#{AddEmployeeController.certificate}" mode="simple"
+					skinSimple="true" />
+				<h:outputLabel />
+				<h:outputLabel />
+				<p:outputLabel value="Criminal Status" for="uploadStatus" />
+				<p:fileUpload id="uploadStatus"
+					value="#{AddEmployeeController.criminalStatus}" mode="simple"
+					skinSimple="true" />
 			</h:panelGrid>
 			<br />
 			<p:commandButton action="#{AddEmployeeController.create}"
-				value="#{bundle.CreateEmployeeSaveLink}" />
+				value="#{bundle.CreateEmployeeSaveLink}" ajax="false"/>
 
 		</h:form>
 	</ui:define>
