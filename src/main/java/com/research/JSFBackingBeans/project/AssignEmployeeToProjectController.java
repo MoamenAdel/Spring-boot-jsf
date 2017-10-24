@@ -58,7 +58,7 @@ public class AssignEmployeeToProjectController implements Serializable {
 
 		setThisProjectsEmployees(
 				projectEmployeeService.getSelectedProjectEmployeesByProjectId(selectedProjectDto.getId()));
-	
+
 	}
 
 	public List<EmployeeDto> completeEmps(String name) {
@@ -99,6 +99,12 @@ public class AssignEmployeeToProjectController implements Serializable {
 		thisProjectsEmployees.remove(selectedProjectEmployeesDto);
 		employees.add(selectedProjectEmployeesDto.getEmployeeId());
 		return "AssignEmployees";
+	}
+
+	public String editEmployeesHours(ProjectEmployeesDto ped) {
+		selectedEmployeeDto = ped.getEmployeeId();
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("employeeDto", selectedEmployeeDto);
+		return "AssignHours";
 	}
 
 	public String create() {

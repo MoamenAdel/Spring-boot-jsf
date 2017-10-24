@@ -23,18 +23,17 @@ public class EmployeeWeekServiceImpl extends BaseServiceImpl<EmployeeWeek> imple
 	private EmployeeWeekRepo employeeWeekRepo;
 	@Autowired
 	private DozerBeanMapper mapper;
-	
+
 	@Override
 	public BaseRepository getBaseRepo() {
 		return employeeWeekRepo;
 	}
 
 	@Override
-	public List<EmployeeWeekDto> getEmployeeHoursWithin(Long id,
-			Date startDate, Date endDate) {
+	public List<EmployeeWeekDto> getEmployeeHoursWithin(Long id, Date startDate, Date endDate) {
 		List<EmployeeWeek> employeeWeeks = employeeWeekRepo.findWithinDate(id, startDate, endDate);
 		List<EmployeeWeekDto> employeeWeekDtos = new ArrayList<>();
-		for (EmployeeWeek employeeWeek: employeeWeeks){
+		for (EmployeeWeek employeeWeek : employeeWeeks) {
 			EmployeeWeekDto employeeWeekDto = new EmployeeWeekDto();
 			mapper.map(employeeWeek, employeeWeekDto);
 			employeeWeekDtos.add(employeeWeekDto);
@@ -43,10 +42,17 @@ public class EmployeeWeekServiceImpl extends BaseServiceImpl<EmployeeWeek> imple
 	}
 
 	@Override
-	public List<EmployeeWeek> getEmployeeHoursWithin(
-			List<EmployeeDto> employeeDtos, Date startDate, Date endDate) {
-//		return employeeWeekRepo.findAllWithinDate(employeeDtos, startDate, endDate);
+	public List<EmployeeWeek> getEmployeeHoursWithin(List<EmployeeDto> employeeDtos, Date startDate, Date endDate) {
+		// return employeeWeekRepo.findAllWithinDate(employeeDtos, startDate,
+		// endDate);
 		return null;
+	}
+
+	@Override
+	public void addEmployeeWeek(EmployeeWeekDto employeeWeekDto) {
+		EmployeeWeek employeeWeek = new EmployeeWeek();
+		mapper.map(employeeWeekDto, employeeWeek);
+		save(employeeWeek);
 	}
 
 }
