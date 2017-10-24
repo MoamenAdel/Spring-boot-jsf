@@ -9,7 +9,7 @@ import com.research.service.BaseService;
 
 public interface ProjectEmployeeService extends BaseService<ProjectEmployees> {
 	
-	ProjectEmployeesDto addProjectEmployee(ProjectEmployeesDto ProjectEmployeeDto);
+	List<ProjectEmployeesDto> addProjectEmployee(List<ProjectEmployeesDto> ProjectEmployeeDto);
 
 	List<ProjectEmployeesDto> getSelectedProjectEmployeesByProjectId(Long projectId);
 

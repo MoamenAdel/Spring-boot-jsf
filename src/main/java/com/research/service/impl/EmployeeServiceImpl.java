@@ -50,14 +50,15 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements
 		Employee employee = new Employee();
 		mapper.map(employeeDto, employee);
 		employee.setId(null);
+		employee = save(employee);
 		try (InputStream cvStream = cv.getInputstream();
 				InputStream certificateStream = certificate.getInputstream();
 				InputStream statusStream = criminalStatus.getInputstream();) {
-			String cvPath = env.getProperty("upload.path") + "/" + "employees" + employeeDto.getName() + "/cv" + cv.getFileName();
+			String cvPath = env.getProperty("upload.path") + "/" + "employees/" + employeeDto.getName() + employee.getId() + "/cv/" + cv.getFileName();
+			String certificatePath = env.getProperty("upload.path") + "/" + "employees/" + employeeDto.getName() + employee.getId() + "/certificate/" + certificate.getFileName();
+			String statusPath = env.getProperty("upload.path") + "/" + "employees/" + employeeDto.getName() + employee.getId() + "/CriminalStatus/" + criminalStatus.getFileName();
 			FileUtils.copyInputStreamToFile(cvStream, new File(cvPath));
-			String certificatePath = env.getProperty("upload.path") + "/" + "employees" + employeeDto.getName() + "/certificate" + cv.getFileName();
 			FileUtils.copyInputStreamToFile(certificateStream, new File(certificatePath));
-			String statusPath = env.getProperty("upload.path") + "/" + "employees" + employeeDto.getName() + "/CriminalStatus" + cv.getFileName();
 			FileUtils.copyInputStreamToFile(statusStream, new File(statusPath));
 			employee.setCv(cvPath);
 			employee.setCertificate(certificatePath);
