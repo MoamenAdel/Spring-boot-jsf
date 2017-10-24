@@ -42,16 +42,16 @@ public class ListPaymentRequestController {
 			projectDto = temp;
 		}
 		paymentRequestDtos = paymentRequestParentService.findAllByProject(projectDto.getId());
-		if (paymentRequestDtos != null && !paymentRequestDtos.isEmpty()){
-			startDate = paymentRequestDtos.get(0).getEndDate();
-			for (PaymentRequestParentDto paymentRequestParentDto : paymentRequestDtos){
-				if (startDate.before(paymentRequestParentDto.getEndDate()))
-					startDate = paymentRequestParentDto.getEndDate();
-			}
-		} else {
-			// TODO get projectStartDate
-			startDate = new Date();
-		}
+//		if (paymentRequestDtos != null && !paymentRequestDtos.isEmpty()){
+//			startDate = paymentRequestDtos.get(0).getEndDate();
+//			for (PaymentRequestParentDto paymentRequestParentDto : paymentRequestDtos){
+//				if (startDate.before(paymentRequestParentDto.getEndDate()))
+//					startDate = paymentRequestParentDto.getEndDate();
+//			}
+//		} else {
+//			// TODO get projectStartDate
+//			startDate = new Date();
+//		}
 	}
 	
 	public String addPaymentRequest(){
@@ -60,8 +60,8 @@ public class ListPaymentRequestController {
 		return "View";
 	}
 	
-	public String viewPaymentRequest(){
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("requestParentDto", paymentRequestParentDto);
+	public String viewPaymentRequest(PaymentRequestParentDto requestParent){
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("requestParentDto", requestParent);
 		return "View";
 	}
 

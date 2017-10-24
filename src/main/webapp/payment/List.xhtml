@@ -19,9 +19,12 @@
 				closeOnEscape="true" resizable="false">
 				<h:panelGrid columns="2">
 					<p:outputLabel value="Start date : " for="startDate" />
-					<p:inputText id="startDate" required="true"
+					<p:calendar id="startDate" placeholder="Start Date" required="true"
 						value="#{ListPaymentRequestController.startDate}"
-						title="Start Date" readonly="true" />
+						title="#{bundle.CreateTaskTitle_startDate}" pattern="d MMM yyyy"
+						effect="fold">
+						<f:convertDateTime pattern="d MMM yyyy" />
+					</p:calendar>
 					<p:outputLabel></p:outputLabel>
 					<p:outputLabel></p:outputLabel>
 					<p:outputLabel value="#{bundle.CreateTaskLabel_endDate}"
@@ -46,9 +49,7 @@
 				value="#{ListPaymentRequestController.paymentRequestDtos}"
 				var="item" resizableColumns="true" border="0" cellpadding="2"
 				cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row"
-				rowIndexVar="rowIndex" rules="all" rows="10" lazy="true"
-				selectionMode="single" rowKey="#{item.id}"
-				selection="#{ListPaymentRequestController.paymentRequestParentDto}">
+				rowIndexVar="rowIndex" rules="all" rows="10" lazy="true">
 
 				<f:facet name="header">
 					<h:outputText
@@ -75,13 +76,15 @@
 					</f:facet>
 					<h:outputText value="#{item.endDate}" />
 				</p:column>
-				<f:facet name="footer">
-					<div align="left">
-						<p:commandButton value="View"
-							action="#{ListPaymentRequestController.viewPaymentRequest}"></p:commandButton>
-					</div>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Options" />
+					</f:facet>
+					<p:commandLink ajax="false" title="View" immediate="true"
+						action="#{ListPaymentRequestController.viewPaymentRequest(item)}">View</p:commandLink>
 
-				</f:facet>
+				</p:column>
+
 			</p:dataTable>
 
 
