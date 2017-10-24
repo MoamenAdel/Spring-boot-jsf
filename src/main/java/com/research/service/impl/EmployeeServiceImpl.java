@@ -13,20 +13,27 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.research.dto.employee.EmployeeDto;
+import com.research.dto.project.ProjectDto;
 import com.research.entity.Employee;
+import com.research.entity.ProjectEmployees;
 import com.research.exception.BusinessException;
 import com.research.repositories.BaseRepository;
 import com.research.repositories.employee.EmployeeRepo;
 import com.research.service.BaseServiceImpl;
 import com.research.service.interfaces.EmployeeService;
+import com.research.service.interfaces.ProjectEmployeeService;
+
 @Service
 @Transactional
-public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements EmployeeService {
+public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements
+		EmployeeService {
 
 	@Autowired
 	EmployeeRepo employeeRepo;
 	@Autowired
 	DozerBeanMapper mapper;
+	@Autowired
+	private ProjectEmployeeService projectEmployeeService;
 
 	@Override
 	public EmployeeDto addEmployee(EmployeeDto employeeDto) {
@@ -54,8 +61,6 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements Em
 		return employeesDto;
 
 	}
-	
-	
 
 	@Override
 	public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
@@ -105,13 +110,26 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements Em
 	@Override
 	public List<EmployeeDto> getAutoCompleteEmployees(String name) {
 		List<Employee> emps = employeeRepo.getAutoCompleteEmployees(name);
-		List<EmployeeDto> empsDto  =  new ArrayList<EmployeeDto>();
-		for(Employee e : emps){
-			EmployeeDto edto =  new EmployeeDto();
+		List<EmployeeDto> empsDto = new ArrayList<EmployeeDto>();
+		for (Employee e : emps) {
+			EmployeeDto edto = new EmployeeDto();
 			mapper.map(e, edto);
 			empsDto.add(edto);
 		}
 		return empsDto;
+	}
+
+	@Override
+	public List<EmployeeDto> findByProjectId(ProjectDto projectDto) {
+		List<ProjectEmployees> projectEmployees = projectEmployeeService
+				.findByProjectId(projectDto.getId());
+		List<EmployeeDto> employeeDtos = new ArrayList<>();
+		for (ProjectEmployees projectEmployee : projectEmployees) {
+			Employee employee = projectEmployee.getEmployeeId();
+			EmployeeDto employeeDto = mapper.map(employee, EmployeeDto.class);
+			employeeDtos.add(employeeDto);
+		}
+		return employeeDtos;
 	}
 
 }

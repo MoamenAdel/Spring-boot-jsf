@@ -17,7 +17,8 @@ import com.research.service.interfaces.ProjectEmployeeService;
 
 @Service
 @Transactional
-public class ProjectEmployeeServiceImpl extends BaseServiceImpl<ProjectEmployees> implements ProjectEmployeeService {
+public class ProjectEmployeeServiceImpl extends
+		BaseServiceImpl<ProjectEmployees> implements ProjectEmployeeService {
 	@Autowired
 	ProjectEmployeeRepo projectEmployeeRepo;
 	@Autowired
@@ -29,18 +30,22 @@ public class ProjectEmployeeServiceImpl extends BaseServiceImpl<ProjectEmployees
 	}
 
 	@Override
-	public ProjectEmployeesDto addProjectEmployee(ProjectEmployeesDto ProjectEmployeeDto) {
+	public ProjectEmployeesDto addProjectEmployee(
+			ProjectEmployeesDto ProjectEmployeeDto) {
 
-		ProjectEmployees temp = mapper.map(ProjectEmployeeDto, ProjectEmployees.class);
+		ProjectEmployees temp = mapper.map(ProjectEmployeeDto,
+				ProjectEmployees.class);
 		save(temp);
 		return null;
 	}
 
 	@Override
-	public List<ProjectEmployeesDto> getSelectedProjectEmployeesByProjectId(Long projectId) {
+	public List<ProjectEmployeesDto> getSelectedProjectEmployeesByProjectId(
+			Long projectId) {
 		List<ProjectEmployees> projectEmployees = new ArrayList<ProjectEmployees>();
 		List<ProjectEmployeesDto> projectEmployeesDto = new ArrayList<ProjectEmployeesDto>();
-		projectEmployees = projectEmployeeRepo.getSelectedProjectEmployeesByProjectId(projectId);
+		projectEmployees = projectEmployeeRepo
+				.getSelectedProjectEmployeesByProjectId(projectId);
 		for (ProjectEmployees pe : projectEmployees) {
 			ProjectEmployeesDto tempPED = new ProjectEmployeesDto();
 
@@ -48,6 +53,11 @@ public class ProjectEmployeeServiceImpl extends BaseServiceImpl<ProjectEmployees
 			projectEmployeesDto.add(tempPED);
 		}
 		return projectEmployeesDto;
+	}
+
+	@Override
+	public List<ProjectEmployees> findByProjectId(Long id) {
+		return projectEmployeeRepo.getSelectedProjectEmployeesByProjectId(id);
 	}
 
 }

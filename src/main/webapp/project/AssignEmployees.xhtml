@@ -24,9 +24,9 @@
 					converter="#{employeeConverter}"
 					update="employees , Selectedemployee">
 				</p:autoComplete>
-				<p:commandButton value="add"
+				<h:commandButton value="add"
 					actionListener="#{AssignEmployeeToProjectController.addNewEmployeeToProject()}"
-					update="employees , Selectedemployee"></p:commandButton>
+					update="employees , Selectedemployee"></h:commandButton>
 			</p:panelGrid>
 
 			<p:remoteCommand name="refreshForm" update="@form" />
@@ -37,8 +37,7 @@
 			<h:outputLabel></h:outputLabel>
 			<p:dataTable id="employees"
 				value="#{AssignEmployeeToProjectController.thisProjectsEmployees}"
-				var="projectEmployee" emptyMessage="#{bundle.EmptyList}"
-				selection="#{AssignEmployeeToProjectController.selectedProjectEmployeesDto}">
+				var="projectEmployee" emptyMessage="#{bundle.EmptyList}">
 				<p:column headerText="Project">
 					<h:outputText value="#{projectEmployee.projectId.title}" />
 				</p:column>

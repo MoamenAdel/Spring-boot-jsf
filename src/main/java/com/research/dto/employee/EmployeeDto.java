@@ -13,6 +13,8 @@ public class EmployeeDto extends BaseDto implements Comparable<EmployeeDto> {
 	private String position;
 	private String center;
 	private String serialNumber;
+	private Double monthlyIncentive;
+	private String certificate;
 
 	public String getName() {
 		return name;
@@ -76,6 +78,22 @@ public class EmployeeDto extends BaseDto implements Comparable<EmployeeDto> {
 
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
+	}
+
+	public Double getMonthlyIncentive() {
+		return monthlyIncentive;
+	}
+
+	public void setMonthlyIncentive(Double monthlyIncentive) {
+		this.monthlyIncentive = monthlyIncentive;
+	}
+
+	public String getCertificate() {
+		return certificate;
+	}
+
+	public void setCertificate(String certificate) {
+		this.certificate = certificate;
 	}
 
 	@Override

@@ -96,7 +96,10 @@
 						value="view LFM" />
 					<p:separator />
 					<p:menuitem value="View Documents" oncomplete="PF('dlg').show()"
-						immediate="true" styleClass="btn btn-primary" />
+						immediate="true" />
+					<p:separator />
+					<p:menuitem action="#{ViewProjectJpaController.viewPaymentRequest}"
+						value="view Payments" />
 				</p:splitButton>
 			</div>
 		</h:form>

@@ -4,6 +4,7 @@ import java.util.List;
 import com.research.dto.employee.EmployeeDto;
 import com.research.entity.Employee;
 import com.research.service.BaseService;
+import com.research.dto.project.ProjectDto;
 
 public interface EmployeeService extends BaseService<Employee> {
 	EmployeeDto addEmployee(EmployeeDto employeeDto);
@@ -18,4 +19,5 @@ public interface EmployeeService extends BaseService<Employee> {
 
 	List<EmployeeDto> getEmployeePage(int first, int pageSize);
 
+	List<EmployeeDto> findByProjectId(ProjectDto projectDto);
 }

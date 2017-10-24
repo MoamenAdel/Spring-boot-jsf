@@ -3,9 +3,15 @@ package com.research.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "EMPLOYEE_WEEK")
+@SequenceGenerator(allocationSize = 1, name = "SEQ", sequenceName = "SEQ_EMPLOYEE_WEEK")
 public class EmployeeWeek extends BaseEntity {
 
 	/**
@@ -13,13 +19,13 @@ public class EmployeeWeek extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -5261701662315234974L;
 
-	@Column(name = "WEEK1")
+	@Column(name = "WEEK_1")
 	private Integer week1;
-	@Column(name = "WEEK2")
+	@Column(name = "WEEK_2")
 	private Integer week2;
-	@Column(name = "WEEK3")
+	@Column(name = "WEEK_3")
 	private Integer week3;
-	@Column(name = "WEEK4")
+	@Column(name = "WEEK_4")
 	private Integer week4;
 	@Column(name = "MONTH")
 	private Date month;

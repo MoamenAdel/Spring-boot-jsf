@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{bundle.ListProjectTitle}"></h:outputText>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+
+			<p:growl id="growl" showDetail="true" autoUpdate="true" life="5000"></p:growl>
+			<p:dialog header="Add Task" widgetVar="dlg" position="center center"
+				id="dialogId" onShow="PF('dlg').initPosition()" modal="true"
+				closeOnEscape="true" resizable="false">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Start date : " for="startDate" />
+					<p:inputText id="startDate" required="true"
+						value="#{ListPaymentRequestController.startDate}"
+						title="Start Date" readonly="true" />
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel value="#{bundle.CreateTaskLabel_endDate}"
+						for="endDate" />
+					<p:calendar id="endDate" placeholder="End Date" required="true"
+						value="#{ListPaymentRequestController.endDate}"
+						title="#{bundle.CreateTaskTitle_endDate}" pattern="d MMM yyyy"
+						effect="fold">
+						<f:convertDateTime pattern="d MMM yyyy" />
+					</p:calendar>
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel></p:outputLabel>
+					<f:facet name="footer">
+						<p:commandButton value="Add"
+							actionListener="#{ListPaymentRequestController.addPaymentRequest}"
+							update="dialogId" process="dialogId"
+							oncomplete="PF('dlg').hide()" styleClass="btn btn-primary"></p:commandButton>
+					</f:facet>
+				</h:panelGrid>
+			</p:dialog>
+			<p:dataTable id="table1"
+				value="#{ListPaymentRequestController.paymentRequestDtos}"
+				var="item" resizableColumns="true" border="0" cellpadding="2"
+				cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row"
+				rowIndexVar="rowIndex" rules="all" rows="10" lazy="true"
+				selectionMode="single" rowKey="#{item.id}"
+				selection="#{ListPaymentRequestController.paymentRequestParentDto}">
+
+				<f:facet name="header">
+					<h:outputText
+						value="#{ListPaymentRequestController.projectDto.abbreviation}" />
+					<div align="right">
+						<p:commandButton value="Add Payment Request" immediate="true"
+							oncomplete="PF('dlg').show()" />
+					</div>
+
+				</f:facet>
+				<p:column headerText="Index" colspan="1">
+					<p:outputLabel value="#{rowIndex + 1}"></p:outputLabel>
+
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="start date" />
+					</f:facet>
+					<h:outputText value="#{item.startDate}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="end date" />
+					</f:facet>
+					<h:outputText value="#{item.endDate}" />
+				</p:column>
+				<f:facet name="footer">
+					<div align="left">
+						<p:commandButton value="View"
+							action="#{ListPaymentRequestController.viewPaymentRequest}"></p:commandButton>
+					</div>
+
+				</f:facet>
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

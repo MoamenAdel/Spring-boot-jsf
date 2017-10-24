@@ -36,6 +36,9 @@ public class PaymentRequest extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "EMPLOYEE_ID")
 	private Employee employee;
+	@ManyToOne
+	@JoinColumn(name = "PARENT_ID")
+	private PaymentRequestParent paymentRequestParent;
 	
 	public PaymentRequest() {
 	}
@@ -102,5 +105,13 @@ public class PaymentRequest extends BaseEntity {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+
+	public PaymentRequestParent getPaymentRequestParent() {
+		return paymentRequestParent;
+	}
+
+	public void setPaymentRequestParent(PaymentRequestParent paymentRequestParent) {
+		this.paymentRequestParent = paymentRequestParent;
 	}
 }

@@ -55,7 +55,7 @@
 		</addColumn>
 	</changeSet>
 	<changeSet id="201710181048" author="abdelrhman">
-		<createSequence sequenceName="SEQ_PAYMENT_REQUEST"/>
+		<createSequence sequenceName="SEQ_PAYMENT_REQUEST" />
 	</changeSet>
 	<changeSet id="201710181049" author="abdelrhman">
 		<createTable tableName="PAYMENT_REQUEST">
@@ -71,7 +71,7 @@
 			<column name="HOURS_PER_WEEK" type="integer" />
 			<column name="PARTICIPATION" type="float(53)" />
 			<column name="NUMBER_OF_MONTHS" type="integer" />
-			<column name="TOTAL" type="float(53)"/>
+			<column name="TOTAL" type="float(53)" />
 		</createTable>
 		<addPrimaryKey columnNames="ID" tableName="PAYMENT_REQUEST" />
 		<addForeignKeyConstraint constraintName="PAYMENT_REQUEST_EMPLOYEE_FK"
@@ -79,24 +79,58 @@
 			baseTableName="PAYMENT_REQUEST" referencedColumnNames="ID" />
 	</changeSet>
 	<changeSet id="201710181056" author="abdelrhman">
-		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="EMPLOYEE_NAME"/>
+		<addNotNullConstraint tableName="PAYMENT_REQUEST"
+			columnName="EMPLOYEE_NAME" />
 	</changeSet>
 	<changeSet id="201710181057" author="abdelrhman">
-		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="ROLE"/>
+		<addNotNullConstraint tableName="PAYMENT_REQUEST"
+			columnName="ROLE" />
 	</changeSet>
 	<changeSet id="201710181058" author="abdelrhman">
-		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="MONTHLY_INCENTIVE"/>
+		<addNotNullConstraint tableName="PAYMENT_REQUEST"
+			columnName="MONTHLY_INCENTIVE" />
 	</changeSet>
 	<changeSet id="201710181059" author="abdelrhman">
-		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="HOURS_PER_WEEK"/>
+		<addNotNullConstraint tableName="PAYMENT_REQUEST"
+			columnName="HOURS_PER_WEEK" />
 	</changeSet>
 	<changeSet id="201710181060" author="abdelrhman">
-		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="PARTICIPATION"/>
+		<addNotNullConstraint tableName="PAYMENT_REQUEST"
+			columnName="PARTICIPATION" />
 	</changeSet>
 	<changeSet id="201710181061" author="abdelrhman">
-		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="NUMBER_OF_MONTHS"/>
+		<addNotNullConstraint tableName="PAYMENT_REQUEST"
+			columnName="NUMBER_OF_MONTHS" />
 	</changeSet>
 	<changeSet id="201710181062" author="abdelrhman">
-		<addNotNullConstraint tableName="PAYMENT_REQUEST" columnName="TOTAL"/>
+		<addNotNullConstraint tableName="PAYMENT_REQUEST"
+			columnName="TOTAL" />
+	</changeSet>
+	<changeSet id="201710210550" author="abdelrhman">
+		<createSequence sequenceName="SEQ_PAYMENT_REQUEST_PARENT"/>
+	</changeSet>
+	<changeSet id="201710210552" author="abdelrhman">
+		<createTable tableName="PAYMENT_REQUEST_PARENT">
+			<column name="ID" type="bigint" />
+			<column name="CREATE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="MODIFY_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRE_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="RETIRED" type="SMALLINT" />
+			<column name="PROJECT_ID" type="bigint" />
+			<column name="START_DATE" type="TIMESTAMP WITH TIME ZONE" />
+			<column name="END_DATE" type="TIMESTAMP WITH TIME ZONE" />
+		</createTable>
+		<addPrimaryKey columnNames="ID" tableName="PAYMENT_REQUEST_PARENT" />
+		<addForeignKeyConstraint constraintName="PAYMENT_REQUEST_PROJECT_FK"
+			referencedTableName="PROJECT" baseColumnNames="PROJECT_ID"
+			baseTableName="PAYMENT_REQUEST_PARENT" referencedColumnNames="ID" />
+	</changeSet>
+	<changeSet id="201710210555" author="abdelrhman">
+		<addColumn tableName="PAYMENT_REQUEST">
+			<column name="PARENT_ID" type="bigint" />
+		</addColumn>
+		<addForeignKeyConstraint constraintName="PAYMENT_REQUEST_PARENT_FK"
+			referencedTableName="PAYMENT_REQUEST_PARENT" baseColumnNames="PARENT_ID"
+			baseTableName="PAYMENT_REQUEST" referencedColumnNames="ID" />
 	</changeSet>
 </databaseChangeLog>
