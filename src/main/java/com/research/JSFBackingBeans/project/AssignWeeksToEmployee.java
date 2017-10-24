@@ -31,6 +31,7 @@ public class AssignWeeksToEmployee {
 	public void loadData() {
 		employeeDto = (EmployeeDto) FacesContext.getCurrentInstance().getExternalContext().getFlash()
 				.get("employeeDto");
+		employeeWeekDto =  new EmployeeWeekDto();
 		employeeWeekDto.setEmployeeDto(employeeDto);
 	}
 	
