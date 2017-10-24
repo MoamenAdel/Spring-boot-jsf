@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template.xhtml">
+	<ui:define name="title">
+		<h:outputText
+			value="Assign Hours to #{AssignWeeksToEmployee.employeeDto.name}"></h:outputText>
+	</ui:define>
+	<ui:define name="body">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" autoUpdate="true" life="5000"></p:growl>
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Month" for="month" />
+			<p:calendar id="month" placeholder="month" required="true"
+					value="#{AssignWeeksToEmployee.employeeWeekDto.month}"
+					title="Month"></p:calendar>
+
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel value="Week1" for="week1" />
+				<p:inputNumber id="week1"
+					value="#{AssignWeeksToEmployee.employeeWeekDto.week1}"></p:inputNumber>
+
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel value="Week2" for="week2" />
+				<p:inputNumber id="week2"
+					value="#{AssignWeeksToEmployee.employeeWeekDto.week2}"></p:inputNumber>
+
+
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel value="Week3" for="week3" />
+				<p:inputNumber id="week3"
+					value="#{AssignWeeksToEmployee.employeeWeekDto.week3}"></p:inputNumber>
+
+
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel value="Week4" for="week4" />
+				<p:inputNumber id="week4"
+					value="#{AssignWeeksToEmployee.employeeWeekDto.week4}"></p:inputNumber>
+
+			</h:panelGrid>
+			<p:commandButton action="#{AssignWeeksToEmployee.addEmployeeWeek}"
+				value="#{bundle.CreateProjectEmployeesSaveLink}" ></p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>
