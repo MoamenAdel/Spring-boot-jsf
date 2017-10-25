@@ -110,9 +110,8 @@ public class AssignEmployeeToProjectController implements Serializable {
 	}
 
 	public String create() {
-		for (ProjectEmployeesDto ped : thisProjectsEmployees) {
-			projectEmployeeService.addProjectEmployee(ped);
-		}
+		projectEmployeeService.addProjectEmployee(thisProjectsEmployees);
+		
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Employees successfully added", ""));
 

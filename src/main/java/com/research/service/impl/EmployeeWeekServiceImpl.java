@@ -51,6 +51,19 @@ public class EmployeeWeekServiceImpl extends BaseServiceImpl<EmployeeWeek> imple
 	@Override
 	public void addEmployeeWeek(EmployeeWeekDto employeeWeekDto) {
 		EmployeeWeek employeeWeek = new EmployeeWeek();
+		if (employeeWeekDto.getWeek1() > 8){
+			employeeWeekDto.setWeek1(8);
+		}
+		if (employeeWeekDto.getWeek2() > 8){
+			employeeWeekDto.setWeek2(8);
+		}
+		if (employeeWeekDto.getWeek2() > 8){
+			employeeWeekDto.setWeek2(8);
+		}
+		if (employeeWeekDto.getWeek2() > 8){
+			employeeWeekDto.setWeek2(8);
+		}
+		
 		mapper.map(employeeWeekDto, employeeWeek);
 		save(employeeWeek);
 	}

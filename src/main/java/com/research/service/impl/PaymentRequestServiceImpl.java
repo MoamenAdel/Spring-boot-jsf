@@ -72,14 +72,23 @@ public class PaymentRequestServiceImpl extends BaseServiceImpl<PaymentRequest>
 					.getEmployeeHoursWithin(employeeDto.getId(), startDate,
 							endDate);
 			int hoursWorked = 0;
+			Calendar endCal = new GregorianCalendar();
+			endCal.setTime(endDate);
+			Calendar employeeCal = new GregorianCalendar();
 			for (EmployeeWeekDto employeeWeekDto : employeeWeekDtos) {
-				hoursWorked += employeeWeekDto.getWeek1()
-						+ employeeWeekDto.getWeek2()
-						+ employeeWeekDto.getWeek3()
-						+ employeeWeekDto.getWeek4();
+				employeeCal.setTime(employeeWeekDto.getMonth());
+				if ((employeeCal.get(employeeCal.MONTH) + employeeCal.get(employeeCal.YEAR) * 12) < (endCal.get(endCal.MONTH) + endCal.get(endCal.YEAR) * 12)) {
+					hoursWorked += employeeWeekDto.getWeek1()
+							+ employeeWeekDto.getWeek2()
+							+ employeeWeekDto.getWeek3()
+							+ employeeWeekDto.getWeek4();
+				}
 			}
 			Double participation = (double) hoursWorked
 					/ (double) (months * 8 * 4);
+			if (participation > 1.0){
+				participation = 1.0;
+			}
 			// TODO change the fixed 8 number & null validation
 			Double total = employee.getMonthlyIncentive() * participation
 					* months;
@@ -116,19 +125,26 @@ public class PaymentRequestServiceImpl extends BaseServiceImpl<PaymentRequest>
 	@Override
 	public List<PaymentRequestDto> getAllByParentId(Long id, int first,
 			int pageSize) {
-		if (id == null || first < 0 || pageSize < 1){
+		if (id == null || first < 0 || pageSize < 1) {
 			throw new BusinessException();
 		}
 		PageRequest request = new PageRequest(first, pageSize);
-		Page<PaymentRequest> page = paymentRequestRepo.findByParentId(id ,request);
+		Page<PaymentRequest> page = paymentRequestRepo.findByParentId(id,
+				request);
 		List<PaymentRequest> paymentRequests = page.getContent();
 		List<PaymentRequestDto> paymentRequestDtos = new ArrayList<>();
 
-		for (PaymentRequest paymentRequest : paymentRequests){
-			PaymentRequestDto paymentRequestDto = mapper.map(paymentRequest, PaymentRequestDto.class);
+		for (PaymentRequest paymentRequest : paymentRequests) {
+			PaymentRequestDto paymentRequestDto = mapper.map(paymentRequest,
+					PaymentRequestDto.class);
 			paymentRequestDtos.add(paymentRequestDto);
 		}
 		return paymentRequestDtos;
+	}
+
+	@Override
+	public Long countByParentId(Long id) {
+		return paymentRequestRepo.countByParentId(id);
 	}
 
 }

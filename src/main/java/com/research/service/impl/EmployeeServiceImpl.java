@@ -1,13 +1,19 @@
 package com.research.service.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.FileUtils;
 import org.dozer.DozerBeanMapper;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -29,6 +35,8 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements
 		EmployeeService {
 
 	@Autowired
+	private Environment env;
+	@Autowired
 	EmployeeRepo employeeRepo;
 	@Autowired
 	DozerBeanMapper mapper;
@@ -36,11 +44,29 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements
 	private ProjectEmployeeService projectEmployeeService;
 
 	@Override
-	public EmployeeDto addEmployee(EmployeeDto employeeDto) {
+	public EmployeeDto addEmployee(EmployeeDto employeeDto, UploadedFile cv,
+			UploadedFile certificate, UploadedFile criminalStatus) {
 
 		Employee employee = new Employee();
 		mapper.map(employeeDto, employee);
 		employee.setId(null);
+		employee = save(employee);
+		try (InputStream cvStream = cv.getInputstream();
+				InputStream certificateStream = certificate.getInputstream();
+				InputStream statusStream = criminalStatus.getInputstream();) {
+			String cvPath = env.getProperty("upload.path") + "/" + "employees/" + employeeDto.getName() + employee.getId() + "/cv/" + cv.getFileName();
+			String certificatePath = env.getProperty("upload.path") + "/" + "employees/" + employeeDto.getName() + employee.getId() + "/certificate/" + certificate.getFileName();
+			String statusPath = env.getProperty("upload.path") + "/" + "employees/" + employeeDto.getName() + employee.getId() + "/CriminalStatus/" + criminalStatus.getFileName();
+			FileUtils.copyInputStreamToFile(cvStream, new File(cvPath));
+			FileUtils.copyInputStreamToFile(certificateStream, new File(certificatePath));
+			FileUtils.copyInputStreamToFile(statusStream, new File(statusPath));
+			employee.setCv(cvPath);
+			employee.setCertificate(certificatePath);
+			employee.setCriminalStatus(statusPath);
+			employee = save(employee);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		employee = save(employee);
 		return mapper.map(employee, employeeDto.getClass());
 
