@@ -90,10 +90,10 @@
 				<p:column headerText="Task Title">
 					<p:outputLabel value="#{item.name}"></p:outputLabel>
 				</p:column>
-				<p:column headerText="Start Date" colspan="3">
+				<p:column headerText="Start Date" colspan="3" sortable="true" sortBy="#{item.formatedStartDate}">
 					<p:outputLabel value="#{item.formatedStartDate}"></p:outputLabel>
 				</p:column>
-				<p:column headerText="End Date" colspan="3">
+				<p:column headerText="End Date" colspan="3" sortBy="#{item.formatedEndDate}">
 					<p:outputLabel value="#{item.formatedEndDate}"></p:outputLabel>
 				</p:column>
 				<c:forEach var="i" begin="1"

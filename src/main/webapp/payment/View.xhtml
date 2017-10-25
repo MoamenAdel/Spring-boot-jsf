@@ -12,10 +12,7 @@
 	</ui:define>
 	<ui:define name="body">
 		<h:form>
-			<h:panelGroup id="messagePanel" layout="block">
-				<h:messages errorStyle="color: red" infoStyle="color: green"
-					layout="table" />
-			</h:panelGroup>
+			
 			<p:dataTable value="#{ViewPaymentRequestController.model}"
 				var="item" resizableColumns="true" border="0" cellpadding="2"
 				cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row"

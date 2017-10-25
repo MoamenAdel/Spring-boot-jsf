@@ -16,8 +16,10 @@
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Month" for="month" />
 			<p:calendar id="month" placeholder="month" required="true"
-					value="#{AssignWeeksToEmployee.employeeWeekDto.month}"
-					title="Month"></p:calendar>
+					value="#{AssignWeeksToEmployee.employeeWeekDto.month}" pattern="MMM yyyy"
+					title="Month">
+					<f:convertDateTime pattern="MMM yyyy" />
+					</p:calendar>
 
 				<p:outputLabel></p:outputLabel>
 				<p:outputLabel></p:outputLabel>
@@ -46,8 +48,8 @@
 					value="#{AssignWeeksToEmployee.employeeWeekDto.week4}"></p:inputNumber>
 
 			</h:panelGrid>
-			<p:commandButton action="#{AssignWeeksToEmployee.addEmployeeWeek}"
-				value="#{bundle.CreateProjectEmployeesSaveLink}" ></p:commandButton>
+			<h:commandButton action="#{AssignWeeksToEmployee.addEmployeeWeek}"
+				value="#{bundle.CreateProjectEmployeesSaveLink}"  styleClass="btn btn-primary"></h:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

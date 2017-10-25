@@ -104,6 +104,8 @@ public class AssignEmployeeToProjectController implements Serializable {
 	public String editEmployeesHours(ProjectEmployeesDto ped) {
 		selectedEmployeeDto = ped.getEmployeeId();
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("employeeDto", selectedEmployeeDto);
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto",
+				selectedProjectDto);
 		return "AssignHours";
 	}
 

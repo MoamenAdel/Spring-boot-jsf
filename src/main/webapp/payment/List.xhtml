@@ -38,10 +38,10 @@
 					<p:outputLabel></p:outputLabel>
 					<p:outputLabel></p:outputLabel>
 					<f:facet name="footer">
-						<p:commandButton value="Add"
+						<h:commandButton value="Add"
 							actionListener="#{ListPaymentRequestController.addPaymentRequest}"
-							update="dialogId" process="dialogId"
-							oncomplete="PF('dlg').hide()" styleClass="btn btn-primary"></p:commandButton>
+							update="dialogId ,table1" 
+							oncomplete="PF('dlg').hide()" styleClass="btn btn-primary"></h:commandButton>
 					</f:facet>
 				</h:panelGrid>
 			</p:dialog>

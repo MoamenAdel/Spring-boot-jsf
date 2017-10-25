@@ -12,7 +12,7 @@ public class EmployeeWeekDto extends BaseDto {
 	private Integer week3;
 	private Integer week4;
 	private Date month;
-	private EmployeeDto employeeDto;
+	private EmployeeDto employee;
 	private Long employeeId;
 
 	public Integer getWeek1() {
@@ -55,12 +55,12 @@ public class EmployeeWeekDto extends BaseDto {
 		this.month = month;
 	}
 
-	public EmployeeDto getEmployeeDto() {
-		return employeeDto;
+	public EmployeeDto getEmployee() {
+		return employee;
 	}
 
-	public void setEmployeeDto(EmployeeDto employeeDto) {
-		this.employeeDto = employeeDto;
+	public void setEmployee(EmployeeDto employee) {
+		this.employee = employee;
 	}
 
 	public Long getEmployeeId() {

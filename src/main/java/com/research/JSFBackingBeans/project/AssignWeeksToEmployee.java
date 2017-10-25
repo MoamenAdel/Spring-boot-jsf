@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.research.dto.employee.EmployeeDto;
 import com.research.dto.project.EmployeeWeekDto;
+import com.research.dto.project.ProjectDto;
 import com.research.service.interfaces.EmployeeWeekService;
 
 import lombok.Data;
@@ -27,18 +28,24 @@ public class AssignWeeksToEmployee {
 
 	EmployeeWeekDto employeeWeekDto;
 	EmployeeDto employeeDto;
+	ProjectDto tempForavoidNullPointer;
+
 	@PostConstruct
 	public void loadData() {
 		employeeDto = (EmployeeDto) FacesContext.getCurrentInstance().getExternalContext().getFlash()
 				.get("employeeDto");
-		employeeWeekDto =  new EmployeeWeekDto();
-		employeeWeekDto.setEmployeeDto(employeeDto);
+		tempForavoidNullPointer = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash()
+				.get("projectDto");
+		employeeWeekDto = new EmployeeWeekDto();
+		employeeWeekDto.setEmployee(employeeDto);
+		employeeWeekDto.setEmployeeId(employeeDto.getId());
 	}
-	
+
 	public String addEmployeeWeek() {
 		employeeWeekService.addEmployeeWeek(employeeWeekDto);
 		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Employees Hours successfully assigned", ""));
-		return null;
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Employees Hours successfully assigned to " + employeeDto.getName(), ""));
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", tempForavoidNullPointer);
+		return "AssignEmployees";
 	}
 }
