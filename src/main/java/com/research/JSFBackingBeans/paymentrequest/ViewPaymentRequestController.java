@@ -41,7 +41,7 @@ public class ViewPaymentRequestController {
 		if (temp != null){
 			requestParentDto = temp;
 			model = factory.getBean(PaymentRequestLazyDataModel.class, requestParentDto);
-			model.setRowCount(paymentRequestService.count().intValue());
+			model.setRowCount(paymentRequestService.countByParentId(requestParentDto.getId()).intValue());
 		} else {
 			
 		}

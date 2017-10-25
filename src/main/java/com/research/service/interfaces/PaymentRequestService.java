@@ -18,4 +18,6 @@ public interface PaymentRequestService extends BaseService<PaymentRequest> {
 
 	List<PaymentRequestDto> getAllByParentId(Long id, int i, int pageSize);
 
+	Long countByParentId(Long id);
+
 }

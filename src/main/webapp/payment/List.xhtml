@@ -11,7 +11,7 @@
 		<h:outputText value="#{bundle.ListProjectTitle}"></h:outputText>
 	</ui:define>
 	<ui:define name="body">
-		<h:form>
+		<h:form id="form">
 
 			<p:growl id="growl" showDetail="true" autoUpdate="true" life="5000"></p:growl>
 			<p:dialog header="Add Task" widgetVar="dlg" position="center center"
@@ -39,8 +39,8 @@
 					<p:outputLabel></p:outputLabel>
 					<f:facet name="footer">
 						<p:commandButton value="Add"
-							actionListener="#{ListPaymentRequestController.addPaymentRequest}"
-							update="dialogId" process="dialogId"
+							action="#{ListPaymentRequestController.addPaymentRequest}"
+							update="dialogId , table1 , form" process="dialogId , table1 , form"
 							oncomplete="PF('dlg').hide()" styleClass="btn btn-primary"></p:commandButton>
 					</f:facet>
 				</h:panelGrid>

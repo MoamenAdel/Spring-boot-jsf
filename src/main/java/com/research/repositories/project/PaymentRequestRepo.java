@@ -13,4 +13,7 @@ public interface PaymentRequestRepo extends BaseRepository<PaymentRequest> {
 	@Query("SELECT pr FROM PaymentRequest pr WHERE pr.paymentRequestParent.id = ?")
 	Page<PaymentRequest> findByParentId(Long id, Pageable request);
 
+	@Query("SELECT count(*) FROM PaymentRequest pr WHERE pr.paymentRequestParent.id = ?")
+	Long countByParentId(Long id);
+
 }
