@@ -1,10 +1,8 @@
 package com.research.dto.project;
 
-import java.util.Collection;
 import java.util.Date;
 
 import com.research.dto.BaseDto;
-import com.research.entity.Docs;
 
 import lombok.Data;
 

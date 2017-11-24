@@ -31,13 +31,14 @@ public class ListPaymentRequestController {
 	private Date startDate;
 	private Date endDate;
 	private PaymentRequestParentDto paymentRequestParentDto;
+        private ProjectDto temp;
 	
 	public ListPaymentRequestController() {
 	}
 
 	@PostConstruct
 	public void init() {
-		ProjectDto temp = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
+		 temp = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
 		if (temp != null){
 			projectDto = temp;
 		}
@@ -62,6 +63,7 @@ public class ListPaymentRequestController {
 	
 	public String viewPaymentRequest(PaymentRequestParentDto requestParent){
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("requestParentDto", requestParent);
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", temp);
 		return "View";
 	}
 

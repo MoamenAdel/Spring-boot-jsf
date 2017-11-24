@@ -88,6 +88,15 @@ public class AssignEmployeeToProjectController implements Serializable {
 		return "AssignEmployees";
 	}
 
+	public String create() {
+		projectEmployeeService.addProjectEmployee(thisProjectsEmployees);
+
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Employees successfully added", ""));
+
+		return "AssignEmployees";
+	}
+
 	public List<EmployeeDto> getEmployees() {
 		if (employees == null) {
 			employees = new ArrayList<>();
@@ -104,18 +113,8 @@ public class AssignEmployeeToProjectController implements Serializable {
 	public String editEmployeesHours(ProjectEmployeesDto ped) {
 		selectedEmployeeDto = ped.getEmployeeId();
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("employeeDto", selectedEmployeeDto);
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto",
-				selectedProjectDto);
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", selectedProjectDto);
 		return "AssignHours";
-	}
-
-	public String create() {
-		projectEmployeeService.addProjectEmployee(thisProjectsEmployees);
-		
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Employees successfully added", ""));
-
-		return "AssignEmployees";
 	}
 
 	public List<ProjectEmployeesDto> getThisProjectsEmployees() {

@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/template2.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.ListProjectTitle}"></h:outputText>
         </ui:define>
@@ -29,7 +29,7 @@
 					List All projects
 					<div align="right">
 						<h:commandLink ajax="true" id="imgpdf">
-							<p:graphicImage library="images" name="xls.png" width="24" />
+                                                    <p:graphicImage library="images" name="xls.png" style="width: 20px;height: 25px;" />
 							<p:dataExporter type="xls" target="table1" fileName="projects" />
 						</h:commandLink>
 						<p:tooltip id="toolTipGrow" for="imgpdf"
@@ -94,6 +94,12 @@
 
 
             </h:form>
+                <script>
+               $(window).on('load', function() {
+                        $("#liProjectList").addClass("active");
+                });
+            </script>
+            <h:outputStylesheet library="js2" name="jquery-3.2.1.min.js"/>
         </ui:define>
     </ui:composition>
 

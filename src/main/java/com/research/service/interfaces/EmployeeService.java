@@ -22,5 +22,5 @@ public interface EmployeeService extends BaseService<Employee> {
 
 	List<EmployeeDto> getEmployeePage(int first, int pageSize);
 
-	List<EmployeeDto> findByProjectId(ProjectDto projectDto);
+	List<EmployeeDto> findByProjectId(ProjectDto projectDto);       
 }

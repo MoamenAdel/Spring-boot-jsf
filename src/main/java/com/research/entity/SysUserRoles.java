@@ -6,21 +6,15 @@
 package com.research.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -55,8 +49,27 @@ public class SysUserRoles extends BaseEntity implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private SysUser userId;
+    @Column(name= "username")
+    private String username;
+    @Column(name = "role")
+    private String role;
+    public String getUsername() {
+		return username;
+	}
 
-    public SysUserRoles() {
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public SysUserRoles() {
     }
 
     public String getName() {

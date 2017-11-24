@@ -14,6 +14,16 @@ public class EmployeeWeekDto extends BaseDto {
 	private Date month;
 	private EmployeeDto employee;
 	private Long employeeId;
+	private double avg;
+	private String formatedMonth;
+
+	public String getFormatedMonth() {
+		return formatedMonth;
+	}
+
+	public void setFormatedMonth(String formatedMonth) {
+		this.formatedMonth = formatedMonth;
+	}
 
 	public Integer getWeek1() {
 		return week1;
@@ -70,4 +80,14 @@ public class EmployeeWeekDto extends BaseDto {
 	public void setEmployeeId(Long employeeId) {
 		this.employeeId = employeeId;
 	}
+
+	public double getAvg() {
+		return avg;
+	}
+
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
+
+	
 }

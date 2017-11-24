@@ -33,7 +33,7 @@ public class AddRoleController {
 	public void addRole() {
 		roleService.addRole(roleDto);
 		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Project type successfully Saved", ""));
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Role successfully Saved", ""));
 		roleDto = new RoleDto();
 	}
 

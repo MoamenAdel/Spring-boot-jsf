@@ -64,7 +64,7 @@ public class ListProjectJpaController implements Serializable {
 
 	public String viewProject(ProjectDto project) {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", project);
-		return "View";
+		return "View?faces-redirect=true";
 	}
 
 }

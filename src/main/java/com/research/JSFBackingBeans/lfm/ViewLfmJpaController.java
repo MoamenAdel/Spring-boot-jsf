@@ -206,6 +206,11 @@ public class ViewLfmJpaController implements Serializable {
 		}
 		return outcomesDtos;
 	}
+        
+        public String back() {
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
+		return "../project/View?faces-redirect=true";
+	}
 	
 	public void clearOutcomes(CloseEvent event){
 		outcomes = new ArrayList<>();

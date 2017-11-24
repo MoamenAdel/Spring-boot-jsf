@@ -42,6 +42,8 @@ public class AssignWeeksToEmployee {
 	}
 
 	public String addEmployeeWeek() {
+		employeeWeekDto.setEmployee(employeeDto);
+		employeeWeekDto.setEmployeeId(employeeDto.getId());
 		employeeWeekService.addEmployeeWeek(employeeWeekDto);
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Employees Hours successfully assigned to " + employeeDto.getName(), ""));

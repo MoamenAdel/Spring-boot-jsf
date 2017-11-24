@@ -133,4 +133,12 @@
 			referencedTableName="PAYMENT_REQUEST_PARENT" baseColumnNames="PARENT_ID"
 			baseTableName="PAYMENT_REQUEST" referencedColumnNames="ID" />
 	</changeSet>
+	<changeSet id="201711201113" author="moamen">
+		<addColumn tableName="sys_user_roles">
+			<column name="username" type="varchar(255)"></column>
+		</addColumn>
+		<addColumn tableName="sys_user_roles">
+			<column name="role" type="varchar(255)"></column>
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>

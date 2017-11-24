@@ -1,10 +1,13 @@
 package com.research.dto.sysuser;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.research.dto.BaseDto;
-import com.research.entity.SysUserRoles;
 
+import lombok.Data;
+
+@Data
 public class SysUserDto extends BaseDto {
 
 	private static final long serialVersionUID = 1L;
@@ -12,31 +15,17 @@ public class SysUserDto extends BaseDto {
 
 	private String userName;
 	private String password;
-
-	private Collection<SysUserRoles> sysUserRolesCollection;
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Collection<SysUserRoles> getSysUserRolesCollection() {
+	private String roleString;
+	private Collection<SysUserRolesDto> sysUserRolesCollection;
+	public Collection<SysUserRolesDto> getSysUserRolesCollection() {
+		if(sysUserRolesCollection == null){
+			sysUserRolesCollection = new ArrayList<>();
+		}
 		return sysUserRolesCollection;
 	}
-
-	public void setSysUserRolesCollection(Collection<SysUserRoles> sysUserRolesCollection) {
+	public void setSysUserRolesCollection(Collection<SysUserRolesDto> sysUserRolesCollection) {
 		this.sysUserRolesCollection = sysUserRolesCollection;
 	}
 
+		
 }

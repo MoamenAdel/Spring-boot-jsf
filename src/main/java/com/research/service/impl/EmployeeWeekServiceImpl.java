@@ -1,5 +1,6 @@
 package com.research.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,21 +52,37 @@ public class EmployeeWeekServiceImpl extends BaseServiceImpl<EmployeeWeek> imple
 	@Override
 	public void addEmployeeWeek(EmployeeWeekDto employeeWeekDto) {
 		EmployeeWeek employeeWeek = new EmployeeWeek();
-		if (employeeWeekDto.getWeek1() > 8){
+		if (employeeWeekDto.getWeek1() > 8) {
 			employeeWeekDto.setWeek1(8);
 		}
-		if (employeeWeekDto.getWeek2() > 8){
+		if (employeeWeekDto.getWeek2() > 8) {
 			employeeWeekDto.setWeek2(8);
 		}
-		if (employeeWeekDto.getWeek2() > 8){
-			employeeWeekDto.setWeek2(8);
+		if (employeeWeekDto.getWeek3() > 8) {
+			employeeWeekDto.setWeek3(8);
 		}
-		if (employeeWeekDto.getWeek2() > 8){
-			employeeWeekDto.setWeek2(8);
+		if (employeeWeekDto.getWeek4() > 8) {
+			employeeWeekDto.setWeek4(8);
 		}
-		
+
 		mapper.map(employeeWeekDto, employeeWeek);
 		save(employeeWeek);
+	}
+
+	@Override
+	public List<EmployeeWeekDto> getWeeksByEmployeeId(long id) {
+		List<EmployeeWeek> weeks = employeeWeekRepo.getWeeksByEmployeeId(id);
+		List<EmployeeWeekDto> res = new ArrayList<>();
+		for (EmployeeWeek w : weeks) {
+			EmployeeWeekDto ewd = new EmployeeWeekDto();
+			mapper.map(w, ewd);
+			new SimpleDateFormat("MMM yyyy").format(ewd.getMonth());
+			ewd.setFormatedMonth(new SimpleDateFormat("MMM yyyy").format(ewd.getMonth()));
+			ewd.setAvg(new Double(ewd.getWeek1() + ewd.getWeek2() + ewd.getWeek3() + ewd.getWeek4()) / 4);
+			res.add(ewd);
+		}
+		return res;
+
 	}
 
 }

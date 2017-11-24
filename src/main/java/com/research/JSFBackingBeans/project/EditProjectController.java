@@ -35,10 +35,7 @@ public class EditProjectController {
 	private List<ProjectTypeDto> projectTypes = new ArrayList<>();
 	private List<String> types = new ArrayList<>();
 	private String selectedType = new String();
-	private UploadedFile uploadedFile;
-	@Autowired
-	private DocsService docsService;
-	private Boolean disableSubmit = true;
+
 
 	public EditProjectController() {
 	}
@@ -66,30 +63,6 @@ public class EditProjectController {
 		return "View";
 	}
 
-	public void upload() {
-		if (uploadedFile == null)
-			return;
-		DocsDTO docDTO = new DocsDTO();
-		docDTO.setFile(uploadedFile);
-		docDTO.setProjectId(projectDto.getId());
-		docDTO.setProjectDTO(projectDto);
-		docDTO.setName(uploadedFile.getFileName());
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, docDTO.getName() + " successfully uploaded", ""));
 
-		docsService.addNewDoc(docDTO);
-
-	}
-
-	public void setUploadedFile(UploadedFile uploadedFile) {
-		if (uploadedFile != null)
-			disableSubmit = false;
-		this.uploadedFile = uploadedFile;
-
-	}
-        public String assignEmployees(){
-            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
-            return "AssignEmployees";
-        }
 
 }

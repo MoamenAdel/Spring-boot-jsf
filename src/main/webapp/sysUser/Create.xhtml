@@ -3,46 +3,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-
-    <ui:composition template="/template.xhtml">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template2.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.CreateSysUserTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
             <h:form>
+                <p:growl id="growl" autoUpdate="true" life="5000" ></p:growl>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateSysUserLabel_userName}" for="userName" />
-                    <h:inputText id="userName" value="#{sysUserController.selected.userName}" title="#{bundle.CreateSysUserTitle_userName}" />
+                    <p:inputText id="name" requiredMessage="Username is required"
+                                 value="#{AddSysUserController.selected.userName}"
+                                 required="true"></p:inputText>
+                    <h:outputLabel />
+                    <h:outputLabel />
                     <h:outputLabel value="#{bundle.CreateSysUserLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{sysUserController.selected.password}" title="#{bundle.CreateSysUserTitle_password}" />
-                    <h:outputLabel value="#{bundle.CreateSysUserLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{sysUserController.selected.id}" title="#{bundle.CreateSysUserTitle_id}" />
-                    <h:outputLabel value="#{bundle.CreateSysUserLabel_createDate}" for="createDate" />
-                    <h:inputText id="createDate" value="#{sysUserController.selected.createDate}" title="#{bundle.CreateSysUserTitle_createDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateSysUserLabel_modifyDate}" for="modifyDate" />
-                    <h:inputText id="modifyDate" value="#{sysUserController.selected.modifyDate}" title="#{bundle.CreateSysUserTitle_modifyDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateSysUserLabel_retireDate}" for="retireDate" />
-                    <h:inputText id="retireDate" value="#{sysUserController.selected.retireDate}" title="#{bundle.CreateSysUserTitle_retireDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
+                    <p:password id="password" requiredMessage="Password is required" match="confirm" validatorMessage="Password must match confirm password !" value="#{AddSysUserController.selected.password}" required="true" />
+                    <h:outputLabel />
+                    <h:outputLabel />
+                    <h:outputLabel value="Confirm Password : " for="confirm" />
+                    <p:password  id="confirm" requiredMessage="Confirm password is required" validatorMessage="Password must match confirm password !" value="#{AddSysUserController.selected.password}" required="true" />
+                    <h:outputLabel />
+                    <h:outputLabel />
+                    <h:outputLabel value="Role : " for="role" />
+                    <p:selectOneMenu id="role" required="true"
+					requiredMessage="please select Role"
+					value="#{AddSysUserController.selectedRole}" effect="fold"
+                                         styleClass="dropdown">
+					<f:selectItem itemLabel="--Select Role--" itemValue=""
+						noSelectionOption="true" />
+                                        <f:selectItems value="#{AddSysUserController.allRoles}" var="r" itemValue="#{r.id}"  itemLabel="#{r.role}"/>
+				</p:selectOneMenu>
                 </h:panelGrid>
-                <br />
-                <h:commandLink action="#{sysUserController.create}" value="#{bundle.CreateSysUserSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{sysUserController.prepareList}" value="#{bundle.CreateSysUserShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateSysUserIndexLink}"/>
+                <div align="right">
+                    <h:commandButton action="#{AddSysUserController.create}"
+                                     value="#{bundle.CreateEmployeeSaveLink}"  styleClass="btn btn-primary btn-round" />
+                </div>
             </h:form>
+            <script>
+                $(window).on('load', function () {
+                    $("#liSysUserCreate").addClass("active");
+                });
+            </script>
+            <h:outputStylesheet library="js2" name="jquery-3.2.1.min.js"/>
         </ui:define>
     </ui:composition>
 

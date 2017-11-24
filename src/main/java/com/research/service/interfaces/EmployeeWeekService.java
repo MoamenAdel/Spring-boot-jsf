@@ -16,4 +16,5 @@ public interface EmployeeWeekService extends BaseService<EmployeeWeek> {
 
 	void addEmployeeWeek(EmployeeWeekDto employeeWeekDto);
 
+	List<EmployeeWeekDto> getWeeksByEmployeeId(long id);
 }

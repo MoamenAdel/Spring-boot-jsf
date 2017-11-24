@@ -10,12 +10,10 @@ import java.nio.file.Files;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
-import org.ocpsoft.rewrite.annotation.Join;
-import org.ocpsoft.rewrite.el.ELBeanName;
+
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -33,6 +31,7 @@ import com.research.exception.BusinessException;
 import com.research.repositories.project.DocsRepository;
 import com.research.service.interfaces.DocsService;
 import com.research.service.interfaces.ProjectService;
+import javax.faces.application.FacesMessage;
 
 import lombok.Data;
 
@@ -47,13 +46,17 @@ public class ViewProjectJpaController {
 	private ProjectService projectService;
 	@Autowired
 	private BeanFactory beanFactory;
-	
+
 	private ProjectDto projectDto;
 
 	private Boolean editable = false;
 	private DocsLazyDataModel docsLazyDataModel;
 
 	private StreamedContent streamedContent;
+	private UploadedFile uploadedFile;
+	@Autowired
+	private DocsService docsService;
+	private Boolean disableSubmit = true;
 
 	public ViewProjectJpaController() {
 	}
@@ -64,7 +67,7 @@ public class ViewProjectJpaController {
 				.get("projectDto");
 		if (temp != null) {
 			projectDto = temp;
-			
+
 			docsLazyDataModel = beanFactory.getBean(DocsLazyDataModel.class, temp);
 		}
 		docsLazyDataModel.setRowCount(projectService.countDocs(projectDto.getId()).intValue());
@@ -88,33 +91,59 @@ public class ViewProjectJpaController {
 
 	public String viewLfm() {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
-		return "../lfm/View";
+		return "../lfm/View?faces-redirect=true";
 	}
-	
+
 	public String viewPaymentRequest() {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
-		return "../payment/List";
+		return "../payment/List?faces-redirect=true";
 	}
 
 	public String editProject() {
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
-		return "Edit";
+		return "Edit?faces-redirect=true";
 	}
 
-	public void download(DocsDTO docsDTO)
-	{
-		
-		File file=new File(docsDTO.getPath());
+	public void download(DocsDTO docsDTO) {
+
+		File file = new File(docsDTO.getPath());
 		try {
-			InputStream inputStream=new  FileInputStream(file);
-			streamedContent=new DefaultStreamedContent(inputStream,
-					Files.probeContentType(file.toPath()), docsDTO.getPath());
+			InputStream inputStream = new FileInputStream(file);
+			streamedContent = new DefaultStreamedContent(inputStream, Files.probeContentType(file.toPath()),
+					docsDTO.getPath());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public void upload() {
+		if (uploadedFile == null)
+			return;
+		DocsDTO docDTO = new DocsDTO();
+		docDTO.setFile(uploadedFile);
+		docDTO.setProjectId(projectDto.getId());
+		docDTO.setProjectDTO(projectDto);
+		docDTO.setName(uploadedFile.getFileName());
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, docDTO.getName() + " successfully uploaded", ""));
+
+		docsService.addNewDoc(docDTO);
+
+	}
+
+	public void setUploadedFile(UploadedFile uploadedFile) {
+		if (uploadedFile != null)
+			disableSubmit = false;
+		this.uploadedFile = uploadedFile;
+
+	}
+
+	public String assignEmployees() {
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", projectDto);
+		return "AssignEmployees?faces-redirect=true";
 	}
 
 }

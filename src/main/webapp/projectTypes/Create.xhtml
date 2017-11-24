@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/template.xhtml">
-	<ui:define name="title">
-		<h:outputText value="#{bundle.CreateProjectTypesTitle}"></h:outputText>
-	</ui:define>
+    <ui:composition template="/template2.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateProjectTypesTitle}"></h:outputText>
+        </ui:define>
 
-	<ui:define name="body">
-		<h:panelGroup id="messagePanel" layout="block">
-			<h:messages errorStyle="color: red" infoStyle="color: green"
-				layout="table" />
-		</h:panelGroup>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green"
+                            layout="table" />
+            </h:panelGroup>
 
-		<h:form id="create">
-			<p:growl id="growl"  autoUpdate="true" life="5000"></p:growl>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="#{bundle.CreateProjectTypesLabel_type}"
-					for="type" />
-				<p:inputText id="type" required="true"
-					requiredMessage="please don't leave name empty"
-					value="#{AddProjectTypeController.projectTypeDto.type}"
-					placeholder="project type"
-					title="#{bundle.CreateProjectTypesTitle_type}" />
-				<h:outputLabel />
-				<h:outputLabel />
-				<p:outputLabel value="#{bundle.CreateProjectTypesLabel_description}"
-					for="description" />
-				<p:inputText id="description" placeholder="description"
-					required="true"
-					requiredMessage="please don't leave description empty"
-					value="#{AddProjectTypeController.projectTypeDto.description}"
-					title="#{bundle.CreateProjectTypesTitle_description}" />
+            <h:form id="create">
+                <p:growl id="growl"  autoUpdate="true" life="5000"></p:growl>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateProjectTypesLabel_type}"
+                                   for="type" />
+                    <p:inputText id="type" required="true"
+                                 requiredMessage="please don't leave name empty"
+                                 value="#{AddProjectTypeController.projectTypeDto.type}"
+                                 placeholder="project type"
+                                 title="#{bundle.CreateProjectTypesTitle_type}" />
+                    <h:outputLabel />
+                    <h:outputLabel />
+                    <h:outputLabel value="#{bundle.CreateProjectTypesLabel_description}"
+                                   for="description" />
+                    <p:inputText id="description" placeholder="description"
+                                 required="true"
+                                 requiredMessage="please don't leave description empty"
+                                 value="#{AddProjectTypeController.projectTypeDto.description}"
+                                 title="#{bundle.CreateProjectTypesTitle_description}" />
 
-			</h:panelGrid>
-			<br />
-		
-				
-			<p:commandButton update="create"  action="#{AddProjectTypeController.addProject}"
-				value="#{bundle.CreateProjectSaveLink}" styleClass="btn btn-primary" />
+                </h:panelGrid>
+                <br />
 
-		</h:form>
-	</ui:define>
-</ui:composition>
+                <div align="right">
+                    <h:commandButton 
+                        action="#{AddProjectTypeController.addProject}"
+                        value="#{bundle.CreateProjectSaveLink}" styleClass="btn btn-primary btn-round" />
+                </div>
+            </h:form>
+            <script>
+                    $(window).on('load', function() {
+                $("#liProjectTypeCreate").addClass("active");
+             });
+            </script>
+            <h:outputStylesheet library="js2" name="jquery-3.2.1.min.js"/>
+        </ui:define>
+    </ui:composition>
 </html>

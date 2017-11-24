@@ -53,7 +53,7 @@ public class DocsServiceImpl extends BaseServiceImpl<Docs> implements DocsServic
 //				return null;
 //			Files.copy(stream, localVersion.toPath());
 //			String path = resolvePath(docDTO);
-			String path = env.getProperty("upload.path")  + "/" + docDTO.getProjectDTO().getTitle()+ "/" + file.getFileName();
+			String path = env.getProperty("upload.path")  + "/" + "Projects/" + docDTO.getProjectDTO().getTitle()+ "/" + file.getFileName();
 			FileUtils.copyInputStreamToFile(stream, new File(path));
 			Docs doc = new Docs();
 			doc.setDocPath(path);
