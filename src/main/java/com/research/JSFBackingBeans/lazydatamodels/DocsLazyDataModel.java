@@ -1,6 +1,7 @@
 package com.research.JSFBackingBeans.lazydatamodels;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,7 +27,7 @@ import com.research.service.interfaces.ProjectService;
 @Component
 @Scope("prototype")
 @Lazy
-public class DocsLazyDataModel extends LazyDataModel<DocsDTO> {
+public class DocsLazyDataModel extends LazyDataModel<DocsDTO> implements Serializable{
 
 	@Autowired
 	private ProjectService projectService;

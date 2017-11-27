@@ -1,6 +1,7 @@
-package com.research.JSFBackingBeans.employee;
+ package com.research.JSFBackingBeans.employee;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -24,7 +25,7 @@ import lombok.Data;
 @ManagedBean(name = "ViewEmployeeController")
 @ViewScoped
 @Data
-public class ViewEmployeeController {
+public class ViewEmployeeController implements Serializable {
 
 	@Autowired
 	private EmployeeService employeeService;

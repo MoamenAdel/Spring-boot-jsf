@@ -7,7 +7,7 @@ import javax.servlet.DispatcherType;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-import org.ocpsoft.rewrite.servlet.RewriteFilter;
+//import org.ocpsoft.rewrite.servlet.RewriteFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

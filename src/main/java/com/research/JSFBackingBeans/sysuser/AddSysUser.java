@@ -1,6 +1,7 @@
 package com.research.JSFBackingBeans.sysuser;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ import lombok.Data;
 @ManagedBean(name = "AddSysUserController")
 @ViewScoped
 @Data
-public class AddSysUser {
+public class AddSysUser implements Serializable {
 
 	@Autowired
 	SystemUserService sysUserService;

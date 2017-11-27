@@ -1,14 +1,14 @@
 package com.research;
 
+import javax.persistence.EntityManagerFactory;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-import javax.persistence.EntityManagerFactory;
 
 @PropertySource("research.properties")
 @EnableJpaRepositories("com")
@@ -27,8 +27,8 @@ public class ResearchCenterApplication {
 		return transactionManager;
 	}
 
-	// MOA
-//	@Bean(name = "dataSource")
+//	// MOA
+//	@Bean(name = "dataSource2")
 //	public DriverManagerDataSource dataSource() {
 //		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 //		driverManagerDataSource.setDriverClassName("org.postgresql.Driver");

@@ -62,9 +62,9 @@
                 <div>
 
                     <div>
-                        <p:commandButton   action="#{ViewLfmJpaController.back()}" style="display: inline-block;float: left;" immediate="true"
-                                           value=" Back"     icon="fa fa-arrow-left"></p:commandButton>
-                       
+                        <p:commandButton icon="fa fa-arrow-left"  action="#{ViewLfmJpaController.back()}" style="display: inline-block;float: left;" immediate="true"
+                                            ajax="false" value="Back" title="Back" ></p:commandButton>
+                         
                         <h:commandButton value="Add Task" oncomplete="PF('dlg').show()" style="display: inline-block;float: right;"
                                          immediate="true" styleClass="btn btn-primary btn-round"></h:commandButton>
                     </div>

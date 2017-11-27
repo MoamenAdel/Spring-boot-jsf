@@ -1,5 +1,6 @@
 package com.research.JSFBackingBeans.lazydatamodels;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +18,12 @@ import com.research.service.interfaces.EmployeeService;
 
 @Component
 @Scope("prototype")
-public class EmployeeLazyDataModel extends LazyDataModel<EmployeeDto> {
+public class EmployeeLazyDataModel extends LazyDataModel<EmployeeDto> implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	private EmployeeService employeeService;
 	

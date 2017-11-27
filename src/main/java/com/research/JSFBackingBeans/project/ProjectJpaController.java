@@ -5,44 +5,28 @@
  */
 package com.research.JSFBackingBeans.project;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.research.dto.project.ProjectDto;
 import com.research.dto.project.ProjectTypeDto;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 import com.research.service.interfaces.ProjectService;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.apache.commons.io.FileUtils;
-import org.ocpsoft.rewrite.annotation.Join;
-import org.ocpsoft.rewrite.el.ELBeanName;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  *

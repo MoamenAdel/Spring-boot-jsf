@@ -1,5 +1,7 @@
 package com.research.JSFBackingBeans.project;
 
+import java.io.Serializable;
+
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -22,7 +24,12 @@ import lombok.Data;
 @ManagedBean(value = "AssignWeeksToEmployee")
 @ViewScoped
 @Data
-public class AssignWeeksToEmployee {
+public class AssignWeeksToEmployee implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	EmployeeWeekService employeeWeekService;
 
@@ -49,5 +56,10 @@ public class AssignWeeksToEmployee {
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Employees Hours successfully assigned to " + employeeDto.getName(), ""));
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", tempForavoidNullPointer);
 		return "AssignEmployees";
+	}
+	
+	public String back() {
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", tempForavoidNullPointer);
+		return "../project/AssignEmployees?faces-redirect=true";
 	}
 }

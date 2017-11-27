@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -26,35 +25,42 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	private DataSource dataSource;
 	
 	@Autowired
-	@Qualifier("SecurityConfigurationDetailsProvider")
-	private UserDetailsService userDetailsService;
-
-	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-		 auth.jdbcAuthentication().dataSource(dataSource)
+		 auth.jdbcAuthentication().passwordEncoder(passwordEncoder()).dataSource(dataSource)
 			.usersByUsernameQuery(
-				"select username,password, enabled from sysUser where username=?")
+				"select user_name , password,true from research_center.sys_user where user_name=?")
 			.authoritiesByUsernameQuery(
-				"select username, role from user_roles where username=?");
+				"select username, role from research_center.sys_user_roles where username=?");
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().permitAll()
-		.and().csrf().disable();
+		http.authorizeRequests()
+		.antMatchers("/javax.faces.resource/**").permitAll()		
+		.antMatchers("/project/*").access("hasAuthority('ADMIN')")	
+		.and().csrf().disable()
+		  .formLogin().loginPage("/Login.xhtml").permitAll()
+		  .failureUrl("/Login.xhtml?error")
+		  .usernameParameter("username").passwordParameter("password")  
+		  .defaultSuccessUrl("/project/List.xhtml")
+		  .and().logout().logoutUrl("/logoutURL").logoutSuccessUrl("/Login.xhtml?logout")
+		  .and().exceptionHandling().accessDeniedPage("/403.xhtml");
 	}
+	
 	
 	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception{
 		return super.authenticationManagerBean();
 	}
-	
 	@Bean
 	public PasswordEncoder passwordEncoder(){
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 	}
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.inMemoryAuthentication().withUser("moamen").password("111").roles("ADMIN");
+//	}
 		
 }

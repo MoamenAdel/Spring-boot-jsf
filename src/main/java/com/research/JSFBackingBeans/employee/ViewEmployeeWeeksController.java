@@ -1,19 +1,22 @@
 package com.research.JSFBackingBeans.employee;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
 import com.research.dto.employee.EmployeeDto;
 import com.research.dto.project.EmployeeWeekDto;
-import com.research.service.interfaces.EmployeeService;
 import com.research.service.interfaces.EmployeeWeekService;
 
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Data;
 
 @Scope(value = "view")
@@ -21,7 +24,7 @@ import lombok.Data;
 @ManagedBean(name = "ViewEmployeeWeeksController")
 @ViewScoped
 @Data
-public class ViewEmployeeWeeksController {
+public class ViewEmployeeWeeksController implements Serializable {
 
 	@Autowired
 	private EmployeeWeekService employeeWeekService;

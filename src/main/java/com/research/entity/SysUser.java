@@ -7,10 +7,12 @@ package com.research.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -49,7 +51,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	@Size(max = 255)
 	@Column(name = "password")
 	private String password;
-	@OneToMany(mappedBy = "userId", cascade =CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "userId", cascade =CascadeType.ALL)
 	private Collection<SysUserRoles> sysUserRolesCollection;
 
 	public SysUser() {
@@ -73,6 +75,9 @@ public class SysUser extends BaseEntity implements Serializable {
 
 	@XmlTransient
 	public Collection<SysUserRoles> getSysUserRolesCollection() {
+		if(sysUserRolesCollection ==  null){
+			sysUserRolesCollection = new HashSet<>();
+		}
 		return sysUserRolesCollection;
 	}
 

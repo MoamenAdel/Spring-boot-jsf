@@ -1,5 +1,6 @@
 package com.research.JSFBackingBeans.project;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,15 +10,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.research.dto.project.DocsDTO;
 import com.research.dto.project.ProjectDto;
 import com.research.dto.project.ProjectTypeDto;
-import com.research.service.interfaces.DocsService;
 import com.research.service.interfaces.ProjectService;
 
 import lombok.Data;
@@ -27,8 +25,12 @@ import lombok.Data;
 @ManagedBean(name = "EditProjectController")
 @ViewScoped
 @Data
-public class EditProjectController {
+public class EditProjectController implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	private ProjectService projectService;
 	private ProjectDto projectDto;

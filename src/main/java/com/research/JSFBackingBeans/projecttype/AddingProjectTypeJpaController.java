@@ -1,5 +1,7 @@
 package com.research.JSFBackingBeans.projecttype;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -17,8 +19,12 @@ import com.research.service.interfaces.ProjectTypeService;
 @Scope(value = "view")
 @ManagedBean(name = "AddProjectTypeController")
 @ViewScoped
-public class AddingProjectTypeJpaController {
+public class AddingProjectTypeJpaController implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ProjectTypeDto projectTypeDto = new ProjectTypeDto();
 	@Autowired
 	ProjectTypeService projectTypeService;

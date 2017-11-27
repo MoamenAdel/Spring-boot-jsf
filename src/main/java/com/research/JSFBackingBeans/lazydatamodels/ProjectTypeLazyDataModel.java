@@ -7,6 +7,8 @@ package com.research.JSFBackingBeans.lazydatamodels;
 
 import com.research.dto.project.ProjectTypeDto;
 import com.research.service.interfaces.ProjectTypeService;
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -23,8 +25,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("prototype")
-public class ProjectTypeLazyDataModel extends LazyDataModel<ProjectTypeDto> {
+public class ProjectTypeLazyDataModel extends LazyDataModel<ProjectTypeDto> implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	ProjectTypeService projectTypeService;
 

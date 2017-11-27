@@ -1,5 +1,6 @@
 package com.research.JSFBackingBeans.paymentrequest;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,8 +23,12 @@ import com.research.service.interfaces.PaymentRequestParentService;
 @ManagedBean(name = "ListPaymentRequestController")
 @Scope("view")
 @ViewScoped
-public class ListPaymentRequestController {
+public class ListPaymentRequestController implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	private PaymentRequestParentService paymentRequestParentService;
 	private ProjectDto projectDto;

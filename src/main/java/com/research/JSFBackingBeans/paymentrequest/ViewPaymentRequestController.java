@@ -1,7 +1,6 @@
 package com.research.JSFBackingBeans.paymentrequest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.research.JSFBackingBeans.lazydatamodels.PaymentRequestLazyDataModel;
-import com.research.dto.project.PaymentRequestDto;
 import com.research.dto.project.PaymentRequestParentDto;
 import com.research.dto.project.ProjectDto;
 import com.research.service.interfaces.PaymentRequestService;
@@ -23,8 +21,12 @@ import com.research.service.interfaces.PaymentRequestService;
 @Scope("view")
 @ManagedBean(name = "ViewPaymentRequestController")
 @ViewScoped
-public class ViewPaymentRequestController {
+public class ViewPaymentRequestController implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	private PaymentRequestService paymentRequestService;
 	@Autowired

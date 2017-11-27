@@ -1,6 +1,7 @@
 package com.research.JSFBackingBeans.employee;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,7 +23,7 @@ import lombok.Data;
 @Component(value = "AddEmployeeController")
 @ManagedBean(name = "AddEmployeeController")
 @ViewScoped
-public class AddEmployeeController {
+public class AddEmployeeController implements Serializable {
 
 	
 		@Autowired

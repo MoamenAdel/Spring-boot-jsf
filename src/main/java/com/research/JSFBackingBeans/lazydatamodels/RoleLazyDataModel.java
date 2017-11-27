@@ -1,5 +1,6 @@
 package com.research.JSFBackingBeans.lazydatamodels;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,11 @@ import com.research.service.interfaces.RoleService;
 
 @Component
 @Lazy
-public class RoleLazyDataModel extends LazyDataModel<RoleDto> {
+public class RoleLazyDataModel extends LazyDataModel<RoleDto> implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	RoleService roleService;
 

@@ -1,5 +1,6 @@
 package com.research.JSFBackingBeans.converter;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -26,12 +27,20 @@ import com.research.service.interfaces.EmployeeService;
 			AssignEmployeeToProjectController controller = (AssignEmployeeToProjectController) facesContext
 					.getApplication().getELResolver()
 					.getValue(facesContext.getELContext(), null, "AssignEmployeeToProjectController");
+			if(getKey(value) == 0L){
+				return null;
+			}
 			return employeeService.findOne(getKey(value));
 		}
 
 		java.lang.Long getKey(String value) {
 			java.lang.Long key;
-			key = Long.valueOf(value);
+			try{
+				key = Long.valueOf(value);
+			}catch(NumberFormatException e){
+				return 0L;
+			}
+			
 			return key;
 		}
 

@@ -1,5 +1,7 @@
 package com.research.JSFBackingBeans.role;
 
+import java.io.Serializable;
+
 import javax.annotation.ManagedBean;
 import javax.faces.view.ViewScoped;
 
@@ -18,7 +20,11 @@ import lombok.Data;
 @ManagedBean(value = "ViewRole")
 @ViewScoped
 @Data
-public class ViewRolesController {
+public class ViewRolesController implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	RoleLazyDataModel roleLazyDataModel;
 	@Autowired

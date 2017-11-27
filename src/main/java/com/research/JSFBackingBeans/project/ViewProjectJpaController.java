@@ -1,37 +1,32 @@
 package com.research.JSFBackingBeans.project;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MimeType;
 
 import com.research.JSFBackingBeans.lazydatamodels.DocsLazyDataModel;
 import com.research.dto.project.DocsDTO;
 import com.research.dto.project.ProjectDto;
-import com.research.exception.BusinessException;
-import com.research.repositories.project.DocsRepository;
 import com.research.service.interfaces.DocsService;
 import com.research.service.interfaces.ProjectService;
-import javax.faces.application.FacesMessage;
 
 import lombok.Data;
 
@@ -40,8 +35,12 @@ import lombok.Data;
 @ManagedBean(value = "ViewProjectJpaController")
 @ViewScoped
 @Data
-public class ViewProjectJpaController {
+public class ViewProjectJpaController implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	private ProjectService projectService;
 	@Autowired

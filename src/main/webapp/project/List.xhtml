@@ -86,8 +86,8 @@
                                 <f:facet name="header">
                                     <h:outputText value="Options" />
                                 </f:facet>
-                                <p:commandLink ajax="false" title="View"
-                                               action="#{ListProjectJpaController.viewProject(item)}">View</p:commandLink>
+                                <p:commandButton icon="fa fa-search" ajax="false" title="View" value="View" 
+                                               action="#{ListProjectJpaController.viewProject(item)}"></p:commandButton>
                             </p:column>
 
                 </p:dataTable>

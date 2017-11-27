@@ -1,19 +1,8 @@
 package com.research.JSFBackingBeans.lfm;
 
-import com.research.dto.project.LFMDto;
-import com.research.dto.project.ProjectDto;
-import com.research.dto.project.TaskDTO;
-import com.research.dto.project.TasksExpectedOutcomesDto;
-
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
-import com.research.service.interfaces.LFMService;
-import com.research.service.interfaces.TasksService;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,14 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.lowagie.text.BadElementException;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Image;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
-import com.lowagie.text.Phrase;
+import com.research.dto.project.LFMDto;
+import com.research.dto.project.ProjectDto;
+import com.research.dto.project.TaskDTO;
+import com.research.dto.project.TasksExpectedOutcomesDto;
+import com.research.service.interfaces.LFMService;
+import com.research.service.interfaces.TasksService;
 
 /**
  *
