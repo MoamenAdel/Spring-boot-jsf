@@ -92,7 +92,7 @@ lable {
 								<i class='fa fa-plus-square-o'></i>
 								<h:outputText value="   Create System User" />
 							</p:link></li>
-						<li id="liRoleList"><p:link outcome="/role/List.xhtml">
+					<!--  	<li id="liRoleList"><p:link outcome="/role/List.xhtml">
 								<i class='fa fa-table'></i>
 								<h:outputText value="   List Role" />
 							</p:link></li>
@@ -101,6 +101,7 @@ lable {
 								<i class='fa fa-plus-square-o'></i>
 								<h:outputText value="   Create Role" />
 							</p:link></li>
+							-->
 					</ul>
 				</div>
 			</div>
@@ -124,12 +125,14 @@ lable {
 
 						<li>
 							<form action="/logoutURL">
-								<input type="submit" value="dsadSAD"/>
-								<p:commandButton  icon="fa fa-sign-out" id="logout2017"></p:commandButton> <p:tooltip
-								id="toolTipGrow" for="logout2017" value="LOGOUT !"
-								showEffect="clip" hideEffect="explode" position="right" /> <input type="hidden"
-									name="${_csrf.parameterName}" value="${_csrf.token}" />
-							</form> 
+								<button type="submit" class="btn"
+									style="background-color: transparent; border-color: #ccc;"
+									title="Logout !">
+									<i class="fa fa-sign-out"></i>
+								</button>
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+							</form>
 						</li>
 					</ul>
 				</div>

@@ -127,7 +127,10 @@ public class ViewLfmJpaController implements Serializable {
 	}
 
 	public String addTask() {
-
+		if (newTaskDTO.getEndDate().compareTo(newTaskDTO.getStartDate()) <= 0) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Start date cannot be after end date",""));
+			return null;
+		}
 		for (String str : outcomes) {
 			TasksExpectedOutcomesDto teod = new TasksExpectedOutcomesDto();
 			teod.setExpectation(str);
@@ -170,7 +173,6 @@ public class ViewLfmJpaController implements Serializable {
 	
 	public String deleteTask(Long id){
 		lfmService.retireTask(id);
-		TaskDTO taskdto = null;
 		for (TaskDTO task : selected.getTasksDtoCollection()){
 			if (task.getId() == selectedTask.getId()){
 				selected.getTasksDtoCollection().remove(task);

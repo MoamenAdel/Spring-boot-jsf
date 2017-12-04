@@ -1,21 +1,15 @@
 package com.research.configurations;
 
-import java.util.EnumSet;
-
 import javax.faces.webapp.FacesServlet;
-import javax.servlet.DispatcherType;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-//import org.ocpsoft.rewrite.servlet.RewriteFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.research.JSFBackingBeans.util.ViewScope;
 
