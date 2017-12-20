@@ -49,6 +49,7 @@ public class JSFConfigurer {
 				servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
 				servletContext.setInitParameter("com.sun.faces.expressionFactory", "com.sun.el.ExpressionFactoryImpl");
 				servletContext.setInitParameter("primefaces.UPLOADER", "commons");
+//				servletContext.addListener("com.sun.faces.config.ConfigureListener");
 			}
 		};
 	}

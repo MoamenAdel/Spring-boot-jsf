@@ -11,6 +11,9 @@
             <var>bundle</var>
         </resource-bundle>
     </application>
+    <lifecycle>
+        <phase-listener>org.springframework.web.jsf.DelegatingPhaseListenerMulticaster</phase-listener>
+    </lifecycle>
 <!--    <navigation-rule>
         <from-view-id>project/View.xhtml</from-view-id>
         <navigation-case>
