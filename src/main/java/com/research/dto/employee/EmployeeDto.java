@@ -113,7 +113,7 @@ public class EmployeeDto extends BaseDto implements Comparable<EmployeeDto> {
 			return false;
 		}
 		EmployeeDto other = (EmployeeDto) obj;
-		if (this.getId() != null && other.getId() != null && this.getId() == other.getId()) {
+		if (this.getId() != null && other.getId() != null && this.getId().equals(other.getId())) {
 			return true;
 		}
 		return super.equals(obj);

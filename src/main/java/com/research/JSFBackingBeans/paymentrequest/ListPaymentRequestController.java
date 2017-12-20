@@ -63,7 +63,7 @@ public class ListPaymentRequestController implements Serializable {
 	public String addPaymentRequest(){
 		paymentRequestParentDto = paymentRequestParentService.calculatePaymentRequest(projectDto, startDate, endDate);
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("requestParentDto", paymentRequestParentDto);
-		return "View";
+		return "View?faces-redirect=true";
 	}
 	
 	public String viewPaymentRequest(PaymentRequestParentDto requestParent){

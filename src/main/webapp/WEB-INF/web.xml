@@ -21,14 +21,10 @@
 		<listener-class>org.springframework.web.context.request.RequestContextListener
 		</listener-class>
 	</listener>
-	<!-- for deploying -->
-  	<listener>
-		<listener-class>org.apache.myfaces.webapp.StartupServletContextListener
-		</listener-class>
-	</listener>
+	
 	<context-param>
-    <param-name>javax.faces.PROJECT_STAGE</param-name>
-    <param-value>Development</param-value>
+    	<param-name>javax.faces.PROJECT_STAGE</param-name>
+    	<param-value>Production</param-value>
   </context-param>
 	 
 </web-app>

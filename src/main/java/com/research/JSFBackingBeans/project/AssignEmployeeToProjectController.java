@@ -59,7 +59,12 @@ public class AssignEmployeeToProjectController implements Serializable {
 		setThisProjectsEmployees(
 				projectEmployeeService.getSelectedProjectEmployeesByProjectId(selectedProjectDto.getId()));
 		for(ProjectEmployeesDto ped : thisProjectsEmployees){
-			employees.remove(ped.getEmployeeId());
+			for (EmployeeDto ed : employees){
+				if(ed.equals(ped.getEmployeeId())){
+					employees.remove(ed);
+				}
+			}
+			
 		}
 
 	}
@@ -105,7 +110,7 @@ public class AssignEmployeeToProjectController implements Serializable {
 
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Employees successfully added", ""));
-
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("projectDto", selectedProjectDto);
 		return "AssignEmployees";
 	}
 
