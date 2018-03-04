@@ -1,5 +1,6 @@
 package com.research.JSFBackingBeans.lfm;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,20 +14,27 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.component.export.PDFOptions;
 import org.primefaces.event.CloseEvent;
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.PageSize;
 import com.research.dto.project.LFMDto;
 import com.research.dto.project.ProjectDto;
 import com.research.dto.project.TaskDTO;
 import com.research.dto.project.TasksExpectedOutcomesDto;
 import com.research.service.interfaces.LFMService;
 import com.research.service.interfaces.TasksService;
+
 
 /**
  *
@@ -54,7 +62,32 @@ public class ViewLfmJpaController implements Serializable {
 
 	public ViewLfmJpaController() {
 	}
-
+	///////////to pdf
+	 public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
+	        Document pdf = (Document) document;
+	        pdf.open();
+	        pdf.setPageSize(PageSize.A4);
+//	        pdf.setMargins(50, 50, 50, 50);
+	        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+	        String logo = externalContext.getRealPath("");
+//	         
+//	        pdf.add(Image.getInstance(logo));
+	    } 
+	 private PDFOptions pdfOpt;
+	 public void customizationOptions() {
+	        pdfOpt = new PDFOptions();
+	        pdfOpt.setFacetFontStyle("BOLD");
+	        pdfOpt.setFacetFontSize("5");
+	        pdfOpt.setCellFontSize("5");
+	    }
+	  public PDFOptions getPdfOpt() {
+	        return pdfOpt;
+	    }
+	 
+	    public void setPdfOpt(PDFOptions pdfOpt) {
+	        this.pdfOpt = pdfOpt;
+	    }
+/////////////end to pdf	 
 	@PostConstruct
 	public void init() {
 		projectDto = (ProjectDto) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("projectDto");
@@ -63,6 +96,7 @@ public class ViewLfmJpaController implements Serializable {
 		}
 
 		calculateMonths();
+		customizationOptions();
 	}
 
 	private void calculateMonths() {

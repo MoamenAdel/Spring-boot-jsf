@@ -14,7 +14,7 @@
 		<h:form id="form">
 
 			<p:growl id="growl" showDetail="true" autoUpdate="true" life="5000"></p:growl>
-			<p:dialog header="Add Task" widgetVar="dlg" position="center center"
+			<p:dialog header="Add Payment" widgetVar="dlg" position="center center"
 				id="dialogId" onShow="PF('dlg').initPosition()" modal="true"
 				closeOnEscape="true" resizable="false">
 				<h:panelGrid columns="2">
@@ -57,6 +57,7 @@
 					<div align="right">
 						<p:commandButton value="Add Payment Request" immediate="true"
 							oncomplete="PF('dlg').show()" />
+						
 					</div>
 
 				</f:facet>

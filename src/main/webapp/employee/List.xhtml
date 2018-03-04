@@ -22,6 +22,19 @@
 				lazy="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
 				rowsPerPageTemplate="5,10,15">
+					<f:facet name="header">
+					List All Employees
+					<div align="right">
+						<h:commandLink ajax="true" id="imgpdf">
+                                                    <p:graphicImage library="images" name="pdf.jpg" style="width: 20px;height: 25px;" />
+							<p:dataExporter type="pdf" target="table1" fileName="Employees" />
+						</h:commandLink>
+						<p:tooltip id="toolTipGrow" for="imgpdf"
+							value="All Employees" showEffect="clip"
+							hideEffect="explode" position="left" />
+					</div>
+
+                    </f:facet>
 				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListEmployeeTitle_serialNumber}" />
@@ -52,13 +65,13 @@
 					</f:facet>
 					<h:outputText value="#{item.hiringNote}" />
 				</p:column>
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListEmployeeTitle_cv}" />
 					</f:facet>
 					<h:outputText value="#{item.cv}" />
 				</p:column>
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header">
 						<h:outputText value="#{bundle.ListEmployeeTitle_criminalStatus}" />
 					</f:facet>

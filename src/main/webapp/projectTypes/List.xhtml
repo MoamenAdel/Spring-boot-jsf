@@ -23,6 +23,15 @@
                              rowsPerPageTemplate="5,10,15">
                     <f:facet name="header">
                         List All projects Type
+                        <div align="right">
+						<h:commandLink ajax="true" id="imgpdf">
+                                                    <p:graphicImage library="images" name="pdf.jpg" style="width: 20px;height: 25px;" />
+							<p:dataExporter type="pdf" target="table1" fileName="projecTypes" />
+						</h:commandLink>
+						<p:tooltip id="toolTipGrow" for="imgpdf"
+							value="All Project Types" showEffect="clip"
+							hideEffect="explode" position="left" />
+					</div>
                     </f:facet>
                     <p:column>
                         <f:facet name="header">
@@ -36,7 +45,7 @@
                         </f:facet>
                         <h:outputText value="#{item.description}" />
                     </p:column>
-                    <p:column>
+                    <p:column exportable="false">
                         <f:facet name="header">
                             <h:outputText value="delete"/>
                         </f:facet>

@@ -11,7 +11,7 @@
 			<b>applicantOrganization</b>
 		</field>
 		<field-exclude>
-		<a>ProjectTypeId</a>
+			<a>ProjectTypeId</a>
 			<b>ProjectTypeId</b>
 		</field-exclude>
 	</mapping>

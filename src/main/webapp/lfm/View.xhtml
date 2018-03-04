@@ -81,12 +81,19 @@
                         <div>
                             <p style="margin-left: 150px;margin-right: 200px; display: inline-block;">     Logical Framework Matrix</p>
                             <h:commandLink ajax="true" id="imgpdf" immediate="true" style="display: inline-block; float: right;">
+                                <p:graphicImage library="images" name="pdf.jpg" style="width: 20px;height: 25px;" />
+                                <p:dataExporter type="pdf" target="Matrix" fileName="lfm" preProcessor="#{ViewLfmJpaController.preProcessPDF}" options="#{ViewLfmJpaController.pdfOpt}" />
+                            </h:commandLink>
+                              <h:commandLink ajax="true" id="imgxls" immediate="true" style="display: inline-block; float: right;">
                                 <p:graphicImage library="images" name="xls.png" style="width: 20px;height: 25px;" />
-                                <p:dataExporter type="xls" target="Matrix" fileName="lfm" />
+                                <p:dataExporter type="xls" target="Matrix" fileName="lfm"  />
                             </h:commandLink>
                         </div>
-                        <p:tooltip id="toolTipGrow" for="imgpdf"
-                                   value="export matrix as xls" showEffect="clip"
+                        <p:tooltip id="toolTipGrowpdf" for="imgpdf"
+                                   value="LFM for #{ViewLfmJpaController.projectDto.abbreviation}" showEffect="clip"
+                                   hideEffect="explode" position="left" />
+                        <p:tooltip id="toolTipGrowxls" for="imgxls"
+                                   value="LFM for #{ViewLfmJpaController.projectDto.abbreviation}" showEffect="clip"
                                    hideEffect="explode" position="left" />
                     </f:facet>
                     <p:column headerText="Index" colspan="1">
@@ -109,7 +116,7 @@
                                            rendered="#{item.endMonth ge i and item.startMonth le i}"></p:outputLabel>
                         </p:column>
                     </c:forEach>
-                    <p:column headerText="Exptected Outcomes" colspan="6"
+                    <p:column headerText="Exptected Outcomes" colspan="6" 
                               exportable="false">
 
                         <p:repeat value="#{item.tasksExpectedOutcomesCollection}" var="teo">

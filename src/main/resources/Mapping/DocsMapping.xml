@@ -4,16 +4,18 @@
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
 	<mapping>
-		<class-a>com.research.entity.Project</class-a>
-		<class-b>com.research.dto.project.ProjectDto</class-b>
+		<class-a>com.research.entity.Docs</class-a>
+		<class-b>com.research.dto.project.DocsDTO</class-b>
 		<field>
-			<a>apllicantOrg</a>
-			<b>applicantOrganization</b>
+			<a>docPath</a>
+			<b>path</b>
 		</field>
 		<field-exclude>
-			<a>ProjectTypeId</a>
-			<b>ProjectTypeId</b>
+			<a>projectId</a>
+			<b>projectId</b>
+			
 		</field-exclude>
 	</mapping>
+
 
 </mappings>

@@ -58,14 +58,14 @@ public class AssignEmployeeToProjectController implements Serializable {
 
 		setThisProjectsEmployees(
 				projectEmployeeService.getSelectedProjectEmployeesByProjectId(selectedProjectDto.getId()));
-		for(ProjectEmployeesDto ped : thisProjectsEmployees){
-			for (EmployeeDto ed : employees){
-				if(ed.equals(ped.getEmployeeId())){
-					employees.remove(ed);
-				}
-			}
-			
-		}
+//		for(ProjectEmployeesDto ped : thisProjectsEmployees){
+//			for (EmployeeDto ed : employees){
+//				if(ed.equals(ped.getEmployeeId())){
+//					employees.remove(ed);
+//				}
+//			}
+//			
+//		}
 
 	}
 

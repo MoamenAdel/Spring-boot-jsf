@@ -33,6 +33,23 @@ public class ResearchCenterApplication {
 		return transactionManager;
 	}
 	
+	@Bean
+	public EmbeddedServletContainerCustomizer containerCustomizer() {
+	 
+	    return new EmbeddedServletContainerCustomizer() {
+	        @Override
+	        public void customize(ConfigurableEmbeddedServletContainer container) {
+	 
+	            ErrorPage error401Page = new ErrorPage(HttpStatus.UNAUTHORIZED, "/404.xhtml");
+	            ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/404.xhtml");
+	            ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/404.xhtml");
+	 
+	            container.addErrorPages(error401Page, error404Page, error500Page);
+	        }
+
+		
+	    };
+	}
 
 
 //	// MOA

@@ -1,83 +1,100 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template2.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListProjectTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:form>
-                <div>
-                    <p:commandButton   action="#{ViewPaymentRequestController.back()}" style="display: inline-block;float: left;" immediate="true"
-                                       value=" Back"     icon="fa fa-arrow-left"></p:commandButton>
-                </div>
-                <br/><br/>
-                <h:outputLabel></h:outputLabel>
-                <h:outputLabel></h:outputLabel>
-                <h:outputLabel></h:outputLabel>
-                <p:dataTable value="#{ViewPaymentRequestController.model}"
-                             var="item" resizableColumns="true" border="0" cellpadding="2"
-                             cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row"
-                             rows="10" paginator="true" lazy="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
-                             rowsPerPageTemplate="5,10,15" rowIndexVar="row">
+<ui:composition template="/template2.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{bundle.ListProjectTitle}"></h:outputText>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<div>
+				<p:commandButton action="#{ViewPaymentRequestController.back()}"
+					style="display: inline-block;float: left;" immediate="true"
+					value=" Back" icon="fa fa-arrow-left"></p:commandButton>
+			</div>
+			<br />
+			<br />
+			<h:outputLabel></h:outputLabel>
+			<h:outputLabel></h:outputLabel>
+			<h:outputLabel></h:outputLabel>
+			<p:dataTable id="table1"
+				value="#{ViewPaymentRequestController.model}" var="item"
+				resizableColumns="true" border="0" cellpadding="2" cellspacing="0"
+				rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rows="10"
+				paginator="true" lazy="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+				rowsPerPageTemplate="5,10,15" rowIndexVar="row">
 
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Serial" />
-                        </f:facet>
-                        <h:outputText value="#{row + 1}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Name" />
-                        </f:facet>
-                        <h:outputText value="#{item.employeeName}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Role" />
-                        </f:facet>
-                        <h:outputText value="#{item.role}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Hours Per Week" />
-                        </f:facet>
-                        <h:outputText value="#{item.hoursPerWeek}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Participation" />
-                        </f:facet>
-                        <h:outputText value="% #{item.participation * 100}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Number Of Months" />
-                        </f:facet>
-                        <h:outputText value="#{item.numberOfMonths}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Monthly Incentive" />
-                        </f:facet>
-                        <h:outputText value="#{item.monthlyIncentive}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Total" />
-                        </f:facet>
-                        <h:outputText value="#{item.total}" />
-                    </p:column>
+				<f:facet name="header">
+							Payment
+						<div align="right">
+						<h:commandLink ajax="true" id="imgpdf">
+							<p:graphicImage library="images" name="pdf.jpg"
+								style="width: 20px;height: 25px;" />
+							<p:dataExporter type="pdf" target="table1" fileName="Payment" />
+						</h:commandLink>
+						<p:tooltip id="toolTipGrow" for="imgpdf" value="print payment"
+							showEffect="clip" hideEffect="explode" position="left" />
+					</div>
 
-                </p:dataTable>
-            </h:form>
-        </ui:define>
-    </ui:composition>
+				</f:facet>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Serial" />
+					</f:facet>
+					<h:outputText value="#{row + 1}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Name" />
+					</f:facet>
+					<h:outputText value="#{item.employeeName}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Role" />
+					</f:facet>
+					<h:outputText value="#{item.role}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Hours Per Week" />
+					</f:facet>
+					<h:outputText value="#{item.hoursPerWeek}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Participation" />
+					</f:facet>
+					<h:outputText value="% #{item.participation * 100}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Number Of Months" />
+					</f:facet>
+					<h:outputText value="#{item.numberOfMonths}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Monthly Incentive" />
+					</f:facet>
+					<h:outputText value="#{item.monthlyIncentive}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Total" />
+					</f:facet>
+					<h:outputText value="#{item.total}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>
